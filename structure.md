@@ -1,6 +1,7 @@
 Stack: Vanilla JS (ES Modules, .mjs), plain HTML5/CSS3, Vite dev server, Node via mise.
 
 Structure:
+```
 my_project/
 ├── index.html          # Single SPA entry point
 ├── style.css           # All styles (dark theme, mobile-first)
@@ -13,6 +14,7 @@ my_project/
     ├── highlight.mjs   # Timer-driven step highlighter
     ├── timer.mjs       # Game-speed timer engine
     └── lookup.mjs      # ID → name lookup table
+```
 
 Key patterns:
 - No framework, no TypeScript, no package.json (just npx vite)
