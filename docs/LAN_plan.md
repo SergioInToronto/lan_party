@@ -1,7 +1,7 @@
 
 # Project Plan: LAN Party Event Static Website
 
-This document outlines the end-to-end process for designing and building a static website to promote and manage a LAN Party event.
+This document outlines the end-to-end process for designing and building a static website to promote and manage a one-time LAN Party event.
 
 ---
 
@@ -14,7 +14,8 @@ This document outlines the end-to-end process for designing and building a stati
 ---
 
 ## 🗺️ 2. Site Map & Content
-Since this is a static site, a **single-page scrolling layout (SPA style)** or a small **multi-page site** is recommended.
+- A small **multi-page site** is recommended
+- Responsive for both desktop and mobile.
 
 ### Sections/Pages:
 1.  **Hero Section:**
@@ -34,12 +35,11 @@ Since this is a static site, a **single-page scrolling layout (SPA style)** or a
 6.  **Registration Form:**
     *   Integration with a third-party form provider (since the site is static).
 7.  **Footer:**
-    *   Contact info, Social media links, and Credits.
+    *   Links to Contact Info and Credits.
 
 ---
 
 ## 🛠️ 3. Technical Stack
-To ensure the site is fast, secure, and free/cheap to host, the following stack is proposed:
 
 ### Frontend
 * No Framework. Plain HTML5, CSS3, and JavaScript.
@@ -61,48 +61,13 @@ To ensure the site is fast, secure, and free/cheap to host, the following stack 
 ---
 
 ## 🎨 4. Design & Aesthetics
-**Theme:** "Cyber-Gaming" / "Neon Dark Mode"
-*   **Color Palette:**
-    *   Background: Deep Charcoal/Black (`#0f172a`)
-    *   Primary Accent: Neon Green, Electric Blue, or Hot Pink.
-    *   Text: Off-white for readability.
-*   **Typography:**
-    *   Headers: Bold, futuristic sans-serif (e.g., *Orbitron* or *Rajdhani* from Google Fonts).
-    *   Body: Clean, readable sans-serif (e.g., *Inter* or *Roboto*).
-*   **UI Elements:** Glow effects (box-shadow), grid-pattern backgrounds, and hover animations on buttons.
+
+See file: `design-kid.md`
 
 ---
 
-## 🚀 5. Implementation Roadmap
+## 🚀 5. Implementation Plan
 
-### Phase 1: Planning & Assets (Days 1-2)
-- [ ] Finalize event date, time, and location.
-- [ ] Create a list of required games/software.
-- [ ] Gather imagery/logos.
-- [ ] Set up a GitHub repository.
-
-### Phase 2: Development (Days 3-7)
-- [ ] **Wireframing:** Sketch the layout of the page.
-- [ ] **HTML Structure:** Build the skeleton of all sections.
-- [ ] **Styling:** Implement the "Neon Dark" theme using CSS/Tailwind.
-- [ ] **Interactivity:** Add smooth scrolling and mobile-responsive navigation.
-- [ ] **Integration:** Embed the registration form.
-
-### Phase 3: Testing & Optimization (Days 8-9)
-- [ ] **Responsive Test:** Ensure it looks great on smartphones and tablets.
-- [ ] **Cross-Browser Test:** Check Chrome, Firefox, and Safari.
-- [ ] **Performance:** Optimize images (WebP format) for fast loading.
-- [ ] **User Testing:** Have a friend test the registration flow.
-
-### Phase 4: Deployment & Launch (Day 10)
-- [ ] Push code to GitHub.
-- [ ] Connect repository to Netlify/Vercel.
-- [ ] Configure custom domain (if applicable).
-- [ ] **Launch!** Share the link on Discord/Social Media.
-
----
-
-## 📋 6. Maintenance Plan
-*   **Updates:** Update the "Schedule" section as tournament brackets are finalized.
-*   **Registration Cap:** Once the venue is full, change the registration form to a "Waitlist" or mark as "Sold Out."
-*   **Post-Event:** Replace the hero section with a "Thank You" message and a gallery of photos from the event.
+- Our goal is to one-shot the entire website with all functionality.
+- If any task is not worth solving at this exact moment, drop an entry into file `future-TODO.md` and we'll fix it later.
+- Ask clarifying questions until we have a shared understanding of the work to be completed
