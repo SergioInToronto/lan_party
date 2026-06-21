@@ -148,7 +148,76 @@
 
   <!-- ===== MAIN CONTENT ===== -->
   <main class="flex-1">
-    <!-- Page-specific content goes here -->
+    <!-- NOW PLAYING BANNER -->
+    <div id="now-playing" class="hidden max-w-7xl mx-auto px-4 mt-4"></div>
+
+    <!-- HERO SECTION -->
+    <section class="relative overflow-hidden border-b border-border-c">
+      <div class="absolute inset-0 bg-cover bg-center opacity-30" style="background-image: url('/static/img/hero-bg.png')"></div>
+      <div class="relative max-w-7xl mx-auto px-4 py-20 md:py-32">
+        <h1 class="font-ubuntu text-5xl md:text-7xl font-bold leading-tight">
+          ROOT ACCESS<br>
+          <span class="text-accent-orange">NOSTALGIA.</span>
+        </h1>
+        <p class="mt-4 text-lg text-text-muted max-w-lg">
+          Get ready for a weekend of pure, un-monetized gaming fun.
+        </p>
+        <button id="hero-rsvp-btn" class="btn btn-primary text-lg mt-6 px-8 py-3">
+          RSVP [ ONLINE ]
+        </button>
+      </div>
+    </section>
+
+    <!-- COUNTDOWN -->
+    <section class="py-10 border-b border-border-c">
+      <div class="max-w-7xl mx-auto px-4 text-center">
+        <h2 class="font-mono text-text-muted text-sm mb-4 tracking-widest">COUNTDOWN TO LAUNCH</h2>
+        <div id="countdown" class="font-mono text-3xl text-text-muted">Loading...</div>
+      </div>
+    </section>
+
+    <!-- SCHEDULE -->
+    <section id="schedule-section" class="py-10 border-b border-border-c">
+      <div class="max-w-7xl mx-auto px-4">
+        <h2 class="font-ubuntu text-2xl font-bold mb-6">
+          <i class="las la-calendar-alt text-accent-blue"></i> Schedule
+        </h2>
+        <div id="schedule"></div>
+      </div>
+    </section>
+
+    <!-- EVENT DETAILS -->
+    <section class="py-10">
+      <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-6">
+        <!-- Location Card -->
+        <div class="border border-border-c bg-surface p-6 rounded-kit">
+          <h3 class="font-ubuntu text-lg font-bold mb-3">
+            <i class="las la-map-marker text-accent-orange"></i> Location
+          </h3>
+          <p id="event-address" class="text-text-muted mb-3">Loading...</p>
+          <a id="event-maps-link" href="#" target="_blank" class="text-accent-blue hover:underline font-mono text-sm">
+            [ OPEN IN MAPS ]
+          </a>
+        </div>
+
+        <!-- WiFi Card -->
+        <div class="border border-border-c bg-surface p-6 rounded-kit">
+          <h3 class="font-ubuntu text-lg font-bold mb-3">
+            <i class="las la-wifi text-accent-green"></i> WiFi
+          </h3>
+          <div class="font-mono">
+            <div class="mb-2">
+              <span class="text-text-muted text-sm">SSID:</span>
+              <span id="wifi-ssid" class="ml-2 text-accent-green">Loading...</span>
+            </div>
+            <div>
+              <span class="text-text-muted text-sm">PASS:</span>
+              <span id="wifi-password" class="ml-2 text-text-primary">Loading...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- ===== FOOTER ===== -->
@@ -161,5 +230,42 @@
 
   <!-- JS Modules -->
   <script type="module" src="/static/js/app.mjs"></script>
+  <script type="module">
+    import { initCountdown } from '/static/js/countdown.mjs';
+    import { initSchedule, initNowPlaying } from '/static/js/schedule.mjs';
+    import { api } from '/static/js/api.mjs';
+    import { isLoggedIn } from '/static/js/app.mjs';
+    import { openPreferencesModal } from '/static/js/preferences.mjs';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      initCountdown();
+      initSchedule();
+      initNowPlaying();
+
+      // Load event details into the cards
+      try {
+        const config = await api.config();
+        document.getElementById('event-address').textContent = config.address;
+        const mapsLink = document.getElementById('event-maps-link');
+        mapsLink.href = config.maps_link;
+        document.getElementById('wifi-ssid').textContent = config.wifi_ssid;
+        document.getElementById('wifi-password').textContent = config.wifi_password;
+      } catch (err) {
+        console.error('Failed to load config:', err);
+      }
+
+      // Hero RSVP button
+      const rsvpBtn = document.getElementById('hero-rsvp-btn');
+      if (rsvpBtn) {
+        rsvpBtn.addEventListener('click', () => {
+          if (isLoggedIn()) {
+            openPreferencesModal();
+          } else {
+            document.getElementById('login-modal').classList.remove('hidden');
+          }
+        });
+      }
+    });
+  </script>
 </body>
 </html>
