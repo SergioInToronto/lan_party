@@ -262,6 +262,40 @@ def create_app(test_config=None):
     # Store require_auth on app for use in later route registration
     app.require_auth = require_auth
 
+    # --- Development static file serving ---
+    # In production, nginx handles this. For dev, Flask serves pages + static.
+
+    base_dir_static = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
+
+    @app.route('/')
+    def index():
+        from flask import send_from_directory
+        return send_from_directory(os.path.join(base_dir_static, 'pages'), 'index.html')
+
+    @app.route('/<path:filename>')
+    def serve_page(filename):
+        """Serve HTML pages and static files for development."""
+        from flask import send_from_directory, abort
+        # Try pages/ first
+        pages_dir = os.path.join(base_dir_static, 'pages')
+        page_path = os.path.join(pages_dir, filename)
+        if os.path.isfile(page_path):
+            return send_from_directory(pages_dir, filename)
+
+        # Try static/ next
+        static_dir = os.path.join(base_dir_static, 'static')
+        if filename.startswith('static/'):
+            rel = filename[len('static/'):]
+            static_path = os.path.join(static_dir, rel)
+            if os.path.isfile(static_path):
+                return send_from_directory(static_dir, rel)
+
+        abort(404)
+
+    # Configure Flask static folder for /static/ URL prefix
+    app.static_folder = os.path.join(base_dir_static, 'static')
+    app.static_url_path = '/static'
+
     return app
 
 
