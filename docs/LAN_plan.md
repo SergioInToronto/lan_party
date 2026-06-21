@@ -111,7 +111,7 @@ This document outlines the end-to-end plan for building a website to promote and
 *   **Access Codes:** Each guest receives a unique 7-character access code. **Never exposed via API.**
 *   **Login:** POST `/api/login` requires **both** guest Name and Access Code. Parameterized SQL.
 *   **Brute-force mitigation:** `time.sleep(3)` on login failure.
-*   **Session handling:** Flask signed sessions (HTTP-only cookie) **AND** a token returned in response body for `localStorage`. Both must be present for authenticated requests.
+*   **Session handling:** Flask signed sessions (HTTP-only cookie) as primary auth. Token also returned in login response for `localStorage` (client-side UX convenience — lets JS know auth state without hitting `/api/me`). **Server validates cookie only.**
 *   **Session validation:** GET `/api/me` validates active session.
 *   **Navigation:** Global header with login modal on every page.
 
@@ -131,6 +131,8 @@ All static HTML/CSS/JS served by nginx. Flask handles API calls only.
 | `/api/foods` | GET | No | List food options with vote tallies |
 | `/api/foods` | POST | Yes | Add a food option |
 | `/api/foods/vote` | POST | Yes | Submit/update ranked food votes (1st, 2nd, 3rd) |
+| `/api/foods/votes` | GET | Yes | Get current user's votes (for pre-filling form) |
+| `/api/logout` | POST | Yes | Clear session |
 | `/api/config` | GET | No | Public event config (name, dates, WiFi, address, map link) |
 
 ---
