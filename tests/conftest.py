@@ -13,9 +13,11 @@ from db import get_db, init_db
 @pytest.fixture
 def app(tmp_path):
     db_path = str(tmp_path / "test.db")
+    config_path = str(tmp_path / "event_details.json")
     app = create_app({
         "TESTING": True,
         "DATABASE": db_path,
+        "EVENT_DETAILS_PATH": config_path,
         "SECRET_KEY": "test-secret-key",
     })
     with app.app_context():
