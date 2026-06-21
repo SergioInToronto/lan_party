@@ -130,6 +130,101 @@ def create_app(test_config=None):
 
         return jsonify(result)
 
+    # --- Food routes ---
+
+    @app.route("/api/foods", methods=["GET"])
+    def food_list():
+        db = get_db()
+        foods = db.execute("""
+            SELECT f.id, f.name, f.created_by_guest_id,
+                   COALESCE(gp.value, g.name) as suggested_by
+            FROM food_options f
+            JOIN guests g ON g.id = f.created_by_guest_id
+            LEFT JOIN guest_preferences gp
+                ON gp.guest_id = f.created_by_guest_id AND gp.key = 'handle'
+            ORDER BY f.id
+        """).fetchall()
+
+        # Get vote tallies
+        votes = db.execute("""
+            SELECT option_id, rank, COUNT(*) as cnt
+            FROM food_votes
+            GROUP BY option_id, rank
+        """).fetchall()
+
+        vote_map = {}
+        for v in votes:
+            oid = v["option_id"]
+            if oid not in vote_map:
+                vote_map[oid] = {"1st": 0, "2nd": 0, "3rd": 0}
+            rank_labels = {1: "1st", 2: "2nd", 3: "3rd"}
+            vote_map[oid][rank_labels[v["rank"]]] = v["cnt"]
+
+        score_weights = {"1st": 3, "2nd": 2, "3rd": 1}
+
+        result = []
+        for food in foods:
+            fid = food["id"]
+            tallies = vote_map.get(fid, {"1st": 0, "2nd": 0, "3rd": 0})
+            score = sum(tallies[k] * score_weights[k] for k in score_weights)
+            result.append({
+                "id": fid,
+                "name": food["name"],
+                "suggested_by": food["suggested_by"],
+                "score": score,
+                "votes": tallies,
+            })
+
+        return jsonify(result)
+
+    @app.route("/api/foods", methods=["POST"])
+    @require_auth
+    def add_food():
+        data = request.get_json(silent=True) or {}
+        name = data.get("name", "").strip()
+        if not name:
+            return jsonify({"error": "Food name required"}), 400
+
+        db = get_db()
+        cursor = db.execute(
+            "INSERT INTO food_options (name, created_by_guest_id) VALUES (?, ?)",
+            (name, session["guest_id"])
+        )
+        db.commit()
+        return jsonify({"id": cursor.lastrowid, "name": name}), 201
+
+    @app.route("/api/foods/vote", methods=["POST"])
+    @require_auth
+    def vote_food():
+        data = request.get_json(silent=True) or {}
+        votes = data.get("votes", [])
+
+        if not votes or len(votes) > 3:
+            return jsonify({"error": "Provide 1-3 ranked votes"}), 400
+
+        db = get_db()
+        guest_id = session["guest_id"]
+
+        # Atomic: delete old votes, insert new
+        db.execute("DELETE FROM food_votes WHERE guest_id = ?", (guest_id,))
+        for vote in votes:
+            db.execute(
+                "INSERT INTO food_votes (guest_id, option_id, rank) VALUES (?, ?, ?)",
+                (guest_id, vote["option_id"], vote["rank"])
+            )
+        db.commit()
+        return jsonify({"ok": True})
+
+    @app.route("/api/foods/votes", methods=["GET"])
+    @require_auth
+    def my_votes():
+        db = get_db()
+        rows = db.execute(
+            "SELECT option_id, rank FROM food_votes WHERE guest_id = ? ORDER BY rank",
+            (session["guest_id"],)
+        ).fetchall()
+        return jsonify([{"option_id": r["option_id"], "rank": r["rank"]} for r in rows])
+
     # --- Preferences routes ---
 
     @app.route("/api/preferences", methods=["GET"])
