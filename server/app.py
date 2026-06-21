@@ -130,6 +130,40 @@ def create_app(test_config=None):
 
         return jsonify(result)
 
+    # --- Preferences routes ---
+
+    @app.route("/api/preferences", methods=["GET"])
+    @require_auth
+    def get_preferences():
+        db = get_db()
+        prefs = db.execute(
+            "SELECT key, value FROM guest_preferences WHERE guest_id = ?",
+            (session["guest_id"],)
+        ).fetchall()
+        return jsonify({row["key"]: row["value"] for row in prefs})
+
+    @app.route("/api/preferences", methods=["POST"])
+    @require_auth
+    def set_preferences():
+        data = request.get_json(silent=True) or {}
+        if not data:
+            return jsonify({"error": "No data provided"}), 400
+
+        db = get_db()
+        guest_id = session["guest_id"]
+
+        allowed_keys = {"handle", "avatar", "os", "days_attending", "skill_level", "snack_contribution"}
+        for key, value in data.items():
+            if key not in allowed_keys:
+                continue
+            db.execute(
+                "INSERT INTO guest_preferences (guest_id, key, value) VALUES (?, ?, ?) "
+                "ON CONFLICT(guest_id, key) DO UPDATE SET value = excluded.value",
+                (guest_id, key, value)
+            )
+        db.commit()
+        return jsonify({"ok": True})
+
     # Store require_auth on app for use in later route registration
     app.require_auth = require_auth
 
