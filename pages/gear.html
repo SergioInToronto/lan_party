@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gear &amp; Rules — SUDOBASH '26</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'base': '#121212', 'surface': '#1E1E1E', 'border-c': '#333333',
+            'text-primary': '#E0E0E0', 'text-muted': '#8A8A8A',
+            'accent-orange': '#E95420', 'accent-blue': '#1793D1', 'accent-green': '#87A556',
+          },
+          fontFamily: {
+            'ubuntu': ['Ubuntu', 'sans-serif'],
+            'roboto': ['Roboto', 'DejaVu Sans', 'sans-serif'],
+            'mono': ['Fira Code', 'Liberation Mono', 'monospace'],
+          },
+          borderRadius: { 'kit': '2px' }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/lanern/line-awesome/css/line-awesome.min.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="bg-base text-text-primary min-h-screen flex flex-col">
+
+  <header class="border-b border-border-c bg-surface">
+    <nav class="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-6">
+        <a href="/" class="font-ubuntu font-bold text-xl text-accent-orange tracking-wide">SUDOBASH '26</a>
+        <div class="hidden md:flex items-center gap-4 text-sm">
+          <a href="/" class="hover:text-accent-blue">Dashboard</a>
+          <a href="/games.html" class="hover:text-accent-blue">Games</a>
+          <a href="/#schedule" class="hover:text-accent-blue">Schedule</a>
+          <a href="/guests.html" class="hover:text-accent-blue">Guests</a>
+          <a href="/food.html" class="hover:text-accent-blue">Food</a>
+          <a href="/gear.html" class="text-accent-orange">Gear</a>
+        </div>
+      </div>
+      <div id="nav-auth">
+        <button id="nav-login-btn" class="btn btn-primary text-sm" onclick="document.getElementById('login-modal').classList.remove('hidden')">LOGIN</button>
+        <div id="nav-user-info" class="hidden flex items-center gap-3">
+          <img id="nav-avatar" src="" alt="" class="w-8 h-8 rounded-kit border border-border-c">
+          <span id="nav-handle" class="font-mono text-sm"></span>
+          <div class="relative">
+            <button id="nav-menu-btn" class="text-text-muted hover:text-text-primary text-sm"><i class="las la-chevron-down"></i></button>
+            <div id="nav-dropdown" class="hidden absolute right-0 top-8 bg-surface border border-border-c py-1 min-w-[140px] z-50">
+              <button id="nav-prefs-btn" class="block w-full text-left px-4 py-2 text-sm hover:bg-base">Preferences</button>
+              <button id="nav-logout-btn" class="block w-full text-left px-4 py-2 text-sm hover:bg-base text-accent-orange">Logout</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div id="login-modal" class="modal-overlay hidden">
+    <div class="modal-panel">
+      <h2 class="font-ubuntu text-lg mb-4">Login</h2>
+      <form id="login-form">
+        <div class="mb-3"><label class="block text-sm text-text-muted mb-1">Name</label><input type="text" name="name" required autocomplete="name"></div>
+        <div class="mb-4"><label class="block text-sm text-text-muted mb-1">Access Code</label><input type="text" name="access_code" required maxlength="7" autocomplete="off" class="font-mono tracking-widest uppercase"></div>
+        <div id="login-error" class="text-accent-orange text-sm mb-3 hidden"></div>
+        <div class="flex gap-3">
+          <button type="submit" class="btn btn-primary flex-1">LOGIN</button>
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('login-modal').classList.add('hidden')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="prefs-modal" class="modal-overlay hidden">
+    <div class="modal-panel max-w-lg">
+      <h2 class="font-ubuntu text-lg mb-4">Your Preferences</h2>
+      <form id="prefs-form">
+        <div class="mb-3"><label class="block text-sm text-text-muted mb-1">Handle</label><input type="text" name="handle" placeholder="Your display name"></div>
+        <div class="mb-3"><label class="block text-sm text-text-muted mb-1">Avatar</label><div id="avatar-picker" class="grid grid-cols-6 gap-2"></div><input type="hidden" name="avatar"></div>
+        <div class="mb-3"><label class="block text-sm text-text-muted mb-1">Operating System</label><input type="text" name="os" placeholder="e.g. Arch btw"></div>
+        <div class="mb-3"><label class="block text-sm text-text-muted mb-1">Days Attending</label><div class="flex gap-4"><label class="flex items-center gap-2"><input type="radio" name="days_attending" value="saturday"> Saturday</label><label class="flex items-center gap-2"><input type="radio" name="days_attending" value="sunday"> Sunday</label><label class="flex items-center gap-2"><input type="radio" name="days_attending" value="both"> Both</label></div></div>
+        <div class="mb-3"><label class="block text-sm text-text-muted mb-1">Skill Level</label><select name="skill_level"><option value="">-- Select --</option><option value="casual">Casual</option><option value="intermediate">Intermediate</option><option value="competitive">Competitive</option></select></div>
+        <div class="mb-4"><label class="block text-sm text-text-muted mb-1">Snack Contribution</label><input type="text" name="snack_contribution" placeholder="Bringing any snacks?"></div>
+        <div class="flex gap-3"><button type="submit" class="btn btn-primary flex-1">Save</button><button type="button" class="btn btn-secondary" onclick="document.getElementById('prefs-modal').classList.add('hidden')">Cancel</button></div>
+      </form>
+    </div>
+  </div>
+
+  <main class="flex-1">
+    <section class="py-10">
+      <div class="max-w-3xl mx-auto px-4">
+
+        <h1 class="font-ubuntu text-3xl font-bold mb-8">
+          <i class="las la-laptop text-accent-blue"></i> What to Bring
+        </h1>
+
+        <div class="border border-border-c bg-surface p-6 rounded-kit mb-6">
+          <h2 class="font-ubuntu text-xl font-bold mb-4">
+            <i class="las la-desktop text-accent-orange"></i> Hardware
+          </h2>
+          <ul class="space-y-2 font-mono text-sm">
+            <li class="flex items-center gap-2"><span class="text-accent-green">▸</span> PC / Laptop</li>
+            <li class="flex items-center gap-2"><span class="text-accent-green">▸</span> Monitor (with cables)</li>
+            <li class="flex items-center gap-2"><span class="text-accent-green">▸</span> Keyboard</li>
+            <li class="flex items-center gap-2"><span class="text-accent-green">▸</span> Mouse + Mousepad</li>
+            <li class="flex items-center gap-2"><span class="text-accent-green">▸</span> Ethernet Cable (Cat5e or better)</li>
+            <li class="flex items-center gap-2"><span class="text-accent-green">▸</span> Power Strip / Extension Cord</li>
+            <li class="flex items-center gap-2"><span class="text-accent-green">▸</span> Headset / Headphones</li>
+          </ul>
+        </div>
+
+        <div class="border border-border-c bg-surface p-6 rounded-kit mb-6">
+          <h2 class="font-ubuntu text-xl font-bold mb-4">
+            <i class="las la-code text-accent-blue"></i> Software
+          </h2>
+          <ul class="space-y-2 font-mono text-sm">
+            <li class="flex items-center gap-2"><span class="text-accent-green">▸</span> OS fully updated</li>
+            <li class="flex items-center gap-2"><span class="text-accent-green">▸</span> All tournament games pre-installed (see <a href="/games.html" class="text-accent-blue hover:underline">Games</a>)</li>
+            <li class="flex items-center gap-2"><span class="text-accent-green">▸</span> Steam / game launchers logged in</li>
+            <li class="flex items-center gap-2"><span class="text-accent-green">▸</span> Voice chat client (Discord / Mumble)</li>
+          </ul>
+        </div>
+
+        <div class="border border-border-c bg-surface p-6 rounded-kit mb-6">
+          <h2 class="font-ubuntu text-xl font-bold mb-4">
+            <i class="las la-user text-accent-orange"></i> Personal
+          </h2>
+          <ul class="space-y-2 font-mono text-sm">
+            <li class="flex items-center gap-2"><span class="text-accent-green">▸</span> Snacks to share (optional — note it in your <a href="/guests.html" class="text-accent-blue hover:underline">profile</a>)</li>
+            <li class="flex items-center gap-2"><span class="text-accent-green">▸</span> Drinks</li>
+            <li class="flex items-center gap-2"><span class="text-accent-green">▸</span> Comfortable chair (if you have one)</li>
+          </ul>
+        </div>
+
+        <h1 class="font-ubuntu text-3xl font-bold mt-12 mb-8">
+          <i class="las la-gavel text-accent-orange"></i> Rules &amp; Code of Conduct
+        </h1>
+
+        <div class="border border-border-c bg-surface p-6 rounded-kit mb-6">
+          <h2 class="font-ubuntu text-xl font-bold mb-4">Network Etiquette</h2>
+          <ul class="space-y-2 font-mono text-sm">
+            <li class="flex items-center gap-2"><span class="text-accent-orange">▸</span> No torrenting or excessive bandwidth usage</li>
+            <li class="flex items-center gap-2"><span class="text-accent-orange">▸</span> No network scanning or sniffing tools</li>
+            <li class="flex items-center gap-2"><span class="text-accent-orange">▸</span> No hosting unauthorized servers</li>
+          </ul>
+        </div>
+
+        <div class="border border-border-c bg-surface p-6 rounded-kit mb-6">
+          <h2 class="font-ubuntu text-xl font-bold mb-4">Banned Software</h2>
+          <ul class="space-y-2 font-mono text-sm">
+            <li class="flex items-center gap-2"><span class="text-accent-orange">▸</span> Aim hacks, wallhacks, or any cheat software</li>
+            <li class="flex items-center gap-2"><span class="text-accent-orange">▸</span> DDoS or network attack tools</li>
+            <li class="flex items-center gap-2"><span class="text-accent-orange">▸</span> Crypto miners</li>
+          </ul>
+        </div>
+
+        <div class="border border-border-c bg-surface p-6 rounded-kit">
+          <h2 class="font-ubuntu text-xl font-bold mb-4">Behavior</h2>
+          <ul class="space-y-2 font-mono text-sm">
+            <li class="flex items-center gap-2"><span class="text-accent-orange">▸</span> Be respectful to all attendees</li>
+            <li class="flex items-center gap-2"><span class="text-accent-orange">▸</span> Keep noise levels reasonable (use headphones for audio)</li>
+            <li class="flex items-center gap-2"><span class="text-accent-orange">▸</span> Clean up after yourself</li>
+            <li class="flex items-center gap-2"><span class="text-accent-orange">▸</span> Tournament disputes resolved by event organizer — decisions are final</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-border-c bg-surface py-6 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 flex justify-between text-text-muted text-sm font-mono">
+      <span>SUDOBASH '26 — LAN Party</span>
+      <span>Contact: admin@sergiomartins.ca</span>
+    </div>
+  </footer>
+
+  <script type="module" src="/static/js/app.mjs"></script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Games — SUDOBASH '26</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'base': '#121212', 'surface': '#1E1E1E', 'border-c': '#333333',
+            'text-primary': '#E0E0E0', 'text-muted': '#8A8A8A',
+            'accent-orange': '#E95420', 'accent-blue': '#1793D1', 'accent-green': '#87A556',
+          },
+          fontFamily: {
+            'ubuntu': ['Ubuntu', 'sans-serif'],
+            'roboto': ['Roboto', 'DejaVu Sans', 'sans-serif'],
+            'mono': ['Fira Code', 'Liberation Mono', 'monospace'],
+          },
+          borderRadius: { 'kit': '2px' }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/lanern/line-awesome/css/line-awesome.min.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="bg-base text-text-primary min-h-screen flex flex-col">
+
+  <header class="border-b border-border-c bg-surface">
+    <nav class="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-6">
+        <a href="/" class="font-ubuntu font-bold text-xl text-accent-orange tracking-wide">SUDOBASH '26</a>
+        <div class="hidden md:flex items-center gap-4 text-sm">
+          <a href="/" class="hover:text-accent-blue">Dashboard</a>
+          <a href="/games.html" class="text-accent-orange">Games</a>
+          <a href="/#schedule" class="hover:text-accent-blue">Schedule</a>
+          <a href="/guests.html" class="hover:text-accent-blue">Guests</a>
+          <a href="/food.html" class="hover:text-accent-blue">Food</a>
+          <a href="/gear.html" class="hover:text-accent-blue">Gear</a>
+        </div>
+      </div>
+      <div id="nav-auth">
+        <button id="nav-login-btn" class="btn btn-primary text-sm" onclick="document.getElementById('login-modal').classList.remove('hidden')">LOGIN</button>
+        <div id="nav-user-info" class="hidden flex items-center gap-3">
+          <img id="nav-avatar" src="" alt="" class="w-8 h-8 rounded-kit border border-border-c">
+          <span id="nav-handle" class="font-mono text-sm"></span>
+          <div class="relative">
+            <button id="nav-menu-btn" class="text-text-muted hover:text-text-primary text-sm"><i class="las la-chevron-down"></i></button>
+            <div id="nav-dropdown" class="hidden absolute right-0 top-8 bg-surface border border-border-c py-1 min-w-[140px] z-50">
+              <button id="nav-prefs-btn" class="block w-full text-left px-4 py-2 text-sm hover:bg-base">Preferences</button>
+              <button id="nav-logout-btn" class="block w-full text-left px-4 py-2 text-sm hover:bg-base text-accent-orange">Logout</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div id="login-modal" class="modal-overlay hidden">
+    <div class="modal-panel">
+      <h2 class="font-ubuntu text-lg mb-4">Login</h2>
+      <form id="login-form">
+        <div class="mb-3"><label class="block text-sm text-text-muted mb-1">Name</label><input type="text" name="name" required autocomplete="name"></div>
+        <div class="mb-4"><label class="block text-sm text-text-muted mb-1">Access Code</label><input type="text" name="access_code" required maxlength="7" autocomplete="off" class="font-mono tracking-widest uppercase"></div>
+        <div id="login-error" class="text-accent-orange text-sm mb-3 hidden"></div>
+        <div class="flex gap-3">
+          <button type="submit" class="btn btn-primary flex-1">LOGIN</button>
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('login-modal').classList.add('hidden')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="prefs-modal" class="modal-overlay hidden">
+    <div class="modal-panel max-w-lg">
+      <h2 class="font-ubuntu text-lg mb-4">Your Preferences</h2>
+      <form id="prefs-form">
+        <div class="mb-3"><label class="block text-sm text-text-muted mb-1">Handle</label><input type="text" name="handle" placeholder="Your display name"></div>
+        <div class="mb-3"><label class="block text-sm text-text-muted mb-1">Avatar</label><div id="avatar-picker" class="grid grid-cols-6 gap-2"></div><input type="hidden" name="avatar"></div>
+        <div class="mb-3"><label class="block text-sm text-text-muted mb-1">Operating System</label><input type="text" name="os" placeholder="e.g. Arch btw"></div>
+        <div class="mb-3"><label class="block text-sm text-text-muted mb-1">Days Attending</label><div class="flex gap-4"><label class="flex items-center gap-2"><input type="radio" name="days_attending" value="saturday"> Saturday</label><label class="flex items-center gap-2"><input type="radio" name="days_attending" value="sunday"> Sunday</label><label class="flex items-center gap-2"><input type="radio" name="days_attending" value="both"> Both</label></div></div>
+        <div class="mb-3"><label class="block text-sm text-text-muted mb-1">Skill Level</label><select name="skill_level"><option value="">-- Select --</option><option value="casual">Casual</option><option value="intermediate">Intermediate</option><option value="competitive">Competitive</option></select></div>
+        <div class="mb-4"><label class="block text-sm text-text-muted mb-1">Snack Contribution</label><input type="text" name="snack_contribution" placeholder="Bringing any snacks?"></div>
+        <div class="flex gap-3"><button type="submit" class="btn btn-primary flex-1">Save</button><button type="button" class="btn btn-secondary" onclick="document.getElementById('prefs-modal').classList.add('hidden')">Cancel</button></div>
+      </form>
+    </div>
+  </div>
+
+  <main class="flex-1">
+    <section class="py-10">
+      <div class="max-w-7xl mx-auto px-4">
+        <h1 class="font-ubuntu text-3xl font-bold mb-8">
+          <i class="las la-gamepad text-accent-orange"></i> Games to Play
+        </h1>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="games-grid">
+
+          <a href="https://store.steampowered.com/app/570/Dota_2/" target="_blank"
+             class="block border border-border-c bg-surface rounded-kit overflow-hidden hover:border-accent-blue transition-colors">
+            <div class="h-40 bg-base flex items-center justify-center">
+              <img src="/static/img/games/dota.jpg" alt="Dota Allstars" class="h-full w-full object-cover">
+            </div>
+            <div class="p-3 flex justify-between items-center">
+              <div><div class="font-bold">Dota Allstars</div><div class="font-mono text-xs text-text-muted">Players: 10</div></div>
+              <span class="badge badge-green">[ ON ]</span>
+            </div>
+          </a>
+
+          <a href="https://www.minecraft.net/" target="_blank"
+             class="block border border-border-c bg-surface rounded-kit overflow-hidden hover:border-accent-blue transition-colors">
+            <div class="h-40 bg-base flex items-center justify-center">
+              <img src="/static/img/games/minecraft.jpg" alt="Minecraft Beta 1.7" class="h-full w-full object-cover">
+            </div>
+            <div class="p-3 flex justify-between items-center">
+              <div><div class="font-bold">Minecraft Beta 1.7</div><div class="font-mono text-xs text-text-muted">Players: 20</div></div>
+              <span class="badge badge-green">[ ON ]</span>
+            </div>
+          </a>
+
+          <a href="https://store.steampowered.com/app/2630/Call_of_Duty_2/" target="_blank"
+             class="block border border-border-c bg-surface rounded-kit overflow-hidden hover:border-accent-blue transition-colors">
+            <div class="h-40 bg-base flex items-center justify-center">
+              <img src="/static/img/games/cod2.jpg" alt="Call of Duty 2" class="h-full w-full object-cover">
+            </div>
+            <div class="p-3 flex justify-between items-center">
+              <div><div class="font-bold">Call of Duty 2</div><div class="font-mono text-xs text-text-muted">Players: 16</div></div>
+              <span class="badge badge-green">[ ON ]</span>
+            </div>
+          </a>
+
+          <a href="https://www.ea.com/games/the-sims" target="_blank"
+             class="block border border-border-c bg-surface rounded-kit overflow-hidden hover:border-accent-blue transition-colors">
+            <div class="h-40 bg-base flex items-center justify-center">
+              <img src="/static/img/games/sims2.jpg" alt="The Sims 2" class="h-full w-full object-cover">
+            </div>
+            <div class="p-3 flex justify-between items-center">
+              <div><div class="font-bold">The Sims 2</div><div class="font-mono text-xs text-text-muted">Players: 1</div></div>
+              <span class="badge badge-green">[ ON ]</span>
+            </div>
+          </a>
+
+          <a href="https://www.pokemon.com/" target="_blank"
+             class="block border border-border-c bg-surface rounded-kit overflow-hidden hover:border-accent-blue transition-colors">
+            <div class="h-40 bg-base flex items-center justify-center">
+              <img src="/static/img/games/pokemon.jpg" alt="Pokemon Red/Blue" class="h-full w-full object-cover">
+            </div>
+            <div class="p-3 flex justify-between items-center">
+              <div><div class="font-bold">Pokemon Red/Blue</div><div class="font-mono text-xs text-text-muted">Players: 2</div></div>
+              <span class="badge badge-green">[ ON ]</span>
+            </div>
+          </a>
+
+          <div class="border border-border-c border-dashed bg-base rounded-kit overflow-hidden flex items-center justify-center h-[232px]">
+            <div class="text-center text-text-muted">
+              <i class="las la-question-circle text-4xl"></i>
+              <div class="font-mono text-sm mt-2">[ TBD ]</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-border-c bg-surface py-6 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 flex justify-between text-text-muted text-sm font-mono">
+      <span>SUDOBASH '26 — LAN Party</span>
+      <span>Contact: admin@sergiomartins.ca</span>
+    </div>
+  </footer>
+
+  <script type="module" src="/static/js/app.mjs"></script>
+</body>
+</html>

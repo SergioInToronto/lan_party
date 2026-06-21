@@ -1,1 +1,3 @@
 - [ ] Example: tasks to tackle later are added here as individual items
+- [ ] Remove any mention of the old event title "SUDOBASH '26"
+- [ ] Remove any email addresses from the codebase. Contact instead should be a phone number and should come from the backend via API call (it should not exist in the frontend)
