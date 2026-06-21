@@ -1,7 +1,7 @@
 
 # Project Plan: LAN Party Event Static Website
 
-This document outlines the end-to-end process for designing, developing, and deploying a high-performance static website to promote and manage a LAN Party event.
+This document outlines the end-to-end process for designing and building a static website to promote and manage a LAN Party event.
 
 ---
 
@@ -42,16 +42,21 @@ Since this is a static site, a **single-page scrolling layout (SPA style)** or a
 To ensure the site is fast, secure, and free/cheap to host, the following stack is proposed:
 
 ### Frontend
-*   **Framework:**
-    *   *Option A (Simple):* Plain HTML5, CSS3, and JavaScript.
-    *   *Option B (Modern):* **Astro** or **Eleventy** (Static Site Generators) for better scalability.
-    *   *Option C (Rapid):* **Tailwind CSS** for styling (perfect for a "gamer" dark-mode aesthetic).
-*   **Icons:** FontAwesome or Lucide React.
+* No Framework. Plain HTML5, CSS3, and JavaScript.
+* No bundler. Use JavaScript modules
+* No typescript, only modern vanilla JavaScript
+* Tailwind CSS: for styling (perfect for a "gamer" dark-mode aesthetic).
+* Icons: use line-awesome - https://icons8.com/line-awesome
 
-### Backend (Static Workarounds)
-*   **Form Handling:** Google Forms, Tally.so, or Formspree (to handle registrations without a server).
-*   **Hosting:** GitHub Pages, Netlify, or Vercel (Free tiers).
-*   **Domain:** Custom `.com` or `.gg` domain (Optional).
+### Backend
+* Language: Python
+* Framework: TBD
+* Form Handling: HTML forms. Use correct types so browser handles in-line validation where possible
+* Hosting: A dedicated VPS
+* Domain: Hosted at lanparty.sergiomartins.ca. nginx routes traffic for the subdomain to our python server.
+
+### Database
+* SQLite
 
 ---
 
