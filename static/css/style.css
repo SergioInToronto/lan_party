@@ -1,1 +1,122 @@
-/* Tailwind utilities loaded via CDN. Custom overrides go here. */
+/*
+  Custom overrides on top of Tailwind CDN.
+  Design kit: design-kit.md
+*/
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&family=Roboto:wght@400;500&family=Fira+Code:wght@400;500&display=swap');
+
+/* Custom properties for design-kit colors */
+:root {
+  --bg-base: #121212;
+  --bg-surface: #1E1E1E;
+  --border: #333333;
+  --text-primary: #E0E0E0;
+  --text-muted: #8A8A8A;
+  --accent-orange: #E95420;
+  --accent-blue: #1793D1;
+  --accent-green: #87A556;
+}
+
+body {
+  font-family: 'Roboto', 'DejaVu Sans', sans-serif;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  margin: 0;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 700;
+}
+
+code, .mono {
+  font-family: 'Fira Code', 'Liberation Mono', monospace;
+}
+
+/* Modal overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal-overlay.hidden {
+  display: none;
+}
+
+.modal-panel {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  padding: 2rem;
+  width: 100%;
+  max-width: 28rem;
+  border-radius: 2px;
+}
+
+/* Status badges */
+.badge {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.75rem;
+  padding: 0.125rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 1px;
+}
+
+.badge-green { color: var(--accent-green); border-color: var(--accent-green); }
+.badge-orange { color: var(--accent-orange); border-color: var(--accent-orange); }
+.badge-blue { color: var(--accent-blue); border-color: var(--accent-blue); }
+
+/* Form inputs */
+input[type="text"],
+input[type="password"],
+select,
+textarea {
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  padding: 0.5rem 0.75rem;
+  border-radius: 2px;
+  width: 100%;
+  font-family: 'Roboto', sans-serif;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+}
+
+/* Buttons */
+.btn {
+  padding: 0.5rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-primary {
+  background: var(--accent-orange);
+  color: #fff;
+  border-color: var(--accent-orange);
+}
+
+.btn-primary:hover {
+  background: #d14810;
+}
+
+.btn-secondary {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+  background: var(--border);
+}
