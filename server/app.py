@@ -94,6 +94,42 @@ def create_app(test_config=None):
         session.clear()
         return jsonify({"ok": True})
 
+    # --- Config route ---
+
+    @app.route("/api/config", methods=["GET"])
+    def config():
+        config_path = app.config["EVENT_DETAILS_PATH"]
+        try:
+            with open(config_path, "r") as f:
+                return jsonify(json.load(f))
+        except FileNotFoundError:
+            return jsonify({"error": "Config not found"}), 500
+
+    # --- Guest list route ---
+
+    @app.route("/api/guests", methods=["GET"])
+    def guest_list():
+        db = get_db()
+        guests = db.execute("SELECT id, name FROM guests ORDER BY id").fetchall()
+
+        result = []
+        for guest in guests:
+            prefs = db.execute(
+                "SELECT key, value FROM guest_preferences WHERE guest_id = ?",
+                (guest["id"],)
+            ).fetchall()
+            pref_dict = {row["key"]: row["value"] for row in prefs}
+
+            result.append({
+                "id": guest["id"],
+                "handle": pref_dict.get("handle", guest["name"]),
+                "avatar": pref_dict.get("avatar"),
+                "days_attending": pref_dict.get("days_attending"),
+                "snack_contribution": pref_dict.get("snack_contribution"),
+            })
+
+        return jsonify(result)
+
     # Store require_auth on app for use in later route registration
     app.require_auth = require_auth
 
