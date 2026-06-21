@@ -1,127 +1,150 @@
 
-# Project Plan: LAN Party Event Static Website
+# Project Plan: SUDOBASH '26 — LAN Party Event Website
 
-This document outlines the end-to-end process for designing and building a static website to promote and manage a one-time LAN Party event.
+This document outlines the end-to-end plan for building a website to promote and manage a one-time LAN Party event. All decisions from brainstorming are recorded here as the single source of truth.
 
 ---
 
 ## 🎯 1. Project Objectives
 *   **Inform:** Provide all necessary details (date, time, location, requirements).
-*   **Register:** Collect participant information via an integrated form.
 *   **Guide:** Provide a "Bring Your Own" (BYO) checklist for attendees.
-*   **Hype:** Create excitement using a gaming-centric aesthetic.
+*   **Organize:** Guest preferences, RSVP tracking, food voting, snack coordination.
+*   **Hype:** Create excitement using a Linux-themed, terminal-inspired aesthetic.
 
 ---
 
 ## 🗺️ 2. Site Map & Content
-- A small **multi-page site** is recommended
-- Responsive for both desktop and mobile
 
-### Sections/Pages:
-1.  **Hero Section:**
-    *   Event Name, Date, and "Register Now" Call-to-Action (CTA).
-    *   High-energy background (video loop or gaming imagery).
-    *   **Countdown timer** component to the event date.
-2.  **Event Details:**
-    *   Location/Address (with Google Maps embed).
-    *   Start/End times.
-    *   Entry fee (if applicable).
-    *   **Wi-Fi card** displaying the local SSID and password.
-3.  **The Gear List (BYO):**
-    *   Hardware checklist (PC, Monitor, Keyboard, Mouse, Ethernet Cable).
-    *   Software requirements (Pre-installed games, OS updates).
-4.  **Game Lineup:**
-    *   Showcase grid of games with direct hyperlinks to Steam store pages.
-5.  **Schedule of Events:**
-    *   Timeline of tournaments, food breaks, and free-play sessions.
-    *   Hardcode the 2-day event timeline (Saturday & Sunday)
-    *   Render a readable hour-by-hour schedule view. Computed client-side according to their system datetime.
-6.  **"Now Playing" Banner:**
-    *   Client-side JS utility evaluates current system clock against the static schedule.
-    *   Global top banner dynamically displays the currently scheduled game title.
-7.  **Guest List & RSVP:**
-    *   Public roster showing names, RSVP statuses, and snack contributions.
-    *   Logged-in users can toggle their status: `attending`, `maybe`, `not attending`.
-7.  **Logging:**
-    * Upon first login, users are asked a series of questions to record their preferences, all optional
-    * Users can select between a few pre-existing avatars
-    * Users can update their preferences at any time. The UI is the same as first login.
-8.  **Food Voting:**
-    *   Authenticated attendees can suggest menu items, and vote on which food to order
-    *   Ranked voting interface: assign 1st, 2nd, and 3rd choices.
-9.  **Snack Contribution Tracking:**
-    *   Optional text input: "Are you bringing any snacks?"
-    *   Submitted text appears dynamically in the public guest list.
-10. **Rules & Code of Conduct:**
-    *   Network etiquette, banned software, and behavior expectations.
-11. **Footer:**
-    *   Links to Contact Info and Credits.
+- **5 HTML pages**, true multi-page (not SPA)
+- Responsive for both desktop and mobile
+- Global nav header on all pages with login button/modal
+
+### Pages:
+
+#### `index.html` — Dashboard
+*   **Hero Section:** Event name, date, static retro PC background image, "RSVP" CTA button.
+*   **Countdown timer** to event date (client-side JS).
+*   **"Now Playing" banner:** Client-side JS evaluates system clock against static schedule. Shows currently scheduled game title. **Home page only** (not global).
+*   **Schedule of Events:** Hour-by-hour timeline for 2-day event (Saturday & Sunday). Hardcoded placeholder template. Rendered client-side based on system datetime.
+*   **Event Details:** Location/address (placeholder), start/end times, entry fee (if applicable).
+*   **Wi-Fi card:** SSID and password fetched from backend config (`event_details.json`).
+*   **Location:** Static link to Google Maps (no API key, no embed).
+
+#### `games.html` — Game Lineup
+*   Showcase grid of games with cover images, player count, server status indicators.
+*   Direct hyperlinks to Steam store pages.
+*   Placeholder games: Dota Allstars, Minecraft Beta 1.7, Call of Duty 2, The Sims 2, Pokemon Red/Blue (+ 1 blank slot).
+
+#### `guests.html` — Guest List
+*   Public roster showing: handle, avatar, days attending, snack contributions.
+*   No editing on this page — all guest data is set via preferences.
+*   Visible to everyone (no auth required to view).
+
+#### `food.html` — Food Voting (Auth Required)
+*   Authenticated users can suggest menu items.
+*   Ranked voting: assign 1st, 2nd, 3rd choices.
+*   Votes are editable (can change after submitting).
+*   Shows current vote tallies.
+
+#### `gear.html` — What to Bring + Rules
+*   **Hardware checklist:** PC, Monitor, Keyboard, Mouse, Ethernet Cable.
+*   **Software requirements:** Pre-installed games, OS updates.
+*   **Rules & Code of Conduct:** Network etiquette, banned software, behavior expectations.
+
+### Global Components:
+*   **Nav header:** Links to all 5 pages + login button.
+*   **Login modal:** Appears on any page. Name + access code fields.
+*   **Preferences modal:** Triggered on first login, accessible anytime from nav. Contains:
+    - Handle (editable, stored in `guest_preferences`)
+    - Avatar selection (from pre-defined free pixel-art/gaming avatars)
+    - Operating system
+    - Which days attending: Saturday, Sunday, or Both (radio buttons) — **this replaces RSVP**
+    - Skill level
+    - Snack contribution (free text: "Are you bringing any snacks?")
+    - All fields optional.
+*   **Footer:** Contact info and credits.
 
 ---
 
 ## 🛠️ 3. Technical Stack
 
 ### Frontend
-* No Framework. Plain HTML5, CSS3, and JavaScript.
+* No framework. Plain HTML5, CSS3, and vanilla JavaScript.
 * No bundler. Use JavaScript modules (e.g. `app.mjs`).
-* No typescript, only modern vanilla JavaScript.
-* Tailwind CSS: for styling (perfect for a "gamer" dark-mode aesthetic).
-* Icons: use line-awesome - https://icons8.com/line-awesome
+* No TypeScript.
+* Tailwind CSS for styling (dark-mode, terminal-inspired aesthetic).
+* Icons: Line Awesome — https://icons8.com/line-awesome
 
 ### Backend
 * Language: Python
-* Framework: Flask. 1 or 2 web workers max.
-* Raw SQL queries via the native `sqlite3` module with parameterized inputs. **No ORM.**
-* Form Handling: HTML forms. Use correct types so browser handles in-line validation where possible.
-* Hosting: A dedicated VPS
-* Domain: Hosted at lanparty.sergiomartins.ca. nginx routes traffic for the subdomain to our python server.
+* Framework: Flask. 1-2 web workers max.
+* Raw SQL queries via native `sqlite3` module with parameterized inputs. **No ORM.**
+* Form handling: HTML forms with correct input types for browser-native validation.
+* Hosting: Dedicated VPS.
+* Domain: `lanparty.sergiomartins.ca`. Nginx routes subdomain traffic to Flask. **Nginx config not included** — handled separately.
+
+### Configuration
+* **`event_details.json`** — Single JSON config file on server containing:
+    - Event name, dates, times
+    - Venue address
+    - WiFi SSID and password
+    - Google Maps link
+    - Any other site-wide config
+* Backend serves relevant config values via API.
 
 ### Database
-* SQLite. **No migrations.** Schema changes handled by an initialization script (`init_db.py`).
-* `init_db.py` creates tables, seeds initial guest records, and generates access codes (storing hashes).
+* SQLite. **No migrations.** Schema managed by `init_db.py`.
+* `init_db.py` creates tables only. **Database starts empty.** Admin manually adds guests via SQL (no admin UI or admin APIs).
+* Access codes: `init_db.py` generates and hashes codes when admin inserts guests.
 
 #### Schema
-* **`guests`** — `id`, `name`, `access_code`
-* **`guest_Preferences`** - `guest_id`, `key`, `value`
+* **`guests`** — `id`, `name`, `access_code_hash`
+* **`guest_preferences`** — `guest_id`, `key`, `value`
+    - Known keys: `handle`, `avatar`, `os`, `days_attending`, `skill_level`, `snack_contribution`
 * **`food_options`** — `id`, `name`, `created_by_guest_id`
-* **`food_votes`** — `guest_id`, `option_id`, `rank`
+* **`food_votes`** — `guest_id`, `option_id`, `rank` (UNIQUE on `guest_id` + `rank`; upsert on re-vote)
 
 ---
 
 ## 🔐 3b. Authentication & Security
 
-*   **Access Codes:** Each guest receives a unique 7-character access code. Never exposed out of the API!
-*   **Login:** POST `/api/login` requires **both** the guest's Name and their Access Code. Uses parameterized SQL.
-*   **Brute-force mitigation:** 3-second delay (`time.sleep(3)`) on login failure.
-*   **Session handling:** On success, establish session using **both**: an HTTP-only cookie AND a token returned for `localStorage`.
-*   **Session validation:** GET `/api/me` endpoint to validate active sessions.
-*   **Navigation:** Global header with a public guest list button and a login modal.
+*   **Access Codes:** Each guest receives a unique 7-character access code. **Never exposed via API.**
+*   **Login:** POST `/api/login` requires **both** guest Name and Access Code. Parameterized SQL.
+*   **Brute-force mitigation:** `time.sleep(3)` on login failure.
+*   **Session handling:** Flask signed sessions (HTTP-only cookie) **AND** a token returned in response body for `localStorage`. Both must be present for authenticated requests.
+*   **Session validation:** GET `/api/me` validates active session.
+*   **Navigation:** Global header with login modal on every page.
 
 ---
 
 ## 🔌 3c. API Endpoints
 
-All static content will be served by nginx or another web server. Flask will only handle API calls.
+All static HTML/CSS/JS served by nginx. Flask handles API calls only.
 
 | Endpoint | Method | Auth | Description |
 |---|---|---|---|
 | `/api/login` | POST | No | Authenticate with name + access code |
-| `/api/me` | GET | Yes | Validate active session |
-| `/api/guests` | GET | No | Public guest list (names, statuses, snacks — excludes `access_code_hash`) |
-| `/api/foods` | GET | No | List food options |
+| `/api/me` | GET | Yes | Validate active session, return guest info |
+| `/api/guests` | GET | No | Public guest list (handles, avatars, days attending, snacks — **excludes** `access_code_hash`) |
+| `/api/preferences` | GET | Yes | Get current user's preferences |
+| `/api/preferences` | POST | Yes | Update current user's preferences (key-value pairs) |
+| `/api/foods` | GET | No | List food options with vote tallies |
 | `/api/foods` | POST | Yes | Add a food option |
-| `/api/foods/vote` | POST | Yes | Submit ranked food votes (ordered list) |
+| `/api/foods/vote` | POST | Yes | Submit/update ranked food votes (1st, 2nd, 3rd) |
+| `/api/config` | GET | No | Public event config (name, dates, WiFi, address, map link) |
 
 ---
 
 ## 🎨 4. Design & Aesthetics
 
-See file: `design-kid.md`
+See file: `design-kit.md`
+
+**Summary:** "Root Access Nostalgia" — flat, high-contrast, terminal-inspired dark mode. No transparency, sharp edges (0-2px radius), 1px solid borders. Colors: deep charcoal base (#121212), Ubuntu Orange (#E95420) for CTAs, Arch Blue (#1793D1) for links, Mint Green (#87A556) for success states. Monospace for data, Ubuntu Sans for headers, Roboto for body. CLI-style indicators: `[ ONLINE ]`, `[ OFFLINE ]`.
 
 ---
 
 ## 🚀 5. Implementation Plan
 
-- Our goal is to one-shot the entire website with all functionality.
-- If any task is not worth solving at this exact moment, drop an entry into file `future-TODO.md` and we'll fix it later.
-- Ask clarifying questions until we have a shared understanding of the work to be completed
+- Goal: one-shot entire website with all functionality.
+- Deferred items go to `future-TODO.md`.
+- Avatars: source free pixel-art / gaming character avatars (pre-defined set, user selects one).
