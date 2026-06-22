@@ -39,44 +39,7 @@
 </head>
 <body class="bg-base text-text-primary min-h-screen flex flex-col">
 
-  <!-- ===== NAV HEADER ===== -->
-  <header class="border-b border-border-c bg-surface">
-    <nav class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-      <div class="flex items-center gap-6">
-        <a href="/" class="font-ubuntu font-bold text-xl text-accent-orange tracking-wide hitbox-4">SUDOBASH '26</a>
-        <div class="hidden md:flex items-center gap-4 text-xl">
-          <a href="/games.html" class="hover:text-accent-blue hitbox-4">Games</a>
-          <span>|</span>
-          <a href="/#schedule" class="hover:text-accent-blue hitbox-4">Schedule</a>
-          <span>|</span>
-          <a href="/guests.html" class="hover:text-accent-blue hitbox-4">Guests</a>
-          <span>|</span>
-          <a href="/food.html" class="hover:text-accent-blue hitbox-4">Food</a>
-          <span>|</span>
-          <a href="/gear.html" class="hover:text-accent-blue hitbox-4">BYO Checklist</a>
-        </div>
-      </div>
-      <div id="nav-auth">
-        <!-- JS populates: login button or user info -->
-        <button id="nav-login-btn" class="btn btn-primary text-sm" onclick="document.getElementById('login-modal').classList.remove('hidden')">
-          LOGIN
-        </button>
-        <div id="nav-user-info" class="hidden flex items-center gap-3">
-          <img id="nav-avatar" src="" alt="" class="w-8 h-8 rounded-kit border border-border-c">
-          <span id="nav-handle" class="font-mono text-sm"></span>
-          <div class="relative">
-            <button id="nav-menu-btn" class="text-text-muted hover:text-text-primary text-sm">
-              <i class="las la-chevron-down"></i>
-            </button>
-            <div id="nav-dropdown" class="hidden absolute right-0 top-8 bg-surface border border-border-c py-1 min-w-[140px] z-50">
-              <button id="nav-prefs-btn" class="block w-full text-left px-4 py-2 text-sm hover:bg-base">Preferences</button>
-              <button id="nav-logout-btn" class="block w-full text-left px-4 py-2 text-sm hover:bg-base text-accent-orange">Logout</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </header>
+  <nav-bar current-page="home"></nav-bar>
 
   <!-- ===== LOGIN MODAL ===== -->
   <div id="login-modal" class="modal-overlay hidden">
@@ -163,10 +126,10 @@
           <span class="text-accent-orange">HIGH FUN</span>
         </h1>
         <p class="mt-4 text-lg text-text-muted max-w-lg">
-          Get ready for a weekend of wholesome, unhinged gaming.
+          Get ready for a weekend of wholesome, unhinged gaming
         </p>
-        <button id="hero-rsvp-btn" class="btn btn-primary text-lg mt-6 px-8 py-3">
-          RSVP Now
+        <button id="hero-rsvp-btn" class="btn btn-primary text-lg mt-6 px-6 py-3">
+          Confirm your Spot
         </button>
       </div>
     </section>
@@ -226,12 +189,13 @@
   <!-- ===== FOOTER ===== -->
   <footer class="border-t border-border-c bg-surface py-6 mt-auto">
     <div class="max-w-7xl mx-auto px-4 flex justify-between text-text-muted text-sm font-mono">
-      <span>SUDOBASH '26 — LAN Party</span>
+      <span>Copyleft: Sergio + AI</span>
       <span>Contact: sergio@example.com</span>
     </div>
   </footer>
 
   <!-- JS Modules -->
+  <script type="module" src="/static/js/nav.mjs"></script>
   <script type="module" src="/static/js/app.mjs"></script>
   <script type="module">
     import { initCountdown } from '/static/js/countdown.mjs';

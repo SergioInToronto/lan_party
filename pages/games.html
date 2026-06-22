@@ -29,34 +29,7 @@
 </head>
 <body class="bg-base text-text-primary min-h-screen flex flex-col">
 
-  <header class="border-b border-border-c bg-surface">
-    <nav class="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
-      <div class="flex items-center gap-6">
-        <a href="/" class="font-ubuntu font-bold text-xl text-accent-orange tracking-wide">SUDOBASH '26</a>
-        <div class="hidden md:flex items-center gap-4 text-sm">
-          <a href="/games.html" class="text-accent-orange">Games</a>
-          <a href="/#schedule" class="hover:text-accent-blue">Schedule</a>
-          <a href="/guests.html" class="hover:text-accent-blue">Guests</a>
-          <a href="/food.html" class="hover:text-accent-blue">Food</a>
-          <a href="/gear.html" class="hover:text-accent-blue">Gear</a>
-        </div>
-      </div>
-      <div id="nav-auth">
-        <button id="nav-login-btn" class="btn btn-primary text-sm" onclick="document.getElementById('login-modal').classList.remove('hidden')">LOGIN</button>
-        <div id="nav-user-info" class="hidden flex items-center gap-3">
-          <img id="nav-avatar" src="" alt="" class="w-8 h-8 rounded-kit border border-border-c">
-          <span id="nav-handle" class="font-mono text-sm"></span>
-          <div class="relative">
-            <button id="nav-menu-btn" class="text-text-muted hover:text-text-primary text-sm"><i class="las la-chevron-down"></i></button>
-            <div id="nav-dropdown" class="hidden absolute right-0 top-8 bg-surface border border-border-c py-1 min-w-[140px] z-50">
-              <button id="nav-prefs-btn" class="block w-full text-left px-4 py-2 text-sm hover:bg-base">Preferences</button>
-              <button id="nav-logout-btn" class="block w-full text-left px-4 py-2 text-sm hover:bg-base text-accent-orange">Logout</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </header>
+  <nav-bar current-page="games"></nav-bar>
 
   <div id="login-modal" class="modal-overlay hidden">
     <div class="modal-panel">
@@ -171,6 +144,7 @@
     </div>
   </footer>
 
+  <script type="module" src="/static/js/nav.mjs"></script>
   <script type="module" src="/static/js/app.mjs"></script>
 </body>
 </html>

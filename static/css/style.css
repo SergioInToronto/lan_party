@@ -125,3 +125,7 @@ input:focus, select:focus, textarea:focus {
   padding: 1rem;
   margin: -1rem;
 }
+
+html {
+    scroll-behavior: smooth;
+}
