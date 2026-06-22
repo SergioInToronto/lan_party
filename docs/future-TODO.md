@@ -7,6 +7,5 @@
 - [ ] Admin UI for managing guests (currently raw SQL via init_db.py CLI)
 - [ ] Mobile hamburger menu for nav
 - [ ] Rate limiting on API endpoints beyond login
-- [ ] Remove hardcoded email from footer — should come from backend config
 - [ ] Remove any mention of old event title placeholder if event is renamed
 - [ ] Remove any email addresses from the codebase. Contact instead should be a phone number and should come from the backend via API call (it should not exist in the frontend)

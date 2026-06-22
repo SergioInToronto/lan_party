@@ -1457,7 +1457,7 @@ input:focus, select:focus, textarea:focus {
   <footer class="border-t border-border-c bg-surface py-6 mt-auto">
     <div class="max-w-7xl mx-auto px-4 flex justify-between text-text-muted text-sm font-mono">
       <span>SUDOBASH '26 — LAN Party</span>
-      <span>Contact: admin@sergiomartins.ca</span>
+      <span>Contact: sergio@example.com</span>
     </div>
   </footer>
 
