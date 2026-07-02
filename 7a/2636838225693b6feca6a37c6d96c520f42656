@@ -1,0 +1,67 @@
+pages/index.html
+  ai_agent 149,159
+  s_4f8e6015b56ec2::t_9c42b40a137b5c 36
+pages/games.html
+  s_715320989e7fc3::t_6929db42c81e8f 27
+pages/gear.html
+  ai_agent 69,74,76,90,100,102,105,115-120,122,127-131,133-135
+  s_b333d22f7ebc4c::t_dab87746a41012 27
+pages/guests.html
+  s_73f764e1ba59a0::t_afadacb2c2726c 27
+static/css/style.css
+  ai_agent 136
+static/js/nav.mjs
+  ai_agent 52-54
+pages/food.html
+  s_8079925068fc04::t_a504fc542bc511 27
+static/js/schedule.mjs
+  ai_agent 8,17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.0",
+  "base_commit_sha": "7a2636838225693b6feca6a37c6d96c520f42656",
+  "prompts": {},
+  "sessions": {
+    "s_4f8e6015b56ec2": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0dbc89474ffej4m0GqU9N65pan",
+        "model": "anthropic/claude-sonnet-4.6"
+      },
+      "human_author": "Sergio <smartins@movableink.com>"
+    },
+    "s_715320989e7fc3": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0dbc88113ffe615RmbwUs4IMxz",
+        "model": "anthropic/claude-sonnet-4.6"
+      },
+      "human_author": "Sergio <smartins@movableink.com>"
+    },
+    "s_73f764e1ba59a0": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0dbc88ec3ffe8gu2DYl5corXWZ",
+        "model": "anthropic/claude-sonnet-4.6"
+      },
+      "human_author": "Sergio <smartins@movableink.com>"
+    },
+    "s_8079925068fc04": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0dbc888ecffeHpglOIzg7241zE",
+        "model": "anthropic/claude-sonnet-4.6"
+      },
+      "human_author": "Sergio <smartins@movableink.com>"
+    },
+    "s_b333d22f7ebc4c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0dbc87c59ffej8941JKhjwhw0T",
+        "model": "anthropic/claude-sonnet-4.6"
+      },
+      "human_author": "Sergio <smartins@movableink.com>"
+    }
+  }
+}
