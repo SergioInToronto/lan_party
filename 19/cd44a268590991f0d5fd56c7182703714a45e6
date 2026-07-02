@@ -1,0 +1,19 @@
+static/js/nav.mjs
+  s_0007eef8838df2::t_cdbf9ecce30bc7 80
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.0",
+  "base_commit_sha": "19cd44a268590991f0d5fd56c7182703714a45e6",
+  "prompts": {},
+  "sessions": {
+    "s_0007eef8838df2": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0dbe48973ffe7OvKEnQMMD6QbX",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "Sergio <smartins@movableink.com>"
+    }
+  }
+}
