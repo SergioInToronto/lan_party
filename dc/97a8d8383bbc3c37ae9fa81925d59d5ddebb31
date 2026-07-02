@@ -1,0 +1,11 @@
+pages/index.html
+  ai_agent 159,165,176
+event_details.json
+  ai_agent 5-6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.0",
+  "base_commit_sha": "dc97a8d8383bbc3c37ae9fa81925d59d5ddebb31",
+  "prompts": {}
+}
