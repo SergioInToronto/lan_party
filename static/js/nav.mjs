@@ -77,7 +77,7 @@ class NavBarElement extends HTMLElement {
             </div>
           </div>
         </nav>
-        <div id="nav-mobile-menu" class="hidden md:hidden absolute left-0 right-0 bg-surface border-b border-border-c z-40">
+        <div id="nav-mobile-menu" class="hidden md:hidden fixed top-14 left-0 right-0 bg-surface border-b border-border-c z-40">
           ${this._mobileLinks(currentPage)}
         </div>
       </header>
