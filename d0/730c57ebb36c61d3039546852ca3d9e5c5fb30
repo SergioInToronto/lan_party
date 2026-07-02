@@ -1,0 +1,19 @@
+static/js/schedule.mjs
+  s_da5fdb0a25df5f::t_8728be6b13ff21 89,95-117
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.0",
+  "base_commit_sha": "d0730c57ebb36c61d3039546852ca3d9e5c5fb30",
+  "prompts": {},
+  "sessions": {
+    "s_da5fdb0a25df5f": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0dcdc91d8ffe1Xm4a7BdoBRt09",
+        "model": "anthropic/claude-sonnet-4.6"
+      },
+      "human_author": "Sergio <smartins@movableink.com>"
+    }
+  }
+}
