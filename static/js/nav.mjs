@@ -49,6 +49,9 @@ class NavBarElement extends HTMLElement {
     return `
       <header class="border-b border-border-c bg-surface fixed top-0 left-0 w-full z-50">
         <nav class="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
+          <button id="nav-hamburger" class="md:hidden text-text-muted hover:text-text-primary text-4xl p-2" aria-label="Menu" aria-expanded="false">
+            <i class="las la-bars"></i>
+          </button>
           <div class="flex items-center gap-6">
             <a href="/" class="font-ubuntu font-bold text-xl text-accent-orange tracking-wide hitbox-4">LAN Party '26</a>
             <div class="hidden md:flex items-center gap-4 text-xl">
@@ -56,9 +59,6 @@ class NavBarElement extends HTMLElement {
             </div>
           </div>
           <div class="flex items-center gap-3">
-            <button id="nav-hamburger" class="md:hidden text-text-muted hover:text-text-primary text-xl" aria-label="Menu" aria-expanded="false">
-              <i class="las la-bars"></i>
-            </button>
             <div id="nav-auth">
               <button id="nav-login-btn" class="btn btn-primary text-sm" onclick="document.getElementById('login-modal').classList.remove('hidden')">LOGIN</button>
               <div id="nav-user-info" class="hidden flex items-center gap-3">

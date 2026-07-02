@@ -5,7 +5,7 @@
 
 export const SCHEDULE = [
   // Saturday
-  { day: 'saturday', time: '08:00', end: '10:00', title: 'Doors Open, Pancakes Breakfast', description: 'Setup your rigs, get settled in' },
+  { day: 'saturday', time: '08:00', end: '10:00', title: 'Doors Open, Homemade Waffles', description: 'Setup your rigs, get settled in' },
   { day: 'saturday', time: '10:00', end: '11:30', title: 'Free Play', description: 'Warm up with whatever you want' },
   { day: 'saturday', time: '11:30', end: '12:00', title: 'Tournament Bracket Draw', description: 'Random seeding for afternoon tournament' },
   { day: 'saturday', time: '12:00', end: '13:00', title: 'Lunch Break', description: 'Food vote winner served' },
@@ -14,7 +14,7 @@ export const SCHEDULE = [
   { day: 'saturday', time: '17:30', end: '18:30', title: 'Dinner Break', description: 'Second food vote winner' },
   { day: 'saturday', time: '18:30', end: '22:00', title: 'Free Play / CoD2', description: 'Casual games until close' },
   // Sunday
-  { day: 'sunday', time: '09:00', end: '10:00', title: 'Doors Open, Pancakes?', description: 'Coffee and setup' },
+  { day: 'sunday', time: '09:00', end: '10:00', title: 'Doors Open, More Waffles', description: 'Coffee and setup' },
   { day: 'sunday', time: '10:00', end: '12:00', title: 'Pokemon Tournament', description: 'Link battles, single elimination' },
   { day: 'sunday', time: '12:00', end: '13:00', title: 'Lunch Break', description: '' },
   { day: 'sunday', time: '13:00', end: '15:00', title: 'Sims 2 Challenge', description: 'Speed-build a house, community judges' },
