@@ -1,7 +1,9 @@
 __pycache__/
-*.py[cod]
-*.pyo
+.DS_Store
+.pytest_cache/
 .venv/
 *.egg-info/
-.pytest_cache/
+*.py[cod]
+*.pyo
 lanparty.db
+seed.spec.ts
