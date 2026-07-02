@@ -128,4 +128,10 @@ input:focus, select:focus, textarea:focus {
 
 html {
     scroll-behavior: smooth;
+    /* Compensate for sticky header (which "floats" - it reserves no space) */
+    margin-top: 3em;
+}
+
+header {
+  filter: drop-shadow(0px 8px 8px black);
 }

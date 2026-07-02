@@ -47,7 +47,7 @@ class NavBarElement extends HTMLElement {
 
   _render(currentPage) {
     return `
-      <header class="border-b border-border-c bg-surface relative">
+      <header class="border-b border-border-c bg-surface fixed top-0 left-0 w-full z-50">
         <nav class="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
           <div class="flex items-center gap-6">
             <a href="/" class="font-ubuntu font-bold text-xl text-accent-orange tracking-wide hitbox-4">LAN Party '26</a>
