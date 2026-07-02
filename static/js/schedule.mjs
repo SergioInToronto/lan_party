@@ -5,12 +5,11 @@
 
 export const SCHEDULE = [
   // Saturday
-  { day: 'saturday', time: '09:00', end: '10:00', title: 'Doors Open', description: 'Setup your rigs, get settled in' },
+  { day: 'saturday', time: '08:00', end: '10:00', title: 'Doors Open, Pancakes Breakfast', description: 'Setup your rigs, get settled in' },
   { day: 'saturday', time: '10:00', end: '11:30', title: 'Free Play', description: 'Warm up with whatever you want' },
   { day: 'saturday', time: '11:30', end: '12:00', title: 'Tournament Bracket Draw', description: 'Random seeding for afternoon tournament' },
   { day: 'saturday', time: '12:00', end: '13:00', title: 'Lunch Break', description: 'Food vote winner served' },
   { day: 'saturday', time: '13:00', end: '15:00', title: 'Dota Tournament', description: 'Round robin, best of 1' },
-  { day: 'saturday', time: '15:00', end: '15:30', title: 'Snack Break', description: 'Refuel' },
   { day: 'saturday', time: '15:30', end: '17:30', title: 'Minecraft Build Battle', description: 'Theme announced at start' },
   { day: 'saturday', time: '17:30', end: '18:30', title: 'Dinner Break', description: 'Second food vote winner' },
   { day: 'saturday', time: '18:30', end: '22:00', title: 'Free Play / CoD2', description: 'Casual games until close' },
