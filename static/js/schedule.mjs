@@ -14,7 +14,7 @@ export const SCHEDULE = [
   { day: 'saturday', time: '17:30', end: '18:30', title: 'Dinner Break', description: 'Second food vote winner' },
   { day: 'saturday', time: '18:30', end: '22:00', title: 'Free Play / CoD2', description: 'Casual games until close' },
   // Sunday
-  { day: 'sunday', time: '09:00', end: '10:00', title: 'Day 2 — Doors Open', description: 'Coffee and setup' },
+  { day: 'sunday', time: '09:00', end: '10:00', title: 'Doors Open, Pancakes?', description: 'Coffee and setup' },
   { day: 'sunday', time: '10:00', end: '12:00', title: 'Pokemon Tournament', description: 'Link battles, single elimination' },
   { day: 'sunday', time: '12:00', end: '13:00', title: 'Lunch Break', description: '' },
   { day: 'sunday', time: '13:00', end: '15:00', title: 'Sims 2 Challenge', description: 'Speed-build a house, community judges' },
@@ -86,46 +86,33 @@ function renderDaySchedule(day, schedule = SCHEDULE) {
 }
 
 /**
- * Initialize schedule section with day tabs.
+ * Initialize schedule section with both days always visible.
  */
 export function initSchedule() {
   const el = document.getElementById('schedule');
   if (!el) return;
 
-  let activeDay = 'saturday';
-
-  function render() {
-    el.innerHTML = `
-      <div class="flex gap-2 mb-4">
-        <button class="btn ${activeDay === 'saturday' ? 'btn-primary' : 'btn-secondary'} text-sm"
-                data-day="saturday">Saturday</button>
-        <button class="btn ${activeDay === 'sunday' ? 'btn-primary' : 'btn-secondary'} text-sm"
-                data-day="sunday">Sunday</button>
-      </div>
-      <div class="border border-border-c rounded-kit overflow-hidden">
-        <table class="w-full">
-          <thead>
-            <tr class="bg-surface border-b border-border-c">
-              <th class="py-2 px-3 text-left font-mono text-xs text-text-muted">TIME</th>
-              <th class="py-2 px-3 text-left font-mono text-xs text-text-muted">EVENT</th>
-              <th class="py-2 px-3 text-left font-mono text-xs text-text-muted">DESCRIPTION</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-border-c">
-            ${renderDaySchedule(activeDay)}
-          </tbody>
-        </table>
-      </div>
-    `;
-
-    // Day tab click handlers
-    el.querySelectorAll('[data-day]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        activeDay = btn.dataset.day;
-        render();
-      });
-    });
-  }
-
-  render();
+  el.innerHTML = `
+    <div class="border border-border-c rounded-kit overflow-hidden">
+      <table class="w-full">
+        <thead>
+          <tr class="bg-surface border-b border-border-c">
+            <th class="py-2 px-3 text-left font-mono text-xs text-text-muted">TIME</th>
+            <th class="py-2 px-3 text-left font-mono text-xs text-text-muted">EVENT</th>
+            <th class="py-2 px-3 text-left font-mono text-xs text-text-muted">DESCRIPTION</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-border-c">
+          <tr class="bg-surface">
+            <td colspan="3" class="py-2 px-3 font-mono text-xs text-text-muted uppercase tracking-widest">Saturday</td>
+          </tr>
+          ${renderDaySchedule('saturday')}
+          <tr class="bg-surface border-t-2 border-border-c">
+            <td colspan="3" class="py-2 px-3 font-mono text-xs text-text-muted uppercase tracking-widest">Sunday</td>
+          </tr>
+          ${renderDaySchedule('sunday')}
+        </tbody>
+      </table>
+    </div>
+  `;
 }
