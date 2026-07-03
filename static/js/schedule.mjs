@@ -17,9 +17,9 @@ export const SCHEDULE = [
   { day: 'sunday', time: '09:00', end: '10:00', title: 'Doors Open, More Waffles', description: 'Coffee and setup' },
   { day: 'sunday', time: '10:00', end: '12:00', title: 'Pokemon Tournament', description: 'Link battles, single elimination' },
   { day: 'sunday', time: '12:00', end: '13:00', title: 'Lunch Break', description: '' },
-  { day: 'sunday', time: '13:00', end: '15:00', title: 'Sims 2 Challenge', description: 'Speed-build a house, community judges' },
+  { day: 'sunday', time: '13:00', end: '15:00', title: 'MC 4-block Artwork Contest', description: 'Speed-build a house, community judges' },
   { day: 'sunday', time: '15:00', end: '15:30', title: 'Awards Ceremony', description: 'Trophies for tournament winners' },
-  { day: 'sunday', time: '15:30', end: '17:00', title: 'Free Play / Wrap Up', description: 'Last games, pack up' },
+  { day: 'sunday', time: '15:30', end: '17:00', title: 'Free Play', description: 'Last games, pack up' },
 ];
 
 /**
