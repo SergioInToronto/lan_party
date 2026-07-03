@@ -33,7 +33,7 @@
 
   <div id="login-modal" class="modal-overlay hidden">
     <div class="modal-panel">
-      <h2 class="font-ubuntu text-lg mb-4">Login</h2>
+      <h1 class="font-ubuntu text-lg mb-4">Login</h1>
       <form id="login-form">
         <div class="mb-3"><label class="block text-sm text-text-muted mb-1">Name</label><input type="text" name="name" required autocomplete="name"></div>
         <div class="mb-4"><label class="block text-sm text-text-muted mb-1">Access Code</label><input type="text" name="access_code" required maxlength="7" autocomplete="off" class="font-mono tracking-widest uppercase"></div>
@@ -48,7 +48,7 @@
 
   <div id="prefs-modal" class="modal-overlay hidden">
     <div class="modal-panel max-w-lg">
-      <h2 class="font-ubuntu text-lg mb-4">Your Preferences</h2>
+      <h1 class="font-ubuntu text-lg mb-4">Your Preferences</h1>
       <form id="prefs-form">
         <div class="mb-3"><label class="block text-sm text-text-muted mb-1">Handle</label><input type="text" name="handle" placeholder="Your display name"></div>
         <div class="mb-3"><label class="block text-sm text-text-muted mb-1">Avatar</label><div id="avatar-picker" class="grid grid-cols-6 gap-2"></div><input type="hidden" name="avatar"></div>
@@ -65,74 +65,176 @@
     <section class="py-10">
       <div class="max-w-7xl mx-auto px-4">
         <h1 class="font-ubuntu text-3xl font-bold mb-8">
-          <i class="las la-gamepad text-accent-orange"></i> Games to Play
+          <i class="las la-gamepad text-accent-orange"></i> Games
         </h1>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="games-grid">
+        <template id="game-card-tpl"></template>
 
-          <a href="https://store.steampowered.com/app/570/Dota_2/" target="_blank"
-             class="block border border-border-c bg-surface rounded-kit overflow-hidden hover:border-accent-blue transition-colors">
-            <div class="h-40 bg-base flex items-center justify-center">
-              <img src="/static/img/games/dota.jpg" alt="Dota Allstars" class="h-full w-full object-cover">
-            </div>
-            <div class="p-3 flex justify-between items-center">
-              <div><div class="font-bold">Dota Allstars</div><div class="font-mono text-xs text-text-muted">Players: 10</div></div>
-              <span class="badge badge-green">[ ON ]</span>
-            </div>
-          </a>
+        <section class="mb-10">
+          <h1 class="font-ubuntu text-2xl font-bold mb-4 text-accent-green"><i class="las la-users"></i> Co-op</h1>
+          <div class="pl-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
 
-          <a href="https://www.minecraft.net/" target="_blank"
-             class="block border border-border-c bg-surface rounded-kit overflow-hidden hover:border-accent-blue transition-colors">
-            <div class="h-40 bg-base flex items-center justify-center">
-              <img src="/static/img/games/minecraft.jpg" alt="Minecraft Beta 1.7" class="h-full w-full object-cover">
+            <a href="https://store.steampowered.com/app/1016920/Unrailed/" target="_blank" class="game-card">
+              <div class="flex items-center justify-center"><img src="/static/img/games/unrailed.png" alt="Unrailed" class="h-full w-full object-cover"></div>
+              <div class="p-3">
+              <div class="font-bold">Unrailed</div>
+              <span class="badge badge-green">limit 4 players</span>
             </div>
-            <div class="p-3 flex justify-between items-center">
-              <div><div class="font-bold">Minecraft Beta 1.7</div><div class="font-mono text-xs text-text-muted">Players: 20</div></div>
-              <span class="badge badge-green">[ ON ]</span>
-            </div>
-          </a>
+            </a>
 
-          <a href="https://store.steampowered.com/app/2630/Call_of_Duty_2/" target="_blank"
-             class="block border border-border-c bg-surface rounded-kit overflow-hidden hover:border-accent-blue transition-colors">
-            <div class="h-40 bg-base flex items-center justify-center">
-              <img src="/static/img/games/cod2.jpg" alt="Call of Duty 2" class="h-full w-full object-cover">
+            <a href="https://store.steampowered.com/app/2211170/Unrailed_2_Back_on_Track/" target="_blank" class="game-card">
+              <div class="flex items-center justify-center"><img src="/static/img/games/unrailed2.jpg" alt="Unrailed 2" class="h-full w-full object-cover"></div>
+              <div class="p-3">
+              <div class="font-bold">Unrailed 2</div>
+              <span class="badge badge-green">limit 4 players</span>
             </div>
-            <div class="p-3 flex justify-between items-center">
-              <div><div class="font-bold">Call of Duty 2</div><div class="font-mono text-xs text-text-muted">Players: 16</div></div>
-              <span class="badge badge-green">[ ON ]</span>
-            </div>
-          </a>
+            </a>
 
-          <a href="https://www.ea.com/games/the-sims" target="_blank"
-             class="block border border-border-c bg-surface rounded-kit overflow-hidden hover:border-accent-blue transition-colors">
-            <div class="h-40 bg-base flex items-center justify-center">
-              <img src="/static/img/games/sims2.jpg" alt="The Sims 2" class="h-full w-full object-cover">
+            <a href="https://store.steampowered.com/app/225840/Sven_Coop/" target="_blank" class="game-card">
+              <div class="flex items-center justify-center"><img src="/static/img/games/sven_coop.png" alt="Sven Coop" class="h-full w-full object-cover"></div>
+              <div class="p-3">
+              <div class="font-bold">Sven Coop</div>
             </div>
-            <div class="p-3 flex justify-between items-center">
-              <div><div class="font-bold">The Sims 2</div><div class="font-mono text-xs text-text-muted">Players: 1</div></div>
-              <span class="badge badge-green">[ ON ]</span>
-            </div>
-          </a>
+            </a>
 
-          <a href="https://www.pokemon.com/" target="_blank"
-             class="block border border-border-c bg-surface rounded-kit overflow-hidden hover:border-accent-blue transition-colors">
-            <div class="h-40 bg-base flex items-center justify-center">
-              <img src="/static/img/games/pokemon.jpg" alt="Pokemon Red/Blue" class="h-full w-full object-cover">
+            <a href="https://store.steampowered.com/app/1625450/Muck/" target="_blank" class="game-card">
+              <div class="flex items-center justify-center"><img src="/static/img/games/muck.png" alt="Muck" class="h-full w-full object-cover"></div>
+              <div class="p-3">
+              <div class="font-bold">Muck</div>
+              <span class="badge badge-green">limit 4 players</span>
             </div>
-            <div class="p-3 flex justify-between items-center">
-              <div><div class="font-bold">Pokemon Red/Blue</div><div class="font-mono text-xs text-text-muted">Players: 2</div></div>
-              <span class="badge badge-green">[ ON ]</span>
-            </div>
-          </a>
+            </a>
 
-          <div class="border border-border-c border-dashed bg-base rounded-kit overflow-hidden flex items-center justify-center h-[232px]">
-            <div class="text-center text-text-muted">
-              <i class="las la-question-circle text-4xl"></i>
-              <div class="font-mono text-sm mt-2">[ TBD ]</div>
+            <a href="https://store.steampowered.com/app/1966720/Lethal_Company/" target="_blank" class="game-card">
+              <div class="flex items-center justify-center"><img src="/static/img/games/lethal_company.png" alt="Lethal Company" class="h-full w-full object-cover"></div>
+              <div class="p-3">
+              <div class="font-bold">Lethal Company</div>
+              <span class="badge badge-green">limit 4 players</span>
             </div>
+            </a>
+
           </div>
+        </section>
 
-        </div>
+        <section class="mb-10">
+          <h1 class="font-ubuntu text-2xl font-bold mb-4 text-accent-green"><i class="las la-shield-alt"></i> Team Co-op</h1>
+          <div class="pl-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+
+            <a href="https://store.steampowered.com/app/553850/HELLDIVERS_2/" target="_blank" class="game-card">
+              <div class="flex items-center justify-center"><img src="/static/img/games/helldivers.jpg" alt="Helldivers 2" class="h-full w-full object-cover"></div>
+              <div class="p-3">
+              <div class="font-bold">Helldivers 2</div>
+              <span class="badge badge-green">limit 4 players</span>
+            </div>
+            </a>
+
+            <a href="https://store.steampowered.com/app/550/Left_4_Dead_2/" target="_blank" class="game-card">
+              <div class="flex items-center justify-center"><img src="/static/img/games/l4d2.png" alt="Left 4 Dead 2" class="h-full w-full object-cover"></div>
+              <div class="p-3">
+              <div class="font-bold">Left 4 Dead 2</div>
+              <span class="badge badge-green">limit 4 players</span>
+            </div>
+            </a>
+
+          </div>
+        </section>
+
+        <section class="mb-10">
+          <h1 class="font-ubuntu text-2xl font-bold mb-4 text-accent-blue"><i class="las la-flag"></i> Team Versus</h1>
+          <div class="pl-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+
+            <a href="https://store.steampowered.com/app/570/Dota_2/" target="_blank" class="game-card">
+              <div class="flex items-center justify-center"><img src="/static/img/games/dota2.png" alt="Dota Allstars" class="h-full w-full object-cover"></div>
+              <div class="p-3">
+              <div class="font-bold">Dota Allstars</div>
+            </div>
+            </a>
+
+            <a href="https://store.steampowered.com/app/427520/Factorio/" target="_blank" class="game-card">
+              <div class="flex items-center justify-center"><img src="/static/img/games/factorio_vs.png" alt="Factorio (vs)" class="h-full w-full object-cover"></div>
+              <div class="p-3">
+              <div class="font-bold">Factorio (vs)</div>
+            </div>
+            </a>
+
+          </div>
+        </section>
+
+        <section class="mb-10">
+          <h1 class="font-ubuntu text-2xl font-bold mb-4 text-accent-blue"><i class="las la-crosshairs"></i> Versus</h1>
+          <div class="pl-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+
+            <a href="https://store.steampowered.com/app/360/HalfLife_Deathmatch_Source/" target="_blank" class="game-card">
+              <div class="flex items-center justify-center"><img src="/static/img/games/hldm.png" alt="Half-Life Deathmatch" class="h-full w-full object-cover"></div>
+              <div class="p-3">
+              <div class="font-bold">Half-Life Deathmatch</div>
+            </div>
+            </a>
+
+            <a href="https://store.steampowered.com/app/320/HalfLife_2_Deathmatch/" target="_blank" class="game-card">
+              <div class="flex items-center justify-center"><img src="/static/img/games/hldm2.png" alt="HL2 Deathmatch" class="h-full w-full object-cover"></div>
+              <div class="p-3">
+              <div class="font-bold">HL2 Deathmatch</div>
+            </div>
+            </a>
+
+            <a href="https://starcraft2.blizzard.com/en-us/" target="_blank" class="game-card">
+              <div class="flex items-center justify-center"><img src="/static/img/games/sc2.png" alt="StarCraft II" class="h-full w-full object-cover"></div>
+              <div class="p-3">
+              <div class="font-bold">StarCraft II</div>
+            </div>
+            </a>
+
+            <a href="https://store.steampowered.com/app/312530/Duck_Game/" target="_blank" class="game-card">
+              <div class="flex items-center justify-center"><img src="/static/img/games/duck_game.png" alt="Duck Game" class="h-full w-full object-cover"></div>
+              <div class="p-3">
+              <div class="font-bold">Duck Game</div>
+            </div>
+            </a>
+
+          </div>
+        </section>
+
+        <hr />
+
+        <section class="mb-10">
+          <h1 class="font-ubuntu text-2xl font-bold mb-4 text-accent-orange"><i class="las la-ban"></i> Out of the Question</h1>
+          <div class="pl-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+
+            <a href="https://store.steampowered.com/app/427520/Factorio/" target="_blank" class="game-card">
+              <div class="flex items-center justify-center"><img src="/static/img/games/factorio.png" alt="Factorio" class="h-full w-full object-cover"></div>
+              <div class="p-3">
+              <div class="font-bold">Factorio</div>
+            </div>
+            </a>
+
+            <a href="https://www.minecraft.net/" target="_blank" class="game-card">
+              <div class="flex items-center justify-center"><img src="/static/img/games/mc.png" alt="Minecraft Beta 1.7" class="h-full w-full object-cover"></div>
+              <div class="p-3">
+              <div class="font-bold">Minecraft Beta 1.7</div>
+            </div>
+            </a>
+
+          </div>
+        </section>
+
+      <hr />
+
+        <section class="mb-10">
+          <h1 class="font-ubuntu text-2xl font-bold mb-4 text-text-muted"><i class="las la-user"></i> Anti-Social</h1>
+          <div class="pl-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+
+            <a href="https://www.ea.com/games/the-sims" target="_blank" class="game-card">
+              <div class="flex items-center justify-center"><img src="/static/img/games/sims.png" alt="The Sims 2" class="h-full w-full object-cover"></div>
+              <div class="p-3">
+              <div class="font-bold">The Sims 2</div>
+              <span class="badge badge-green">1 player</span>
+            </div>
+            </a>
+
+          </div>
+        </section>
+
       </div>
     </section>
   </main>

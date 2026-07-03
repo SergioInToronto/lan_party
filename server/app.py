@@ -1,4 +1,3 @@
-import json
 import os
 import secrets
 import time
@@ -12,13 +11,13 @@ def create_app(test_config=None):
     app = Flask(__name__, static_folder=None)
     app.config["SECRET_KEY"] = "dev-secret-change-me"
 
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    app.config["EVENT_DETAILS_PATH"] = os.path.join(base_dir, "..", "event_details.json")
-
     if test_config:
         app.config.update(test_config)
 
     app.teardown_appcontext(close_db)
+
+    with app.app_context():
+        init_db()
 
     def require_auth(f):
         """Decorator: return 401 if no valid session."""
@@ -98,12 +97,9 @@ def create_app(test_config=None):
 
     @app.route("/api/config", methods=["GET"])
     def config():
-        config_path = app.config["EVENT_DETAILS_PATH"]
-        try:
-            with open(config_path, "r") as f:
-                return jsonify(json.load(f))
-        except FileNotFoundError:
-            return jsonify({"error": "Config not found"}), 500
+        db = get_db()
+        rows = db.execute("SELECT key, value FROM event").fetchall()
+        return jsonify({row["key"]: row["value"] for row in rows})
 
     # --- Guest list route ---
 

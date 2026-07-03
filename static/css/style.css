@@ -72,6 +72,17 @@ code, .mono {
 .badge-orange { color: var(--accent-orange); border-color: var(--accent-orange); }
 .badge-blue { color: var(--accent-blue); border-color: var(--accent-blue); }
 
+/* Game grid tiles */
+.game-card {
+  display: block;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 2px;
+  overflow: hidden;
+  transition: border-color 0.15s;
+}
+.game-card:hover { border-color: var(--accent-blue); }
+
 /* Form inputs */
 input[type="text"],
 input[type="password"],

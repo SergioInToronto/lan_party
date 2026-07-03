@@ -1,13 +1,13 @@
-import json
-import os
-
-
-def test_config_returns_event_details(client, app):
-    # Write a test config file
-    config_path = app.config["EVENT_DETAILS_PATH"]
-    os.makedirs(os.path.dirname(config_path), exist_ok=True)
-    with open(config_path, "w") as f:
-        json.dump({"event_name": "TEST EVENT", "wifi_ssid": "TEST-WIFI"}, f)
+def test_config_returns_event_details(client, app, db_conn):
+    db_conn.execute(
+        "INSERT OR REPLACE INTO event (key, value) VALUES (?, ?)",
+        ("event_name", "TEST EVENT")
+    )
+    db_conn.execute(
+        "INSERT OR REPLACE INTO event (key, value) VALUES (?, ?)",
+        ("wifi_ssid", "TEST-WIFI")
+    )
+    db_conn.commit()
 
     resp = client.get("/api/config")
     assert resp.status_code == 200

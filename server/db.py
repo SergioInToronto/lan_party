@@ -57,5 +57,27 @@ def init_db():
             FOREIGN KEY (guest_id) REFERENCES guests(id),
             FOREIGN KEY (option_id) REFERENCES food_options(id)
         );
+
+        CREATE TABLE IF NOT EXISTS event (
+            key TEXT PRIMARY KEY,
+            value TEXT
+        );
     """)
+
+    # Seed event details on first run (table starts empty).
+    default_event = {
+        "event_name": "Sergio's LAN Party",
+        "date_start": "2026-08-15",
+        "date_end": "2026-08-16",
+        "time_start": "10:00",
+        "time_end": "23:59",
+        "address": "1234 Placeholder Street, City, Province",
+        "maps_link": "https://maps.google.com/?q=1234+Placeholder+Street",
+        "wifi_ssid": "WIFI GOES HERE",
+        "wifi_password": "changeme123",
+    }
+    db.executemany(
+        "INSERT OR IGNORE INTO event (key, value) VALUES (?, ?)",
+        list(default_event.items())
+    )
     db.commit()
