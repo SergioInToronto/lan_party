@@ -263,33 +263,24 @@ def create_app(test_config=None):
 
     base_dir_static = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 
+    static_dir = os.path.join(base_dir_static, 'static')
+
     @app.route('/')
     def index():
         from flask import send_from_directory
-        return send_from_directory(os.path.join(base_dir_static, 'pages'), 'index.html')
+        return send_from_directory(static_dir, 'index.html')
 
     @app.route('/<path:filename>')
     def serve_page(filename):
-        """Serve HTML pages and static files for development."""
+        """Serve HTML pages and static assets for development."""
         from flask import send_from_directory, abort
-        # Try pages/ first
-        pages_dir = os.path.join(base_dir_static, 'pages')
-        page_path = os.path.join(pages_dir, filename)
-        if os.path.isfile(page_path):
-            return send_from_directory(pages_dir, filename)
-
-        # Try static/ next
-        static_dir = os.path.join(base_dir_static, 'static')
-        if filename.startswith('static/'):
-            rel = filename[len('static/'):]
-            static_path = os.path.join(static_dir, rel)
-            if os.path.isfile(static_path):
-                return send_from_directory(static_dir, rel)
-
+        rel = filename[len('static/'):] if filename.startswith('static/') else filename
+        if os.path.isfile(os.path.join(static_dir, rel)):
+            return send_from_directory(static_dir, rel)
         abort(404)
 
     # Configure Flask static folder for /static/ URL prefix
-    app.static_folder = os.path.join(base_dir_static, 'static')
+    app.static_folder = static_dir
     app.static_url_path = '/static'
 
     return app
