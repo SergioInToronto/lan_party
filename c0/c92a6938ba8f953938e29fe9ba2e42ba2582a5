@@ -1,0 +1,40 @@
+server/app.py
+  s_9e65e3a80abc04::t_e4ab3f8d0ad6e1 100-102
+  s_9e65e3a80abc04::t_a8fd5ec163913a 19-21
+server/db.py
+  s_9e65e3a80abc04::t_652ef482d8e6e8 60-64,66-82
+static/css/style.css
+  s_b61a46c3b31ca0::t_09f6cd8fa8ea40 75-85
+tests/test_config.py
+  s_9e65e3a80abc04::t_9e3924b060fad6 1-10
+pages/guests.html
+  ai_agent 68
+pages/games.html
+  s_b61a46c3b31ca0::t_e92c9cca03baae 71,73,76-77,83-85,91,93,98-100,106,108,114-119,122-123,129-131,137,139-142,145-146,151-153,158,160-163,166-167,172-174,179,181,186-188,193-194,196-197,200,217-219,222-223,226-227,233-236
+  s_b61a46c3b31ca0::t_c959f7c7e613d3 79-81,87-89,95-96,102-104,110-112,125-128,133-135,148-149,155-156,169-170,176-177,183-184,190-192,229-232
+  ai_agent 36,51,68,74-75,78,86,94,101,109,120-121,124,132,143-144,147,154,164-165,168,175,182,189,198-199,201-216,220-221,224-225,228
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.0",
+  "base_commit_sha": "c0c92a6938ba8f953938e29fe9ba2e42ba2582a5",
+  "prompts": {},
+  "sessions": {
+    "s_9e65e3a80abc04": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0d6d29574ffeKcvJbeBcs8oNlm",
+        "model": "anthropic/claude-sonnet-5"
+      },
+      "human_author": "Sergio <smartins@movableink.com>"
+    },
+    "s_b61a46c3b31ca0": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0d6b59320ffeeP0kwRa9ofHRgk",
+        "model": "anthropic/claude-sonnet-5"
+      },
+      "human_author": "Sergio <smartins@movableink.com>"
+    }
+  }
+}
