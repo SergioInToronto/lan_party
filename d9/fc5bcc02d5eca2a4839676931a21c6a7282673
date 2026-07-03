@@ -1,0 +1,20 @@
+server/app.py
+  s_ff6355f3a82f89::t_6f3b182b322956 266-267,271,275,277-279
+  s_ff6355f3a82f89::t_4db71cda4e0a19 283
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.0",
+  "base_commit_sha": "d9fc5bcc02d5eca2a4839676931a21c6a7282673",
+  "prompts": {},
+  "sessions": {
+    "s_ff6355f3a82f89": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0d668e976ffebUv5CDeJi1msBj",
+        "model": "anthropic/claude-sonnet-5"
+      },
+      "human_author": "Sergio <smartins@movableink.com>"
+    }
+  }
+}
