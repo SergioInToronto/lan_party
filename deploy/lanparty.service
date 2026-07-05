@@ -1,0 +1,41 @@
+# /etc/systemd/system/lanparty.service
+# Runs the Flask app under gunicorn via uv, bound to a unix socket that nginx proxies to.
+
+[Unit]
+Description=LAN Party Flask app (gunicorn)
+After=network.target
+
+[Service]
+Type=notify
+User=www-data
+Group=www-data
+
+# Repo location (see INSTALL.md). gunicorn runs from server/ so wsgi:app resolves.
+WorkingDirectory=/srv/lanparty/server
+
+# Create /run/lanparty owned by this service for the socket.
+RuntimeDirectory=lanparty
+RuntimeDirectoryMode=0750
+
+# Read SECRET_KEY (and any overrides) from this file. See INSTALL.md.
+EnvironmentFile=/etc/lanparty.env
+
+ExecStart=/usr/bin/uv run gunicorn wsgi:app \
+    --workers 3 \
+    --bind unix:/run/lanparty/gunicorn.sock \
+    --access-logfile - \
+    --error-logfile -
+
+Restart=on-failure
+RestartSec=5
+
+# --- Hardening ---
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+# App needs to write lanparty.db at repo root.
+ReadWritePaths=/srv/lanparty
+
+[Install]
+WantedBy=multi-user.target

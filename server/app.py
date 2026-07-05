@@ -9,7 +9,13 @@ from init_db import hash_code
 
 def create_app(test_config=None):
     app = Flask(__name__, static_folder=None)
-    app.config["SECRET_KEY"] = "dev-secret-change-me"
+    app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-secret-change-me")
+    # Secure session cookies (HTTPS-only, no JS access, CSRF-resistant).
+    app.config.update(
+        SESSION_COOKIE_HTTPONLY=True,
+        SESSION_COOKIE_SAMESITE="Lax",
+        SESSION_COOKIE_SECURE=os.environ.get("COOKIE_SECURE", "1") == "1",
+    )
 
     if test_config:
         app.config.update(test_config)
