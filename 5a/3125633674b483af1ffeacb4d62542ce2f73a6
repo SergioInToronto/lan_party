@@ -1,0 +1,19 @@
+DEPLOY_CONCERNS.md
+  s_72e22d956b8f88::t_dff6b416ed5354 1-72
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.0",
+  "base_commit_sha": "5a3125633674b483af1ffeacb4d62542ce2f73a6",
+  "prompts": {},
+  "sessions": {
+    "s_72e22d956b8f88": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0d021a18effewn5Ir7QnM7xfd4",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Sergio <smartins@movableink.com>"
+    }
+  }
+}
