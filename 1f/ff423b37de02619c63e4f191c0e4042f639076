@@ -1,0 +1,31 @@
+pyproject.toml
+  s_0c1353230b8a92::t_b66f55aec4be68 7
+deploy/lanparty.conf
+  s_0c1353230b8a92::t_7476172244ecd2 1-71
+INSTALL.md
+  s_0c1353230b8a92::t_659715a401b89f 1-115
+server/wsgi.py
+  s_0c1353230b8a92::t_3ed9ae2702e898 1-3
+server/app.py
+  s_0c1353230b8a92::t_3b4ddd7657b580 12-18
+deploy/lanparty.service
+  s_0c1353230b8a92::t_8418fd723a8980 1-41
+run.sh
+  s_0c1353230b8a92::t_07db8735a3ae0f 4-5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.0",
+  "base_commit_sha": "1fff423b37de02619c63e4f191c0e4042f639076",
+  "prompts": {},
+  "sessions": {
+    "s_0c1353230b8a92": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0d6642ff0ffe7eytlZAAQfLORv",
+        "model": "anthropic/claude-opus-4.8"
+      },
+      "human_author": "Sergio <smartins@movableink.com>"
+    }
+  }
+}
