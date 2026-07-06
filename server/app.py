@@ -54,7 +54,7 @@ def create_app(test_config=None):
 
         if guest is None or guest["access_code_hash"] != hash_code(access_code):
             if not app.config.get("TESTING"):
-                time.sleep(3)
+                time.sleep(2.5)
             return jsonify({"error": "Invalid credentials"}), 401
 
         session.clear()
