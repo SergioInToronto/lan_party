@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 from db import get_db, init_db as _init_db
 
 
-def generate_access_code(length=7):
+def generate_access_code(length=5):
     """Generate a random alphanumeric access code."""
     alphabet = string.ascii_uppercase + string.digits
     return ''.join(secrets.choice(alphabet) for _ in range(length))
@@ -64,9 +64,7 @@ def main():
             name = sys.argv[2]
             _init_db()  # Ensure tables exist
             code = add_guest(db, name)
-            print(f"Added guest: {name}")
-            print(f"Access code: {code}")
-            print("(Save this code — it cannot be retrieved later)")
+            print(f'Username: "{name}" Access code: "{code}"')
 
         elif command == "list":
             rows = db.execute("SELECT id, name FROM guests ORDER BY id").fetchall()

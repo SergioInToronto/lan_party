@@ -85,7 +85,8 @@
   <script type="module" src="/static/js/app.mjs"></script>
   <script type="module">
     import { initGamesPage } from '/static/js/games.mjs';
-    document.addEventListener('DOMContentLoaded', () => { initGamesPage(); });
+    const el = document.getElementById('games-content');
+    document.addEventListener('DOMContentLoaded', () => { initGamesPage(el); });
   </script>
 </body>
 </html>

@@ -72,8 +72,7 @@ function sectionHtml(section) {
   `;
 }
 
-export function initGamesPage() {
-  const el = document.getElementById('games-content');
+export function initGamesPage(el) {
   if (!el) return;
   el.innerHTML = SECTIONS.map(sectionHtml).join('');
 }
