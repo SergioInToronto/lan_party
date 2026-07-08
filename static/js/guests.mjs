@@ -4,8 +4,7 @@
  */
 import { api } from './api.mjs';
 
-export async function initGuestList() {
-  const el = document.getElementById('guest-list');
+export async function initGuestList(el) {
   if (!el) return;
 
   el.innerHTML = '<div class="text-text-muted font-mono text-sm">Loading guest list...</div>';

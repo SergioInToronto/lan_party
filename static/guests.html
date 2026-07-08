@@ -83,7 +83,8 @@
   <script type="module" src="/static/js/app.mjs"></script>
   <script type="module">
     import { initGuestList } from '/static/js/guests.mjs';
-    document.addEventListener('DOMContentLoaded', () => { initGuestList(); });
+    const el = document.getElementById('guest-list');
+    document.addEventListener('DOMContentLoaded', () => { initGuestList(el); });
   </script>
 </body>
 </html>
