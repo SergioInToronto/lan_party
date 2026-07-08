@@ -1,0 +1,22 @@
+static/js/games.mjs
+  s_7bb0a84a1db6a4::t_48e93cbd23665a 1-79
+static/games.html
+  s_7bb0a84a1db6a4::t_9f0465a0d5d5de 86-89
+  s_7bb0a84a1db6a4::t_cb5fdea1b49366 71
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.0",
+  "base_commit_sha": "2ef6c80e06a0c0ea272537019edcfc3a44a8a1a2",
+  "prompts": {},
+  "sessions": {
+    "s_7bb0a84a1db6a4": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0c6b2cf77ffeZ2hKXDTWIRHud3",
+        "model": "anthropic/claude-sonnet-5"
+      },
+      "human_author": "Sergio <smartins@movableink.com>"
+    }
+  }
+}
