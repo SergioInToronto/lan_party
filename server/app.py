@@ -1,10 +1,40 @@
+import json
 import os
 import secrets
 import time
+import urllib.parse
+import urllib.request
 
 from flask import Flask, request, jsonify, session
 from db import close_db, get_db, init_db
 from init_db import hash_code
+
+
+def fetch_steam_avatars(steam_ids):
+    """Batch-fetch avatar image URLs from Steam's GetPlayerSummaries API.
+
+    Returns {steamid: avatarmedium_url}. Missing STEAM_API_KEY, empty input,
+    or any request error all degrade to {} (guests just get a placeholder).
+
+    ponytail: no caching/retry — LAN party guest list is small, add caching
+    if this gets slow or Steam starts rate-limiting.
+    """
+    steam_ids = [s for s in dict.fromkeys(steam_ids) if s]
+    api_key = os.environ.get("STEAM_API_KEY")
+    if not steam_ids or not api_key:
+        return {}
+
+    url = "https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?" + urllib.parse.urlencode({
+        "key": api_key,
+        "steamids": ",".join(steam_ids),
+    })
+    try:
+        with urllib.request.urlopen(url, timeout=5) as resp:
+            data = json.load(resp)
+        players = data.get("response", {}).get("players", [])
+        return {p["steamid"]: p.get("avatarmedium") for p in players}
+    except Exception:
+        return {}
 
 
 def create_app(test_config=None):
@@ -86,11 +116,13 @@ def create_app(test_config=None):
             (guest_id,)
         ).fetchall()
         preferences = {row["key"]: row["value"] for row in prefs}
+        avatar_url = fetch_steam_avatars([preferences.get("steam_id")]).get(preferences.get("steam_id"))
 
         return jsonify({
             "id": guest["id"],
             "name": guest["name"],
             "preferences": preferences,
+            "avatar_url": avatar_url,
         })
 
     @app.route("/api/logout", methods=["POST"])
@@ -114,18 +146,25 @@ def create_app(test_config=None):
         db = get_db()
         guests = db.execute("SELECT id, name FROM guests ORDER BY id").fetchall()
 
-        result = []
+        pref_dicts = {}
         for guest in guests:
             prefs = db.execute(
                 "SELECT key, value FROM guest_preferences WHERE guest_id = ?",
                 (guest["id"],)
             ).fetchall()
-            pref_dict = {row["key"]: row["value"] for row in prefs}
+            pref_dicts[guest["id"]] = {row["key"]: row["value"] for row in prefs}
 
+        avatars = fetch_steam_avatars(
+            pd.get("steam_id") for pd in pref_dicts.values()
+        )
+
+        result = []
+        for guest in guests:
+            pref_dict = pref_dicts[guest["id"]]
             result.append({
                 "id": guest["id"],
                 "handle": pref_dict.get("handle", guest["name"]),
-                "avatar": pref_dict.get("avatar"),
+                "avatar_url": avatars.get(pref_dict.get("steam_id")),
                 "days_attending": pref_dict.get("days_attending"),
                 "snack_contribution": pref_dict.get("snack_contribution"),
             })
@@ -249,7 +288,7 @@ def create_app(test_config=None):
         db = get_db()
         guest_id = session["guest_id"]
 
-        allowed_keys = {"handle", "avatar", "os", "days_attending", "skill_level", "snack_contribution"}
+        allowed_keys = {"handle", "steam_id", "os", "days_attending", "skill_level", "snack_contribution"}
         for key, value in data.items():
             if key not in allowed_keys:
                 continue

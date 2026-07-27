@@ -47,9 +47,9 @@ async function updateNav() {
     const handle = data.preferences?.handle || data.name;
     if (navHandle) navHandle.textContent = handle;
 
-    const avatar = data.preferences?.avatar;
-    if (navAvatar && avatar) {
-      navAvatar.src = `/static/avatars/${avatar}`;
+    const avatarUrl = data.avatar_url;
+    if (navAvatar && avatarUrl) {
+      navAvatar.src = avatarUrl;
       navAvatar.classList.remove('hidden');
     } else if (navAvatar) {
       navAvatar.classList.add('hidden');

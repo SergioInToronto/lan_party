@@ -20,8 +20,8 @@ export async function initGuestList(el) {
     el.innerHTML = `
       <div class="grid gap-3">
         ${guests.map(guest => {
-          const avatar = guest.avatar
-            ? `<img src="/static/avatars/${guest.avatar}" alt="" class="w-10 h-10 rounded-kit border border-border-c">`
+          const avatar = guest.avatar_url
+            ? `<img src="${guest.avatar_url}" alt="" class="w-10 h-10 rounded-kit border border-border-c">`
             : `<div class="w-10 h-10 rounded-kit border border-border-c bg-base flex items-center justify-center font-mono text-xs text-text-muted">?</div>`;
 
           const daysText = guest.days_attending

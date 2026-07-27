@@ -20,7 +20,7 @@ def test_set_preferences(client, db_conn):
     _login(client, db_conn)
     resp = client.post("/api/preferences", json={
         "handle": "al1ce",
-        "avatar": "pixel-cat.png",
+        "steam_id": "76561197960287930",
         "os": "Arch btw",
         "days_attending": "both",
         "skill_level": "competitive",

@@ -1,46 +1,13 @@
 /**
  * Preferences modal logic.
- * Handles avatar picker, form population, and submission.
+ * Handles form population and submission.
  */
 import { api } from './api.mjs';
-
-const AVATARS = [
-  'pixel-cat.svg', 'pixel-dog.svg', 'pixel-robot.svg', 'pixel-warrior.svg',
-  'pixel-wizard.svg', 'pixel-alien.svg', 'pixel-ghost.svg', 'pixel-tux.svg',
-  'pixel-skull.svg', 'pixel-mushroom.svg', 'pixel-crown.svg', 'pixel-flame.svg',
-];
-
-let selectedAvatar = null;
 
 export function initPreferencesModal() {
   const modal = document.getElementById('prefs-modal');
   const form = document.getElementById('prefs-form');
-  const picker = document.getElementById('avatar-picker');
-  if (!modal || !form || !picker) return;
-
-  // Build avatar picker grid
-  picker.innerHTML = '';
-  AVATARS.forEach(filename => {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'w-10 h-10 border border-border-c rounded-kit p-0.5 hover:border-accent-blue transition-colors';
-    btn.dataset.avatar = filename;
-
-    const img = document.createElement('img');
-    img.src = `/static/avatars/${filename}`;
-    img.alt = filename.replace('.svg', '');
-    img.className = 'w-full h-full object-contain';
-    btn.appendChild(img);
-
-    btn.addEventListener('click', () => {
-      picker.querySelectorAll('button').forEach(b => b.classList.remove('border-accent-orange'));
-      btn.classList.add('border-accent-orange');
-      selectedAvatar = filename;
-      form.querySelector('[name="avatar"]').value = filename;
-    });
-
-    picker.appendChild(btn);
-  });
+  if (!modal || !form) return;
 
   // Form submission
   form.addEventListener('submit', async (e) => {
@@ -83,11 +50,8 @@ export async function openPreferencesModal() {
       form.querySelector('[name="skill_level"]').value = prefs.skill_level;
     }
 
-    if (prefs.avatar) {
-      form.querySelector('[name="avatar"]').value = prefs.avatar;
-      const avatarBtn = document.querySelector(`[data-avatar="${prefs.avatar}"]`);
-      if (avatarBtn) avatarBtn.classList.add('border-accent-orange');
-      selectedAvatar = prefs.avatar;
+    if (prefs.steam_id) {
+      form.querySelector('[name="steam_id"]').value = prefs.steam_id;
     }
   } catch (err) {
     // No preferences yet — form stays empty
