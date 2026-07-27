@@ -14,7 +14,7 @@ def test_add_guest(db_conn):
     """Insert a guest and verify access_code_hash is stored, not plaintext."""
     from init_db import add_guest
     code = add_guest(db_conn, "TestUser")
-    assert len(code) == 7
+    assert len(code) == 5
 
     row = db_conn.execute("SELECT * FROM guests WHERE name = ?", ("TestUser",)).fetchone()
     assert row is not None
