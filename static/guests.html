@@ -31,34 +31,9 @@
 
   <nav-bar current-page="guests"></nav-bar>
 
-  <div id="login-modal" class="modal-overlay hidden">
-    <div class="modal-panel">
-      <h2 class="font-ubuntu text-lg mb-4">Login</h2>
-      <form id="login-form">
-        <div class="mb-3"><label class="block text-sm text-text-muted mb-1">Name</label><input type="text" name="name" required autocomplete="name"></div>
-        <div class="mb-4"><label class="block text-sm text-text-muted mb-1">Access Code</label><input type="text" name="access_code" required maxlength="7" autocomplete="off" class="font-mono tracking-widest uppercase"></div>
-        <div id="login-error" class="text-accent-orange text-sm mb-3 hidden"></div>
-        <div class="flex gap-3">
-          <button type="submit" class="btn btn-primary flex-1">LOGIN</button>
-          <button type="button" class="btn btn-secondary" onclick="document.getElementById('login-modal').classList.add('hidden')">Cancel</button>
-        </div>
-      </form>
-    </div>
-  </div>
+  <login-modal></login-modal>
 
-  <div id="prefs-modal" class="modal-overlay hidden">
-    <div class="modal-panel max-w-lg">
-      <h2 class="font-ubuntu text-lg mb-4">Your Preferences</h2>
-      <form id="prefs-form">
-        <div class="mb-3"><label class="block text-sm text-text-muted mb-1">Handle</label><input type="text" name="handle" placeholder="Your display name"></div>
-        <div class="mb-3"><label class="block text-sm text-text-muted mb-1">Steam Profile ID</label><input type="text" name="steam_id" placeholder="e.g. 76561197960287930"></div>
-        <div class="mb-3"><label class="block text-sm text-text-muted mb-1">Operating System</label><input type="text" name="os" placeholder="e.g. Arch btw"></div>
-        <div class="mb-3"><label class="block text-sm text-text-muted mb-1">Days Attending</label><div class="flex gap-4"><label class="flex items-center gap-2"><input type="checkbox" name="attending_saturday" checked> Saturday</label><label class="flex items-center gap-2"><input type="checkbox" name="attending_sunday" checked> Sunday</label></div></div>
-        <div class="mb-4"><label class="block text-sm text-text-muted mb-1">Most Looking Forward To</label><select name="most_looking_forward_to" id="most-looking-forward-to"></select></div>
-        <div class="flex gap-3"><button type="submit" class="btn btn-primary flex-1">Save</button><button type="button" class="btn btn-secondary" onclick="document.getElementById('prefs-modal').classList.add('hidden')">Cancel</button></div>
-      </form>
-    </div>
-  </div>
+  <prefs-modal></prefs-modal>
 
   <main class="flex-1">
     <section class="py-10">
@@ -78,7 +53,7 @@
     </div>
   </footer>
 
-  <script type="module" src="/static/js/nav.mjs"></script>
+  <script type="module" src="/static/js/common.mjs"></script>
   <script type="module" src="/static/js/app.mjs"></script>
   <script type="module">
     import { initGuestList } from '/static/js/guests.mjs';

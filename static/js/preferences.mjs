@@ -3,23 +3,13 @@
  * Handles form population and submission.
  */
 import { api } from './api.mjs';
-import { GAMES } from './games.mjs';
 
 const DEFAULT_MOST_LOOKING_FORWARD_TO = 'sims';
-
-function populateGameOptions(select) {
-  if (!select || select.options.length) return;
-  select.innerHTML = Object.entries(GAMES)
-    .map(([id, g]) => `<option value="${id}">${g.name}</option>`)
-    .join('');
-}
 
 export function initPreferencesModal() {
   const modal = document.getElementById('prefs-modal');
   const form = document.getElementById('prefs-form');
   if (!modal || !form) return;
-
-  populateGameOptions(form.querySelector('[name="most_looking_forward_to"]'));
 
   // Form submission
   form.addEventListener('submit', async (e) => {
