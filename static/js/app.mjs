@@ -116,11 +116,12 @@ function initLogout() {
 // --- Nav Dropdown ---
 
 function initNavDropdown() {
-  const menuBtn = document.getElementById('nav-menu-btn');
+  const userInfo = document.getElementById('nav-user-info');
   const dropdown = document.getElementById('nav-dropdown');
-  if (!menuBtn || !dropdown) return;
+  if (!userInfo || !dropdown) return;
 
-  menuBtn.addEventListener('click', (e) => {
+  userInfo.addEventListener('click', (e) => {
+    if (dropdown.contains(e.target)) return; // let dropdown's own buttons handle their clicks
     e.stopPropagation();
     dropdown.classList.toggle('hidden');
   });

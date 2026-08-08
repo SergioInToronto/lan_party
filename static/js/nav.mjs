@@ -62,9 +62,9 @@ class NavBarElement extends HTMLElement {
           <div class="flex items-center gap-3">
             <div id="nav-auth">
               <button id="nav-login-btn" class="btn btn-primary text-sm">LOGIN</button>
-              <div id="nav-user-info" class="hidden flex items-center gap-3">
+              <div id="nav-user-info" class="hidden flex items-center gap-3 cursor-pointer">
                 <img id="nav-avatar" src="" alt="" class="w-8 h-8 rounded-kit border border-border-c">
-                <span id="nav-handle" class="font-mono text-sm"></span>
+                <span id="nav-handle" class="font-mono text-sm hitbox-4"></span>
                 <div class="relative">
                   <button id="nav-menu-btn" class="text-text-muted hover:text-text-primary text-sm">
                     <i class="las la-chevron-down"></i>
