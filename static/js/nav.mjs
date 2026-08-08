@@ -16,6 +16,7 @@ class NavBarElement extends HTMLElement {
   connectedCallback() {
     const currentPage = this.getAttribute('current-page') || '';
     this.innerHTML = this._render(currentPage);
+    this._initLoginBtn();
     this._initHamburger();
   }
 
@@ -60,7 +61,7 @@ class NavBarElement extends HTMLElement {
           </div>
           <div class="flex items-center gap-3">
             <div id="nav-auth">
-              <button id="nav-login-btn" class="btn btn-primary text-sm" onclick="document.getElementById('login-modal').classList.remove('hidden')">LOGIN</button>
+              <button id="nav-login-btn" class="btn btn-primary text-sm">LOGIN</button>
               <div id="nav-user-info" class="hidden flex items-center gap-3">
                 <img id="nav-avatar" src="" alt="" class="w-8 h-8 rounded-kit border border-border-c">
                 <span id="nav-handle" class="font-mono text-sm"></span>
@@ -82,6 +83,13 @@ class NavBarElement extends HTMLElement {
         </div>
       </header>
     `;
+  }
+
+  _initLoginBtn() {
+    const btn = document.getElementById('nav-login-btn');
+    btn?.addEventListener('click', () => {
+      document.getElementById('login-modal')?.classList.remove('hidden');
+    });
   }
 
   _initHamburger() {
