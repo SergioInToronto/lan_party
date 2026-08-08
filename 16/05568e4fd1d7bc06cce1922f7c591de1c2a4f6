@@ -1,0 +1,44 @@
+static/index.html
+  s_7efafdb194db8b::t_ad0cf4ddf47220 137
+  s_7efafdb194db8b::t_62834617bd7714 45
+static/games.html
+  s_7efafdb194db8b::t_f593b8bdd105cd 34
+  s_7efafdb194db8b::t_4eb7ae3f3f08b6 58
+  s_80a862cbf48c40::t_af479e139bdf04 36
+static/gear.html
+  s_7efafdb194db8b::t_3861fd3ee086dd 34
+  s_7efafdb194db8b::t_1111f87a7df436 125
+  s_80a862cbf48c40::t_af36fd6638b2c3 36
+static/guests.html
+  s_7efafdb194db8b::t_5a686c3afa5fe6 34
+  s_7efafdb194db8b::t_8c52ed8973f0cd 56
+  s_80a862cbf48c40::t_d8f81d5f4885fa 36
+static/food.html
+  s_7efafdb194db8b::t_b67c8c22ee2838 34
+  s_7efafdb194db8b::t_8db85c497f6482 71
+  s_80a862cbf48c40::t_6b704b9e400060 36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.19",
+  "base_commit_sha": "1605568e4fd1d7bc06cce1922f7c591de1c2a4f6",
+  "prompts": {},
+  "sessions": {
+    "s_7efafdb194db8b": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0a2d3c4daffe4ypttTpYEKwV37",
+        "model": "anthropic/claude-sonnet-5"
+      },
+      "human_author": null
+    },
+    "s_80a862cbf48c40": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_01ec2457effeJEKhHBDcYCzf4h",
+        "model": "anthropic/claude-sonnet-5"
+      },
+      "human_author": "Sergio <smartins@movableink.com>"
+    }
+  }
+}
