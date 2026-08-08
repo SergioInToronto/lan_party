@@ -22,9 +22,9 @@ def test_set_preferences(client, db_conn):
         "handle": "al1ce",
         "steam_id": "76561197960287930",
         "os": "Arch btw",
-        "days_attending": "both",
-        "skill_level": "competitive",
-        "snack_contribution": "Doritos",
+        "attending_saturday": "true",
+        "attending_sunday": "false",
+        "most_looking_forward_to": "repo",
     })
     assert resp.status_code == 200
     assert resp.get_json()["ok"] is True
@@ -34,7 +34,9 @@ def test_set_preferences(client, db_conn):
     data = resp.get_json()
     assert data["handle"] == "al1ce"
     assert data["os"] == "Arch btw"
-    assert data["days_attending"] == "both"
+    assert data["attending_saturday"] == "true"
+    assert data["attending_sunday"] == "false"
+    assert data["most_looking_forward_to"] == "repo"
 
 
 def test_update_preferences(client, db_conn):

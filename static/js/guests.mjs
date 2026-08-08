@@ -24,13 +24,10 @@ export async function initGuestList(el) {
             ? `<img src="${guest.avatar_url}" alt="" class="w-10 h-10 rounded-kit border border-border-c">`
             : `<div class="w-10 h-10 rounded-kit border border-border-c bg-base flex items-center justify-center font-mono text-xs text-text-muted">?</div>`;
 
-          const daysText = guest.days_attending
-            ? { saturday: 'Sat', sunday: 'Sun', both: 'Sat + Sun' }[guest.days_attending] || guest.days_attending
-            : '—';
-
-          const snack = guest.snack_contribution
-            ? `<span class="text-text-muted text-sm">🍿 ${guest.snack_contribution}</span>`
-            : '';
+          // Unset (never saved) defaults to attending both days.
+          const sat = guest.attending_saturday !== 'false';
+          const sun = guest.attending_sunday !== 'false';
+          const daysText = sat && sun ? 'Sat + Sun' : sat ? 'Sat' : sun ? 'Sun' : '—';
 
           return `
             <div class="flex items-center gap-4 border border-border-c bg-surface p-3 rounded-kit">
@@ -38,9 +35,6 @@ export async function initGuestList(el) {
               <div class="flex-1 min-w-0">
                 <div class="font-bold truncate">${guest.handle}</div>
                 <div class="text-sm text-text-muted font-mono">[ ${daysText} ]</div>
-              </div>
-              <div class="text-right">
-                ${snack}
               </div>
             </div>
           `;

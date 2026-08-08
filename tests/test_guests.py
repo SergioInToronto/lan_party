@@ -15,10 +15,10 @@ def _seed_guests(db_conn):
         "INSERT INTO guest_preferences (guest_id, key, value) VALUES (1, 'steam_id', '76561197960287930')"
     )
     db_conn.execute(
-        "INSERT INTO guest_preferences (guest_id, key, value) VALUES (1, 'days_attending', 'both')"
+        "INSERT INTO guest_preferences (guest_id, key, value) VALUES (1, 'attending_saturday', 'true')"
     )
     db_conn.execute(
-        "INSERT INTO guest_preferences (guest_id, key, value) VALUES (1, 'snack_contribution', 'Doritos')"
+        "INSERT INTO guest_preferences (guest_id, key, value) VALUES (1, 'attending_sunday', 'true')"
     )
     db_conn.commit()
     return code1, code2
@@ -34,7 +34,7 @@ def test_guest_list_public(client, db_conn):
 
 
 def test_guest_list_shows_preferences(client, db_conn, monkeypatch):
-    """Guests with preferences show handle, avatar_url, days, snacks."""
+    """Guests with preferences show handle, avatar_url, attendance days."""
     monkeypatch.delenv("STEAM_API_KEY", raising=False)
     _seed_guests(db_conn)
     resp = client.get("/api/guests")
@@ -42,8 +42,8 @@ def test_guest_list_shows_preferences(client, db_conn, monkeypatch):
 
     alice = next(g for g in data if g.get("handle") == "al1ce")
     assert "avatar_url" in alice
-    assert alice["days_attending"] == "both"
-    assert alice["snack_contribution"] == "Doritos"
+    assert alice["attending_saturday"] == "true"
+    assert alice["attending_sunday"] == "true"
 
 
 def test_guest_list_fallback_to_name(client, db_conn):

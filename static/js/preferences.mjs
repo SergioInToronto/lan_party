@@ -3,11 +3,23 @@
  * Handles form population and submission.
  */
 import { api } from './api.mjs';
+import { GAMES } from './games.mjs';
+
+const DEFAULT_MOST_LOOKING_FORWARD_TO = 'sims';
+
+function populateGameOptions(select) {
+  if (!select || select.options.length) return;
+  select.innerHTML = Object.entries(GAMES)
+    .map(([id, g]) => `<option value="${id}">${g.name}</option>`)
+    .join('');
+}
 
 export function initPreferencesModal() {
   const modal = document.getElementById('prefs-modal');
   const form = document.getElementById('prefs-form');
   if (!modal || !form) return;
+
+  populateGameOptions(form.querySelector('[name="most_looking_forward_to"]'));
 
   // Form submission
   form.addEventListener('submit', async (e) => {
@@ -17,6 +29,10 @@ export function initPreferencesModal() {
     for (const [key, value] of formData.entries()) {
       if (value) prefs[key] = value;
     }
+    // Checkboxes are absent from FormData when unchecked — send explicit
+    // true/false so unchecking actually clears a previously-saved day.
+    prefs.attending_saturday = form.querySelector('[name="attending_saturday"]').checked ? 'true' : 'false';
+    prefs.attending_sunday = form.querySelector('[name="attending_sunday"]').checked ? 'true' : 'false';
 
     try {
       await api.setPreferences(prefs);
@@ -39,22 +55,17 @@ export async function openPreferencesModal() {
 
     if (prefs.handle) form.querySelector('[name="handle"]').value = prefs.handle;
     if (prefs.os) form.querySelector('[name="os"]').value = prefs.os;
-    if (prefs.snack_contribution) form.querySelector('[name="snack_contribution"]').value = prefs.snack_contribution;
+    if (prefs.steam_id) form.querySelector('[name="steam_id"]').value = prefs.steam_id;
 
-    if (prefs.days_attending) {
-      const radio = form.querySelector(`[name="days_attending"][value="${prefs.days_attending}"]`);
-      if (radio) radio.checked = true;
-    }
+    // Unset (never saved) defaults to checked/attending both days.
+    form.querySelector('[name="attending_saturday"]').checked = prefs.attending_saturday !== 'false';
+    form.querySelector('[name="attending_sunday"]').checked = prefs.attending_sunday !== 'false';
 
-    if (prefs.skill_level) {
-      form.querySelector('[name="skill_level"]').value = prefs.skill_level;
-    }
-
-    if (prefs.steam_id) {
-      form.querySelector('[name="steam_id"]').value = prefs.steam_id;
-    }
+    form.querySelector('[name="most_looking_forward_to"]').value =
+      prefs.most_looking_forward_to || DEFAULT_MOST_LOOKING_FORWARD_TO;
   } catch (err) {
-    // No preferences yet — form stays empty
+    // No preferences yet — form stays at its default state
+    form.querySelector('[name="most_looking_forward_to"]').value = DEFAULT_MOST_LOOKING_FORWARD_TO;
   }
 
   modal.classList.remove('hidden');

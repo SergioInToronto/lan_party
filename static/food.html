@@ -53,9 +53,8 @@
         <div class="mb-3"><label class="block text-sm text-text-muted mb-1">Handle</label><input type="text" name="handle" placeholder="Your display name"></div>
         <div class="mb-3"><label class="block text-sm text-text-muted mb-1">Steam Profile ID</label><input type="text" name="steam_id" placeholder="e.g. 76561197960287930"></div>
         <div class="mb-3"><label class="block text-sm text-text-muted mb-1">Operating System</label><input type="text" name="os" placeholder="e.g. Arch btw"></div>
-        <div class="mb-3"><label class="block text-sm text-text-muted mb-1">Days Attending</label><div class="flex gap-4"><label class="flex items-center gap-2"><input type="radio" name="days_attending" value="saturday"> Saturday</label><label class="flex items-center gap-2"><input type="radio" name="days_attending" value="sunday"> Sunday</label><label class="flex items-center gap-2"><input type="radio" name="days_attending" value="both"> Both</label></div></div>
-        <div class="mb-3"><label class="block text-sm text-text-muted mb-1">Skill Level</label><select name="skill_level"><option value="">-- Select --</option><option value="casual">Casual</option><option value="intermediate">Intermediate</option><option value="competitive">Competitive</option></select></div>
-        <div class="mb-4"><label class="block text-sm text-text-muted mb-1">Snack Contribution</label><input type="text" name="snack_contribution" placeholder="Bringing any snacks?"></div>
+        <div class="mb-3"><label class="block text-sm text-text-muted mb-1">Days Attending</label><div class="flex gap-4"><label class="flex items-center gap-2"><input type="checkbox" name="attending_saturday" checked> Saturday</label><label class="flex items-center gap-2"><input type="checkbox" name="attending_sunday" checked> Sunday</label></div></div>
+        <div class="mb-4"><label class="block text-sm text-text-muted mb-1">Most Looking Forward To</label><select name="most_looking_forward_to" id="most-looking-forward-to"></select></div>
         <div class="flex gap-3"><button type="submit" class="btn btn-primary flex-1">Save</button><button type="button" class="btn btn-secondary" onclick="document.getElementById('prefs-modal').classList.add('hidden')">Cancel</button></div>
       </form>
     </div>

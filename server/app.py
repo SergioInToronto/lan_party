@@ -165,8 +165,8 @@ def create_app(test_config=None):
                 "id": guest["id"],
                 "handle": pref_dict.get("handle", guest["name"]),
                 "avatar_url": avatars.get(pref_dict.get("steam_id")),
-                "days_attending": pref_dict.get("days_attending"),
-                "snack_contribution": pref_dict.get("snack_contribution"),
+                "attending_saturday": pref_dict.get("attending_saturday"),
+                "attending_sunday": pref_dict.get("attending_sunday"),
             })
 
         return jsonify(result)
@@ -288,7 +288,7 @@ def create_app(test_config=None):
         db = get_db()
         guest_id = session["guest_id"]
 
-        allowed_keys = {"handle", "steam_id", "os", "days_attending", "skill_level", "snack_contribution"}
+        allowed_keys = {"handle", "steam_id", "os", "attending_saturday", "attending_sunday", "most_looking_forward_to"}
         for key, value in data.items():
             if key not in allowed_keys:
                 continue
