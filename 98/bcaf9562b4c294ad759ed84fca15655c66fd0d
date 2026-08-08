@@ -1,0 +1,22 @@
+static/js/nav.mjs
+  s_7efafdb194db8b::t_2fbd11fafe875d 19
+  s_7efafdb194db8b::t_371e17d6a93533 88-92
+  s_7efafdb194db8b::t_2a547deb5b649c 64
+  s_7efafdb194db8b::t_dd7787b2b4e4e8 93-94
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.19",
+  "base_commit_sha": "98bcaf9562b4c294ad759ed84fca15655c66fd0d",
+  "prompts": {},
+  "sessions": {
+    "s_7efafdb194db8b": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_0a2d3c4daffe4ypttTpYEKwV37",
+        "model": "anthropic/claude-sonnet-5"
+      },
+      "human_author": null
+    }
+  }
+}
