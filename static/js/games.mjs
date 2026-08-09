@@ -8,7 +8,6 @@ export const GAMES = {
   muck: { name: 'Muck', url: 'https://store.steampowered.com/app/1625450/Muck/', image: 'muck.png', players: 8 },
   repo: { name: 'R.E.P.O.', url: 'https://store.steampowered.com/app/3241660/REPO/', image: 'repo.jpg', players: 6 },
   lethal_company: { name: 'Lethal Company', url: 'https://store.steampowered.com/app/1966720/Lethal_Company/', image: 'lethal_company.png', players: 4 },
-  unrailed: { name: 'Unrailed', url: 'https://store.steampowered.com/app/1016920/Unrailed/', image: 'unrailed.png', players: 4 },
   helldivers: { name: 'Helldivers 2', url: 'https://store.steampowered.com/app/553850/HELLDIVERS_2/', image: 'helldivers.jpg', players: 4 },
 
   factorio_vs: { name: 'Factorio (verses)', url: 'https://store.steampowered.com/app/427520/Factorio/', image: 'factorio_vs.png', players: 'inf' },
@@ -32,7 +31,7 @@ export const GAMES = {
 
 // Heading order + which games fall under each. `sep` draws a divider above the section.
 const SECTIONS = [
-  { title: 'Co-op', icon: 'la-users', style: 'text-accent-green', ids: ['sven_coop', 'muck', 'repo', 'lethal_company', 'unrailed', 'helldivers'] },
+  { title: 'Co-op', icon: 'la-users', style: 'text-accent-green', ids: ['sven_coop', 'muck', 'repo', 'lethal_company', 'helldivers'] },
   { title: 'Team Versus', icon: 'la-flag', style: 'text-accent-blue', ids: ['factorio_vs', 'sc2', 'unrailed2', 'l4d2'] },
   { title: 'Versus', icon: 'la-crosshairs', style: 'text-accent-blue', ids: ['crab_game', 'hldm', 'hldm2', 'duck_game'] },
   { title: 'Out of the Question', icon: 'la-ban', style: 'text-accent-orange', ids: ['deadlock', 'dota2', 'zomboid', 'factorio', 'mc'], sep: true },

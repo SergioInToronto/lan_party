@@ -9,6 +9,7 @@ import { GAMES } from './games.mjs';
 
 function gameOptionsHtml() {
   return Object.entries(GAMES)
+    .sort(([, a], [, b]) => a.name.localeCompare(b.name))
     .map(([id, g]) => `<option value="${id}">${g.name}</option>`)
     .join('');
 }
