@@ -16,8 +16,8 @@ export const GAMES = {
   l4d2: { name: 'Left 4 Dead 2', url: 'https://store.steampowered.com/app/550/Left_4_Dead_2/', image: 'l4d2.png', players: 8 },
 
   crab_game: { name: 'Crab Game', url: 'https://store.steampowered.com/app/1782210/Crab_Game/', image: 'crab_game.png', players: 'inf' },
-  hldm: { name: 'Half-Life Deathmatch', url: 'https://store.steampowered.com/app/360/HalfLife_Deathmatch_Source/', image: 'hldm.png', players: 'inf' },
-  hldm2: { name: 'HL2 Deathmatch', url: 'https://store.steampowered.com/app/320/HalfLife_2_Deathmatch/', image: 'hldm2.png', players: 'inf' },
+  hldm: { name: 'Half-Life: Deathmatch', url: 'https://store.steampowered.com/app/360/HalfLife_Deathmatch_Source/', image: 'hldm.png', players: 'inf' },
+  hldm2: { name: 'Half-Life 2: Deathmatch', url: 'https://store.steampowered.com/app/320/HalfLife_2_Deathmatch/', image: 'hldm2.png', players: 'inf' },
   duck_game: { name: 'Duck Game', url: 'https://store.steampowered.com/app/312530/Duck_Game/', image: 'duck_game.png', players: 8 },
 
   deadlock: { name: 'Deadlock', url: 'https://store.steampowered.com/app/1422450/Deadlock/', image: 'deadlock.png' },
@@ -37,6 +37,11 @@ const SECTIONS = [
   { title: 'Out of the Question', icon: 'la-ban', style: 'text-accent-orange', ids: ['deadlock', 'dota2', 'zomboid', 'factorio', 'mc'], sep: true },
   { title: 'Anti-Social', icon: 'la-user', style: 'text-text-muted', ids: ['sims'], sep: true },
 ];
+
+export const PREFERENCE_OPTIONS =
+  Object.entries(GAMES)
+    .sort(([, a], [, b]) => a.name.localeCompare(b.name))
+    .filter(([id]) => !(['deadlock', 'dota2', 'zomboid', 'factorio', 'mc'].includes(id)));
 
 function badgeHtml(players) {
   if (players === undefined) return '';
