@@ -86,7 +86,7 @@ code, .mono {
 /* Form inputs */
 input[type="text"],
 input[type="password"],
-select,
+select[name],
 textarea {
   background: var(--bg-base);
   border: 1px solid var(--border);

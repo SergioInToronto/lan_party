@@ -42,7 +42,7 @@ class PrefsModalElement extends HTMLElement {
           </div>
           <div class="mb-4">
             <label class="block text-sm text-text-muted mb-1">Most Looking Forward To</label>
-            <select name="most_looking_forward_to" id="most-looking-forward-to"
+            <select name="most_looking_forward_to" id="most-looking-forward-to">
               ${gameOptionsHtml()}
             </select>
           </div>
