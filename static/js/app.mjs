@@ -73,11 +73,16 @@ function initLogin() {
   const form = document.getElementById('login-form');
   const modal = document.getElementById('login-modal');
   const errorEl = document.getElementById('login-error');
+  const submitBtn = document.getElementById('login-submit-btn');
+  const spinner = document.getElementById('login-spinner');
   if (!form) return;
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (submitBtn?.disabled) return; // already in flight, ignore Enter-key resubmit
     errorEl?.classList.add('hidden');
+    if (submitBtn) submitBtn.disabled = true;
+    spinner?.classList.remove('hidden');
 
     const name = form.querySelector('[name="name"]').value.trim();
     const access_code = form.querySelector('[name="access_code"]').value.trim();
@@ -92,6 +97,9 @@ function initLogin() {
         errorEl.textContent = err.data?.error || 'Login failed';
         errorEl.classList.remove('hidden');
       }
+    } finally {
+      if (submitBtn) submitBtn.disabled = false;
+      spinner?.classList.add('hidden');
     }
   });
 }

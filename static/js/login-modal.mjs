@@ -23,7 +23,10 @@ class LoginModalElement extends HTMLElement {
           </div>
           <div id="login-error" class="text-accent-orange text-sm mb-3 hidden"></div>
           <div class="flex gap-3">
-            <button type="submit" class="btn btn-primary flex-1">LOGIN</button>
+            <button type="submit" id="login-submit-btn" class="btn btn-primary flex-1 flex items-center justify-center gap-2">
+              <span id="login-spinner" class="hidden h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+              <span id="login-submit-label">LOGIN</span>
+            </button>
             <button type="button" id="login-cancel-btn" class="btn btn-secondary">Cancel</button>
           </div>
         </form>
