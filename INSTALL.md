@@ -28,7 +28,7 @@ in place so the systemd unit's `uv run` finds it:
 
 ```bash
 cd /srv/lanparty
-sudo -u www-data uv sync --no-dev      # installs flask + gunicorn into .venv
+sudo -u www-data uv sync --no-cache --no-dev      # installs flask + gunicorn into .venv
 ```
 
 > `uv run` (used by the service) auto-creates/uses `.venv` here. `--no-dev`
