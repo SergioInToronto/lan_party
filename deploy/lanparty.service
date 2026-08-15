@@ -7,6 +7,11 @@ After=network.target
 
 [Service]
 Type=notify
+# `uv run gunicorn ...` forks gunicorn as a child rather than exec'ing into it,
+# so the READY=1 notification comes from the arbiter's PID, not MainPID (uv).
+# NotifyAccess=main (the default) silently drops it and the unit hangs in
+# "activating" until TimeoutStartSec, then fails.
+NotifyAccess=all
 User=www-data
 Group=www-data
 
@@ -23,6 +28,7 @@ EnvironmentFile=/etc/lanparty.env
 ExecStart=/usr/bin/uv run gunicorn wsgi:app \
     --workers 3 \
     --bind unix:/run/lanparty/gunicorn.sock \
+    --no-control-socket \
     --access-logfile - \
     --error-logfile -
 
