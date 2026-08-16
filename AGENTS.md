@@ -38,7 +38,7 @@ Schema: `guest_preferences(guest_id, key, value)`, upserted via `ON CONFLICT DO 
 
 ## Steam avatar integration
 
-`fetch_steam_avatars()` in `server/app.py` batch-calls Steam's `GetPlayerSummaries` via stdlib `urllib` (no `requests` dependency). Requires `STEAM_API_KEY` env var — if unset, it's a no-op returning `{}` and the frontend falls back to a placeholder (`?` avatar). No caching/retry by design (small guest list); tests rely on this no-key-no-network behavior to stay hermetic — don't set `STEAM_API_KEY` in test fixtures without also mocking `urllib.request.urlopen`.
+`fetch_steam_avatars()` in `server/app.py` fetches each guest's avatar from Steam's public `https://steamcommunity.com/profiles/{steamid64}/?xml=1` community page via stdlib `urllib` (no API key, no `requests` dependency) — one request per id, since that endpoint has no batch form. Numeric SteamID64 only (no vanity-URL resolution). Any failure (non-numeric id, profile not found, network error) is skipped per-id, not a crash, and the frontend falls back to a placeholder (`?` avatar). No caching/retry by design (small guest list). Since there's no key gate to skip the network call, tests stay hermetic via the `autouse` `block_network` fixture in `tests/conftest.py`, which makes `urllib.request.urlopen` raise by default — tests exercising the success path override it with their own monkeypatch.
 
 ## Testing
 

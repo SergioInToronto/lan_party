@@ -33,3 +33,13 @@ def db_conn(app):
     with app.app_context():
         conn = get_db()
         yield conn
+
+
+@pytest.fixture(autouse=True)
+def block_network(monkeypatch):
+    """fetch_steam_avatars hits the network per steam_id with no key gate to
+    skip it — block by default so tests stay hermetic. Tests exercising the
+    success path override this with their own monkeypatch."""
+    def deny(*args, **kwargs):
+        raise OSError("network disabled in tests")
+    monkeypatch.setattr("app.urllib.request.urlopen", deny)

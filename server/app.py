@@ -1,9 +1,8 @@
-import json
 import os
 import secrets
 import time
-import urllib.parse
 import urllib.request
+import xml.etree.ElementTree as ET
 
 from flask import Flask, request, jsonify, session
 from db import close_db, get_db, init_db
@@ -11,30 +10,31 @@ from init_db import hash_code
 
 
 def fetch_steam_avatars(steam_ids):
-    """Batch-fetch avatar image URLs from Steam's GetPlayerSummaries API.
+    """Fetch avatar image URLs from Steam's public community-profile XML pages.
 
-    Returns {steamid: avatarmedium_url}. Missing STEAM_API_KEY, empty input,
-    or any request error all degrade to {} (guests just get a placeholder).
+    Returns {steamid: avatarmedium_url}. No API key needed — uses the keyless
+    `?xml=1` community profile pages (only works with numeric SteamID64, not
+    vanity URLs). Empty/non-numeric ids, missing profiles, and per-id request
+    errors are all skipped (that guest just gets a placeholder).
 
-    ponytail: no caching/retry — LAN party guest list is small, add caching
-    if this gets slow or Steam starts rate-limiting.
+    ponytail: one request per id — the public XML pages have no batch
+    endpoint like the keyed GetPlayerSummaries did. No caching/retry — LAN
+    party guest list is small, add caching if this gets slow or Steam starts
+    rate-limiting.
     """
-    steam_ids = [s for s in dict.fromkeys(steam_ids) if s]
-    api_key = os.environ.get("STEAM_API_KEY")
-    if not steam_ids or not api_key:
-        return {}
+    steam_ids = [s for s in dict.fromkeys(steam_ids) if s and s.isdigit()]
 
-    url = "https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?" + urllib.parse.urlencode({
-        "key": api_key,
-        "steamids": ",".join(steam_ids),
-    })
-    try:
-        with urllib.request.urlopen(url, timeout=5) as resp:
-            data = json.load(resp)
-        players = data.get("response", {}).get("players", [])
-        return {p["steamid"]: p.get("avatarmedium") for p in players}
-    except Exception:
-        return {}
+    result = {}
+    for steam_id in steam_ids:
+        url = f"https://steamcommunity.com/profiles/{steam_id}/?xml=1"
+        try:
+            with urllib.request.urlopen(url, timeout=5) as resp:
+                avatar = ET.fromstring(resp.read()).findtext("avatarMedium")
+            if avatar:
+                result[steam_id] = avatar
+        except Exception:
+            continue
+    return result
 
 
 def create_app(test_config=None):
