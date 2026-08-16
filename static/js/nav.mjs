@@ -88,7 +88,9 @@ class NavBarElement extends HTMLElement {
   _initLoginBtn() {
     const btn = document.getElementById('nav-login-btn');
     btn?.addEventListener('click', () => {
-      document.getElementById('login-modal')?.classList.remove('hidden');
+      const modal = document.getElementById('login-modal');
+      modal?.classList.remove('hidden');
+      modal?.querySelector('[name="name"]')?.focus();
     });
   }
 

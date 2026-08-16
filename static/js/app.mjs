@@ -3,9 +3,10 @@
  * Handles: auth state, nav updates, login modal, logout, preferences trigger.
  */
 import { api } from './api.mjs';
-import { initPreferencesModal, openPreferencesModal } from './preferences.mjs';
+import { initPreferencesModal, openPreferencesModal, DEFAULT_MOST_LOOKING_FORWARD_TO } from './preferences.mjs';
 
 const AUTH_TOKEN_KEY = 'sudobash_token';
+const JUST_LOGGED_IN_KEY = 'lp_just_logged_in';
 
 // --- Auth State ---
 
@@ -55,10 +56,15 @@ async function updateNav() {
       navAvatar.classList.add('hidden');
     }
 
-    // Auto-open preferences if none exist
-    if (!data.preferences || Object.keys(data.preferences).length === 0) {
+    // Auto-open preferences only after login, not on nav/refresh —
+    // only if the guest hasn't picked anything past the "sims" default.
+    const justLoggedIn = sessionStorage.getItem(JUST_LOGGED_IN_KEY);
+    if (justLoggedIn) sessionStorage.removeItem(JUST_LOGGED_IN_KEY);
+    const mostLookingForwardTo = data.preferences?.most_looking_forward_to || DEFAULT_MOST_LOOKING_FORWARD_TO;
+    if (justLoggedIn && mostLookingForwardTo === DEFAULT_MOST_LOOKING_FORWARD_TO) {
       openPreferencesModal();
     }
+
   } catch (err) {
     // Session expired or invalid
     clearToken();
@@ -90,6 +96,7 @@ function initLogin() {
     try {
       const data = await api.login(name, access_code);
       setToken(data.token);
+      sessionStorage.setItem(JUST_LOGGED_IN_KEY, '1');
       modal?.classList.add('hidden');
       window.location.reload();
     } catch (err) {

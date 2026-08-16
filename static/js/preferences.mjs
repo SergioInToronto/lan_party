@@ -4,7 +4,7 @@
  */
 import { api } from './api.mjs';
 
-const DEFAULT_MOST_LOOKING_FORWARD_TO = 'sims';
+export const DEFAULT_MOST_LOOKING_FORWARD_TO = 'sims';
 
 export function initPreferencesModal() {
   const modal = document.getElementById('prefs-modal');
@@ -59,4 +59,5 @@ export async function openPreferencesModal() {
   }
 
   modal.classList.remove('hidden');
+  form.querySelector('[name="handle"]').focus();
 }
