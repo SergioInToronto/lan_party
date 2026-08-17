@@ -48,7 +48,6 @@ Schema: `guest_preferences(guest_id, key, value)`, upserted via `ON CONFLICT DO 
 ## Docs worth reading before touching deploy/config
 
 - `docs/design-kit.md` — visual/UX rules (colors, typography, "no glassmorphism/transparency" constraints) if doing UI work.
-- `docs/future-TODO.md` — known placeholder data/features — check before treating placeholders as bugs. Note: this list may be stale.
 - `INSTALL.md` — full prod deploy steps (uv sync, systemd, nginx, certbot).
 - `DEPLOY_CONCERNS.md` — known bugs/gaps in `deploy/lanparty.conf` and `deploy/lanparty.service` (header inheritance, `ReadWritePaths` too broad, etc.) — read before "fixing" deploy files, some issues are already tracked there.
 
