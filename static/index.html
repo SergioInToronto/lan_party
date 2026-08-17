@@ -103,6 +103,12 @@
           <a id="event-maps-link" href="#" target="_blank" class=" hover:underline font-mono text-sm">
             [ OPEN IN MAPS ]
           </a>
+          <p class="text-text-muted mb-3">
+            <!-- TODO: how does this look? -->
+            <span>Phone:</span>
+            &nbsp;
+            <span id="event-contact">Loading...</span>
+          </p>
         </div>
 
         <!-- WiFi Card -->
@@ -154,6 +160,7 @@
         document.getElementById('event-address').textContent = config.address;
         const mapsLink = document.getElementById('event-maps-link');
         mapsLink.href = config.maps_link;
+        document.getElementById('event-contact').textContent = config.contact;
         document.getElementById('wifi-ssid').textContent = config.wifi_ssid;
         document.getElementById('wifi-password').textContent = config.wifi_password;
       } catch (err) {
