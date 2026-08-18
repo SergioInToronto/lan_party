@@ -128,8 +128,9 @@
                 <span id="wifi-password" class="ml-2 text-text-primary">
                   Loading...
                 </span>
+                <i class="las la-copy"></i>
               </button>
-              <span id="wifi-password-copied" class="p-1 ml-2 bg-green-900 text-lg italic hidden">Copied!</span>
+              <span id="wifi-password-copied" class="p-1 ml-1 bg-green-900 italic opacity-0 transition-opacity">Copied!</span>
             </div>
           </div>
         </div>
@@ -170,10 +171,10 @@
         document.getElementById('wifi-password-btn').addEventListener('click', () => {
           navigator.clipboard.writeText(config.wifi_password)
             .then(() => {
-              document.getElementById('wifi-password-copied').classList.remove('hidden');
+              document.getElementById('wifi-password-copied').classList.remove('opacity-0');
               setTimeout(() => {
-                document.getElementById('wifi-password-copied').classList.add('hidden');
-              }, 2000);
+                document.getElementById('wifi-password-copied').classList.add('opacity-0');
+              }, 2500);
             })
         });
 
