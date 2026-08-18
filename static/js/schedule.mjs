@@ -5,22 +5,19 @@
 
 export const SCHEDULE = [
   // Saturday
-  { day: 'saturday', time: '09:00', end: '10:00', title: 'Doors Open, Homemade Pancakes', description: 'Setup your rigs, get settled in' },
+  { day: 'saturday', time: '09:00', end: '10:00', title: '-- Doors Open, Setup & Coffee --', description: 'Setup your rigs, get settled in', break: true },
   { day: 'saturday', time: '10:00', end: '11:30', title: 'Muck / HL: Deathmatch', description: 'Warm up with a simple first-person survival game' },
-  { day: 'saturday', time: '10:30', end: '12:30', title: 'SC2: Zombie Assault Apocalypse', description: 'StarCraft II custom map' },
-  { day: 'saturday', time: '12:30', end: '13:00', title: 'Food Voting', description: 'Vote on food' },
-  { day: 'saturday', time: '13:00', end: '14:00', title: 'Lunch Break (1 hour)', description: 'Om nom nom' },
-  // TODO: did style work? Do I like it?
-  { day: 'saturday', time: '14:00', end: '17:00', title: 'Team Verses: StarCraft II', description: 'Team up, plan, and beat your opponents', style: "text-accent-blue" },
-  { day: 'saturday', time: '17:30', end: '19:00', title: 'Dinner Break (1 hour)', description: '2nd place food vote winner' },
+  { day: 'saturday', time: '11:30', end: '13:00', title: 'SC2: Zombie Assault Apocalypse', description: 'StarCraft II custom map' },
+  { day: 'saturday', time: '13:00', end: '14:00', title: '-- Lunch Break --', description: 'Vote before 12:30pm', break: true },
+  { day: 'saturday', time: '14:00', end: '17:00', title: 'Team Verses: StarCraft II', description: 'Team up, plan, and beat your opponents' },
+  { day: 'saturday', time: '17:30', end: '19:00', title: '-- Dinner Break --', description: '2nd place food vote winner', break: true },
   { day: 'saturday', time: '18:30', end: '22:00', title: 'Team Verses: L4D2 / Unrailed 2 / Factorio VS', description: 'Player\'s choice' },
   // Sunday
-  { day: 'sunday', time: '09:00', end: '10:00', title: 'Doors Open. Coffee & Breakfast', description: 'Coffee and setup' },
-  { day: 'sunday', time: '10:00', end: '12:00', title: 'Crab Game', description: 'Free for all in a new game' },
-  { day: 'sunday', time: '12:00', end: '13:00', title: 'Lunch Break (1 hour)', description: 'New food vote' },
-  { day: 'sunday', time: '13:00', end: '15:30', title: 'Free Play', description: 'Continue yesterday\'s most fun game' },
-  { day: 'sunday', time: '15:30', end: '17:00', title: 'TODO', description: 'Last game, pack up' },
-  { day: 'sunday', time: '17:00', end: '17:00', title: 'Thanks for Coming!', description: '' },
+  { day: 'sunday', time: '09:00', end: '10:00', title: '-- Doors Open. Coffee & Breakfast --', description: 'Coffee and setup', break: true },
+  { day: 'sunday', time: '10:00', end: '12:00', title: '???', description: 'Free for all in a new game' },
+  { day: 'sunday', time: '12:00', end: '13:00', title: '-- Lunch Break --', description: 'Om nom nom', break: true },
+  { day: 'sunday', time: '13:00', end: '17:00', title: 'Free Play', description: 'Continue yesterday\'s most fun game' },
+  { day: 'sunday', time: '17:00', end: '17:00', title: '-- Thanks for Coming!--', description: '', break: true },
 ];
 
 /**
@@ -51,7 +48,7 @@ export function initNowPlaying() {
       el.innerHTML = `
         <div class="bg-surface border border-accent-green py-3 px-4 font-mono text-center">
           <span class="text-accent-green">&gt; NOW PLAYING:</span>
-          <span class="text-text-primary ml-2 font-bold ${current.style}">${current.title}</span>
+          <span class="text-text-primary ml-2 font-bold">${current.title}</span>
           <span class="text-text-muted ml-2">— ${current.description}</span>
         </div>
       `;
@@ -75,12 +72,13 @@ function renderDaySchedule(day, schedule = SCHEDULE) {
   return events.map(event => {
     const isCurrent = current && current.time === event.time && current.day === event.day;
     const rowClass = isCurrent ? 'bg-accent-orange/10 border-l-2 border-accent-orange' : '';
+    const titleStyle = event.break ? 'text-lg text-accent-green' : 'text-xl font-bold';
 
     return `
       <tr class="${rowClass}">
-        <td class="py-2 px-3 font-mono text-sm text-accent-orange whitespace-nowrap">${event.time}</td>
-        <td class="py-2 px-3 font-bold">${event.title}</td>
-        <td class="py-2 px-3 text-text-muted text-sm">${event.description}</td>
+        <td class="py-3 px-3 font-mono text-lg text-accent-orange whitespace-nowrap">${event.time}</td>
+        <td class="py-3 px-3 ${titleStyle}">${event.title}</td>
+        <td class="py-3 px-3 text-text-muted text-sm">${event.description}</td>
       </tr>
     `;
   }).join('');
