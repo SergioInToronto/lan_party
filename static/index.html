@@ -124,7 +124,12 @@
             </div>
             <div>
               <span class="text-text-muted text-sm">PASS:</span>
-              <span id="wifi-password" class="ml-2 text-text-primary">Loading...</span>
+              <button id="wifi-password-btn" class="hitbox-4">
+                <span id="wifi-password" class="ml-2 text-text-primary">
+                  Loading...
+                </span>
+              </button>
+              <span id="wifi-password-copied" class="p-1 ml-2 bg-green-900 text-lg italic hidden">Copied!</span>
             </div>
           </div>
         </div>
@@ -158,11 +163,20 @@
       try {
         const config = await api.config();
         document.getElementById('event-address').textContent = config.address;
-        const mapsLink = document.getElementById('event-maps-link');
-        mapsLink.href = config.maps_link;
+        document.getElementById('event-maps-link').href = config.maps_link;
         document.getElementById('event-contact').textContent = config.contact;
         document.getElementById('wifi-ssid').textContent = config.wifi_ssid;
-        document.getElementById('wifi-password').textContent = config.wifi_password;
+        document.getElementById('wifi-password').textContent = config.wifi_password;;
+        document.getElementById('wifi-password-btn').addEventListener('click', () => {
+          navigator.clipboard.writeText(config.wifi_password)
+            .then(() => {
+              document.getElementById('wifi-password-copied').classList.remove('hidden');
+              setTimeout(() => {
+                document.getElementById('wifi-password-copied').classList.add('hidden');
+              }, 2000);
+            })
+        });
+
       } catch (err) {
         console.error('Failed to load config:', err);
       }
