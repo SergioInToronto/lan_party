@@ -1,0 +1,14 @@
+static/js/schedule.mjs
+  h_25ac4eba8a5506 8,10-13,16-20,51,75,79-81
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "2bc3f3752b00f573c694a2a2aa3ec5032839a1b4",
+  "prompts": {},
+  "humans": {
+    "h_25ac4eba8a5506": {
+      "author": "Sergio <smartins@movableink.com>"
+    }
+  }
+}
