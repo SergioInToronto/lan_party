@@ -72,7 +72,7 @@ function renderDaySchedule(day, schedule = SCHEDULE) {
   return events.map(event => {
     const isCurrent = current && current.time === event.time && current.day === event.day;
     const rowClass = isCurrent ? 'bg-accent-orange/10 border-l-2 border-accent-orange' : '';
-    const titleStyle = event.break ? 'text-lg text-accent-green' : 'text-xl font-bold';
+    const titleStyle = event.break ? 'text-lg opacity-50' : 'text-xl font-bold';
 
     return `
       <tr class="${rowClass}">
