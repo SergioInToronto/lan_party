@@ -78,7 +78,7 @@ function renderDaySchedule(day, schedule = SCHEDULE) {
       <tr class="${rowClass}">
         <td class="py-3 px-3 font-mono text-lg text-accent-orange whitespace-nowrap">${event.time}</td>
         <td class="py-3 px-3 ${titleStyle}">${event.title}</td>
-        <td class="py-3 px-3 text-text-muted text-sm">${event.description}</td>
+        <td class="py-3 px-3 text-text-muted">${event.description}</td>
       </tr>
     `;
   }).join('');
