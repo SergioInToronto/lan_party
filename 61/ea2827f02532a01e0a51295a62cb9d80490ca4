@@ -1,0 +1,22 @@
+static/food.html
+  h_25ac4eba8a5506 66
+static/games.html
+  h_25ac4eba8a5506 53
+static/gear.html
+  h_25ac4eba8a5506 120
+static/guests.html
+  h_25ac4eba8a5506 51
+static/index.html
+  h_25ac4eba8a5506 103-108,138
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "61ea2827f02532a01e0a51295a62cb9d80490ca4",
+  "prompts": {},
+  "humans": {
+    "h_25ac4eba8a5506": {
+      "author": "Sergio <smartins@movableink.com>"
+    }
+  }
+}
