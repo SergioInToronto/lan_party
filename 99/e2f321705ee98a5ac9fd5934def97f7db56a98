@@ -1,0 +1,14 @@
+static/index.html
+  h_25ac4eba8a5506 131,133,174,176-177
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "99e2f321705ee98a5ac9fd5934def97f7db56a98",
+  "prompts": {},
+  "humans": {
+    "h_25ac4eba8a5506": {
+      "author": "Sergio <smartins@movableink.com>"
+    }
+  }
+}
