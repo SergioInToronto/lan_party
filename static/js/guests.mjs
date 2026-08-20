@@ -33,9 +33,9 @@ export async function initGuestList(el) {
                   <div class="">[ ${daysText(guest)} ]</div>
                 </div>
                 <div class="flex items-center gap-1">
-                  <i class="lab la-linux"></i>
+                  <i class="lab ${osIcon(guest.os)}"></i>
                   <div class="text-sm text-text-muted font-mono">
-                    ${guest.os}
+                    ${guest.os ?? '&nbsp;'}
                   </div>
                 </div>
               </div>
@@ -63,4 +63,18 @@ function daysText(guest) {
   const daysText = sat && sun ? 'Sat + Sun' : sat ? 'Sat' : sun ? 'Sun' : '—';
 
   return daysText;
+}
+
+function osIcon(os) {
+  os = os?.toLowerCase();
+  if (!os) return '';
+
+  if (os.includes('windows')) return 'la-windows';
+  if (os.includes('centos')) return 'la-centos';
+  if (os.includes('ubuntu')) return 'la-ubuntu';
+  if (os.includes('fedora')) return 'la-fedora';
+  if (os.includes('linux')) return 'la-linux';
+  if (os.includes('mac')) return 'la-apple';
+
+  return '';
 }
