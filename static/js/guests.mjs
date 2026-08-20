@@ -25,11 +25,23 @@ export async function initGuestList(el) {
             : `<div class="w-10 h-10 rounded-kit border border-border-c bg-base flex items-center justify-center font-mono text-xs text-text-muted">?</div>`;
 
           return `
-            <div class="flex items-center gap-4 border border-border-c bg-surface p-3 rounded-kit">
+            <div class="flex items-center gap-4 border border-border-c bg-surface p-2 rounded-kit">
               ${avatar}
               <div class="flex-1 min-w-0">
-                <div class="font-bold truncate">${guest.handle}</div>
-                <div class="text-sm text-text-muted font-mono">[ ${daysText(guest)} ]</div>
+                <div class="flex items-center gap-3">
+                  <div class="font-bold truncate text-accent-blue">${guest.handle}</div>
+                  <div class="">[ ${daysText(guest)} ]</div>
+                </div>
+                <div class="flex items-center gap-1">
+                  <i class="lab la-linux"></i>
+                  <div class="text-sm text-text-muted font-mono">
+                    ${guest.os}
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="flex-1 min-w-0">Excited for</div>
+                <div class="font-bold text-text-accent">${guest.most_looking_forward_to}</div>
               </div>
             </div>
           `;

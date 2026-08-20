@@ -146,13 +146,10 @@ def create_app(test_config=None):
         db = get_db()
         guests = db.execute("SELECT id, name FROM guests ORDER BY id").fetchall()
 
-        pref_dicts = {}
-        for guest in guests:
-            prefs = db.execute(
-                "SELECT key, value FROM guest_preferences WHERE guest_id = ?",
-                (guest["id"],)
-            ).fetchall()
-            pref_dicts[guest["id"]] = {row["key"]: row["value"] for row in prefs}
+        pref_dicts = {guest["id"]: {} for guest in guests}
+        prefs = db.execute("SELECT guest_id, key, value FROM guest_preferences").fetchall()
+        for row in prefs:
+            pref_dicts.setdefault(row["guest_id"], {})[row["key"]] = row["value"]
 
         avatars = fetch_steam_avatars(
             pd.get("steam_id") for pd in pref_dicts.values()
@@ -167,6 +164,8 @@ def create_app(test_config=None):
                 "avatar_url": avatars.get(pref_dict.get("steam_id")),
                 "attending_saturday": pref_dict.get("attending_saturday"),
                 "attending_sunday": pref_dict.get("attending_sunday"),
+                "os": pref_dict.get("os"),
+                "most_looking_forward_to": pref_dict.get("most_looking_forward_to"),
             })
 
         return jsonify(result)
