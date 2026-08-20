@@ -1,0 +1,16 @@
+static/js/guests.mjs
+  h_25ac4eba8a5506 32,44-54
+static/js/schedule.mjs
+  h_25ac4eba8a5506 8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "edf1d39bd016842da88efdd7ecb592188d5b205b",
+  "prompts": {},
+  "humans": {
+    "h_25ac4eba8a5506": {
+      "author": "Sergio <smartins@movableink.com>"
+    }
+  }
+}
