@@ -1,0 +1,16 @@
+server/app.py
+  h_25ac4eba8a5506 149-152,167-168
+static/js/guests.mjs
+  h_25ac4eba8a5506 28,31-44
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "a49ba355321b11ef0b2b27978740b6d3e32c3d85",
+  "prompts": {},
+  "humans": {
+    "h_25ac4eba8a5506": {
+      "author": "Sergio <smartins@movableink.com>"
+    }
+  }
+}
