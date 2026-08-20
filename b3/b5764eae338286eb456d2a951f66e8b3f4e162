@@ -1,0 +1,16 @@
+static/img/icons/arch-linux.svg
+  h_25ac4eba8a5506 1
+static/js/guests.mjs
+  h_25ac4eba8a5506 36,38,67-80
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "b3b5764eae338286eb456d2a951f66e8b3f4e162",
+  "prompts": {},
+  "humans": {
+    "h_25ac4eba8a5506": {
+      "author": "Sergio <smartins@movableink.com>"
+    }
+  }
+}
