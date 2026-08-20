@@ -5,7 +5,7 @@
 
 export const SCHEDULE = [
   // Saturday
-  { day: 'saturday', time: '09:00', end: '10:00', title: '-- Doors Open, Setup & Coffee --', description: 'Setup your rigs, get settled in', break: true },
+  { day: 'saturday', time: '09:00', end: '10:00', title: '-- Doors Open. Setup & Coffee --', description: 'Setup your rigs, get settled in', break: true },
   { day: 'saturday', time: '10:00', end: '11:30', title: 'Muck / HL: Deathmatch', description: 'Warm up with a simple first-person survival game' },
   { day: 'saturday', time: '11:30', end: '13:00', title: 'SC2: Zombie Assault Apocalypse', description: 'StarCraft II custom map' },
   { day: 'saturday', time: '13:00', end: '14:00', title: '-- Lunch Break --', description: 'Vote before 12:30pm', break: true },
