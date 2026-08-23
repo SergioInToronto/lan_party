@@ -10,10 +10,10 @@ export const SCHEDULE = [
   { day: 'saturday', time: '13:00', end: '14:00', title: '-- Lunch Break --', description: 'Vote before 12:30pm', break: true },
   { day: 'saturday', time: '14:00', end: '17:00', title: 'Team Verses game(s)', description: 'Team up, plan, and beat your opponents' },
   { day: 'saturday', time: '17:30', end: '19:00', title: '-- Dinner Break --', description: '2nd place food vote winner', break: true },
-  { day: 'saturday', time: '18:30', end: '22:00', title: 'Team Verses: L4D2 / Unrailed 2 / Factorio VS', description: 'Player\'s choice' },
+  { day: 'saturday', time: '18:30', end: '22:00', title: 'Team Verses game(s)', description: 'Player\'s choice' },
   // Sunday
   { day: 'sunday', time: '09:00', end: '10:00', title: '-- Doors Open. Coffee & Breakfast --', description: 'Coffee and setup', break: true },
-  { day: 'sunday', time: '10:00', end: '12:00', title: '???', description: 'Free for all in a new game' },
+  { day: 'sunday', time: '10:00', end: '12:00', title: 'Free Play', description: 'Free for all in a new game' },
   { day: 'sunday', time: '12:00', end: '13:00', title: '-- Lunch Break --', description: 'Om nom nom', break: true },
   { day: 'sunday', time: '13:00', end: '17:00', title: 'Free Play', description: 'Continue yesterday\'s most fun game' },
   { day: 'sunday', time: '17:00', end: '17:00', title: '-- Thanks for Coming!--', description: '', break: true },

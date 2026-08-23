@@ -21,6 +21,7 @@ export const GAMES = {
   hldm: { name: 'Half-Life: Deathmatch', url: 'https://store.steampowered.com/app/360/HalfLife_Deathmatch_Source/', image: 'hldm.png', players: 'inf' },
   hldm2: { name: 'Half-Life 2: Deathmatch', url: 'https://store.steampowered.com/app/320/HalfLife_2_Deathmatch/', image: 'hldm2.png', players: 'inf' },
   duck_game: { name: 'Duck Game', url: 'https://store.steampowered.com/app/312530/Duck_Game/', image: 'duck_game.png', players: 8 },
+  spellsworn: { name: 'Spellsworn', url: 'https://store.steampowered.com/app/360620/Spellsworn/', image: 'spellsworn.png', players: 8 },
 
   deadlock: { name: 'Deadlock', url: 'https://store.steampowered.com/app/1422450/Deadlock/', image: 'deadlock.png' },
   dota2: { name: 'Dota Allstars', url: 'https://store.steampowered.com/app/570/Dota_2/', image: 'dota2.png' },
@@ -35,7 +36,7 @@ export const GAMES = {
 const SECTIONS = [
   { title: 'Co-op', icon: 'la-users', style: 'text-accent-green', ids: ['sven_coop', 'muck', 'repo', 'lethal_company', 'helldivers'] },
   { title: 'Team Versus', icon: 'la-flag', style: 'text-accent-blue', ids: ['factorio_vs', 'sc2', 'unrailed2', 'l4d2'] },
-  { title: 'Versus', icon: 'la-crosshairs', style: 'text-accent-blue', ids: ['crab_game', 'hldm', 'hldm2', 'duck_game'] },
+  { title: 'Versus', icon: 'la-crosshairs', style: 'text-accent-blue', ids: ['crab_game', 'hldm', 'hldm2', 'duck_game', 'spellsworn'] },
   { title: 'Out of the Question', icon: 'la-ban', style: 'text-accent-orange', ids: ['deadlock', 'dota2', 'zomboid', 'factorio', 'mc'], sep: true },
   { title: 'Anti-Social', icon: 'la-user', style: 'text-text-muted', ids: ['sims'], sep: true },
 ];
