@@ -3,7 +3,7 @@
  * Fetches /api/guests and renders the roster.
  */
 import { api } from './api.mjs';
-import { DEFAULT_MOST_LOOKING_FORWARD_TO, GAMES } from './games.mjs';
+import { GAMES } from './games.mjs';
 
 export async function initGuestList(el) {
   if (!el) return;
@@ -19,24 +19,23 @@ export async function initGuestList(el) {
     }
 
     el.innerHTML = `
-      <div class="grid gap-3">
+      <div class="grid gap-3 md:grid-cols-2">
         ${guests.map(guest => {
           const avatar = guest.avatar_url
             ? `<img src="${guest.avatar_url}" alt="" class="w-16 h-16 rounded-kit border border-border-c">`
             : `<div class="w-16 h-16 rounded-kit border border-border-c bg-base flex items-center justify-center font-mono text-lg text-text-muted">?</div>`;
 
-          const gameName = (
-            GAMES[guest.most_looking_forward_to]?.name
-            ?? GAMES[DEFAULT_MOST_LOOKING_FORWARD_TO]?.name
-          );
+          const gameId = guest.most_looking_forward_to;
+          const gameName = gameId ? (GAMES[gameId]?.name ?? gameId) : null;
+          const days = daysInfo(guest);
 
           return `
-            <div class="flex items-center gap-4 border border-border-c bg-surface p-4 rounded-kit">
+            <div class="flex items-center gap-4 border border-border-c bg-surface p-4 rounded-kit hover:border-accent-blue transition-colors">
               ${avatar}
               <div class="flex-1 min-w-0">
                 <div class="flex items-center gap-3">
                   <div class="font-bold truncate text-accent-blue">${guest.handle}</div>
-                  <div class="">[ ${daysText(guest)} ]</div>
+                  <div class="${days.color}">[ ${days.text} ]</div>
                 </div>
                 <div class="flex items-center gap-1">
                   <i class="lab ${osIcon(guest.os)}"></i>
@@ -45,9 +44,14 @@ export async function initGuestList(el) {
                   </div>
                 </div>
               </div>
-              <div>
-                <div class="flex-1 min-w-0">Hyped for</div>
-                <div class="font-bold text-accent-green">${gameName}</div>
+              <div class="border-l border-border-c pl-4 flex-shrink-0">
+                <div class="flex items-center gap-1 text-text-muted">
+                  <i class="las la-gamepad"></i>
+                  <span>Hyped for</span>
+                </div>
+                ${gameName
+                  ? `<div class="font-bold text-accent-green">${gameName}</div>`
+                  : `<div class="font-mono text-sm text-text-muted">[ NOT SET ]</div>`}
               </div>
             </div>
           `;
@@ -60,15 +64,17 @@ export async function initGuestList(el) {
   }
 }
 
-function daysText(guest) {
+function daysInfo(guest) {
   if ([guest.attending_saturday, guest.attending_sunday].includes(null)) {
-    return '?';
+    return { text: '?', color: 'text-text-muted' };
   }
   const sat = guest.attending_saturday === 'true';
   const sun = guest.attending_sunday === 'true';
-  const daysText = sat && sun ? 'Sat + Sun' : sat ? 'Sat' : sun ? 'Sun' : '—';
 
-  return daysText;
+  if (sat && sun) return { text: 'Sat + Sun', color: 'text-accent-green' };
+  if (sat) return { text: 'Sat', color: 'text-accent-green' };
+  if (sun) return { text: 'Sun', color: 'text-accent-green' };
+  return { text: '—', color: 'text-text-muted' };
 }
 
 function osIcon(os) {
