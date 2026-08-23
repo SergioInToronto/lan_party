@@ -116,13 +116,12 @@ def create_app(test_config=None):
             (guest_id,)
         ).fetchall()
         preferences = {row["key"]: row["value"] for row in prefs}
-        avatar_url = fetch_steam_avatars([preferences.get("steam_id")]).get(preferences.get("steam_id"))
 
         return jsonify({
             "id": guest["id"],
             "name": guest["name"],
             "preferences": preferences,
-            "avatar_url": avatar_url,
+            "avatar_url": preferences.get("avatar_url"),
         })
 
     @app.route("/api/logout", methods=["POST"])
@@ -151,17 +150,13 @@ def create_app(test_config=None):
         for row in prefs:
             pref_dicts.setdefault(row["guest_id"], {})[row["key"]] = row["value"]
 
-        avatars = fetch_steam_avatars(
-            pd.get("steam_id") for pd in pref_dicts.values()
-        )
-
         result = []
         for guest in guests:
             pref_dict = pref_dicts[guest["id"]]
             result.append({
                 "id": guest["id"],
                 "handle": pref_dict.get("handle", guest["name"]),
-                "avatar_url": avatars.get(pref_dict.get("steam_id")),
+                "avatar_url": pref_dict.get("avatar_url"),
                 "attending_saturday": pref_dict.get("attending_saturday"),
                 "attending_sunday": pref_dict.get("attending_sunday"),
                 "os": pref_dict.get("os"),
@@ -287,6 +282,12 @@ def create_app(test_config=None):
         db = get_db()
         guest_id = session["guest_id"]
 
+        old_steam_id = db.execute(
+            "SELECT value FROM guest_preferences WHERE guest_id = ? AND key = 'steam_id'",
+            (guest_id,)
+        ).fetchone()
+        old_steam_id = old_steam_id["value"] if old_steam_id else None
+
         allowed_keys = {"handle", "steam_id", "os", "attending_saturday", "attending_sunday", "most_looking_forward_to"}
         for key, value in data.items():
             if key not in allowed_keys:
@@ -296,6 +297,16 @@ def create_app(test_config=None):
                 "ON CONFLICT(guest_id, key) DO UPDATE SET value = excluded.value",
                 (guest_id, key, value)
             )
+
+        new_steam_id = data.get("steam_id")
+        if "steam_id" in data and new_steam_id != old_steam_id:
+            avatar_url = fetch_steam_avatars([new_steam_id]).get(new_steam_id)
+            db.execute(
+                "INSERT INTO guest_preferences (guest_id, key, value) VALUES (?, 'avatar_url', ?) "
+                "ON CONFLICT(guest_id, key) DO UPDATE SET value = excluded.value",
+                (guest_id, avatar_url)
+            )
+
         db.commit()
         return jsonify({"ok": True})
 

@@ -25,7 +25,7 @@ LAN party guest-management site. Flask + sqlite backend, vanilla JS frontend, no
 ## `guest_preferences` is EAV, not fixed columns
 
 Schema: `guest_preferences(guest_id, key, value)`, upserted via `ON CONFLICT DO UPDATE`. Adding a new preference field means touching **all** of:
-1. `allowed_keys` whitelist in `set_preferences()` (`server/app.py`) — anything not listed is silently dropped, no error.
+1. `allowed_keys` whitelist in `set_preferences()` (`server/app.py`) — anything not listed is silently dropped, no error. Exception: `avatar_url` is written directly by `set_preferences()` itself (not user-submitted), and must stay off this whitelist — see Steam avatar integration below.
 2. Any hand-built projection that exposes prefs, e.g. `/api/guests` and `/api/me` manually list which keys to return — a new key is invisible there until added explicitly.
 3. The relevant `static/*.html` form field + `static/js/preferences.mjs` prefill logic.
 
@@ -38,7 +38,13 @@ Schema: `guest_preferences(guest_id, key, value)`, upserted via `ON CONFLICT DO 
 
 ## Steam avatar integration
 
-`fetch_steam_avatars()` in `server/app.py` fetches each guest's avatar from Steam's public `https://steamcommunity.com/profiles/{steamid64}/?xml=1` community page via stdlib `urllib` (no API key, no `requests` dependency) — one request per id, since that endpoint has no batch form. Numeric SteamID64 only (no vanity-URL resolution). Any failure (non-numeric id, profile not found, network error) is skipped per-id, not a crash, and the frontend falls back to a placeholder (`?` avatar). No caching/retry by design (small guest list). Since there's no key gate to skip the network call, tests stay hermetic via the `autouse` `block_network` fixture in `tests/conftest.py`, which makes `urllib.request.urlopen` raise by default — tests exercising the success path override it with their own monkeypatch.
+`fetch_steam_avatars()` in `server/app.py` fetches a guest's avatar from Steam's public `https://steamcommunity.com/profiles/{steamid64}/?xml=1` community page via stdlib `urllib` (no API key, no `requests` dependency). Numeric SteamID64 only (no vanity-URL resolution). Any failure (non-numeric id, profile not found, network error) is skipped, not a crash, and the frontend falls back to a placeholder (`?` avatar).
+
+**It is NOT called on read.** `/api/guests` and `/api/me` used to call it live on every request (one Steam round-trip per guest, serially) — that was slow (6s+ in prod for just 14 guests) and has been replaced: the resolved image URL is now cached in `guest_preferences` under the `avatar_url` key. `fetch_steam_avatars()` only runs inside `POST /api/preferences`, and only when the submitted `steam_id` differs from the stored value — see `set_preferences()` in `server/app.py`. `avatar_url` is deliberately **not** in the `allowed_keys` whitelist (server-computed only, never user-writable, to avoid URL-spoofing via the preferences API).
+
+`server/migrate_avatar_urls.py` is the one-off backfill script that populated `avatar_url` for guests who already had a `steam_id` before this change — it does not touch/delete the `steam_id` rows, left stale on purpose. Not needed for new guests (backfilled automatically on their first `POST /api/preferences` with a `steam_id`).
+
+Since there's no key gate to skip the network call, tests stay hermetic via the `autouse` `block_network` fixture in `tests/conftest.py`, which makes `urllib.request.urlopen` raise by default — tests exercising the success path override it with their own monkeypatch.
 
 ## Testing
 

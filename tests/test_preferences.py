@@ -1,6 +1,25 @@
 from init_db import add_guest
 
 
+class FakeResponse:
+    def __init__(self, body: bytes):
+        self._body = body
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc):
+        return False
+
+    def read(self):
+        return self._body
+
+
+AVATAR_XML = b"""<?xml version="1.0"?><profile>
+    <avatarMedium><![CDATA[https://example.com/a.jpg]]></avatarMedium>
+</profile>"""
+
+
 def _login(client, db_conn, name="Alice"):
     code = add_guest(db_conn, name)
     client.post("/api/login", json={"name": name, "access_code": code})
@@ -66,3 +85,54 @@ def test_preferences_require_auth(client):
     assert resp.status_code == 401
     resp = client.post("/api/preferences", json={"handle": "test"})
     assert resp.status_code == 401
+
+
+def test_set_steam_id_fetches_and_stores_avatar_url(client, db_conn, monkeypatch):
+    """Setting a new steam_id triggers one Steam fetch, stored as avatar_url."""
+    calls = []
+
+    def fake_urlopen(url, timeout=5):
+        calls.append(url)
+        return FakeResponse(AVATAR_XML)
+
+    monkeypatch.setattr("app.urllib.request.urlopen", fake_urlopen)
+    _login(client, db_conn)
+
+    resp = client.post("/api/preferences", json={"steam_id": "76561197960287930"})
+    assert resp.status_code == 200
+    assert len(calls) == 1
+
+    data = client.get("/api/preferences").get_json()
+    assert data["steam_id"] == "76561197960287930"
+    assert data["avatar_url"] == "https://example.com/a.jpg"
+
+
+def test_unchanged_steam_id_does_not_refetch(client, db_conn, monkeypatch):
+    """Re-saving preferences without changing steam_id makes no Steam request."""
+    calls = []
+
+    def fake_urlopen(url, timeout=5):
+        calls.append(url)
+        return FakeResponse(AVATAR_XML)
+
+    monkeypatch.setattr("app.urllib.request.urlopen", fake_urlopen)
+    _login(client, db_conn)
+
+    client.post("/api/preferences", json={"steam_id": "76561197960287930"})
+    assert len(calls) == 1
+
+    resp = client.post("/api/preferences", json={
+        "steam_id": "76561197960287930",
+        "os": "Arch",
+    })
+    assert resp.status_code == 200
+    assert len(calls) == 1  # no new fetch, steam_id didn't change
+
+
+def test_avatar_url_is_not_directly_settable(client, db_conn):
+    """avatar_url isn't a user-writable preference; posting it is a no-op."""
+    _login(client, db_conn)
+    client.post("/api/preferences", json={"avatar_url": "https://evil.example/x.jpg"})
+
+    data = client.get("/api/preferences").get_json()
+    assert "avatar_url" not in data
