@@ -35,7 +35,7 @@ export async function initGuestList(el) {
                 <div class="flex items-center gap-1">
                   <i class="lab ${osIcon(guest.os)}"></i>
                   <div class="text-sm text-text-muted font-mono">
-                    ${guest.os ?? '&nbsp;'}
+                    ${guest.os ?? ''}
                   </div>
                 </div>
               </div>

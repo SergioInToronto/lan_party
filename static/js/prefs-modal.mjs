@@ -26,7 +26,9 @@ class PrefsModalElement extends HTMLElement {
             <input type="text" name="handle" placeholder="Your display name">
           </div>
           <div class="mb-3">
-            <label class="block text-sm text-text-muted mb-1">Steam Profile ID</label>
+            <label class="block text-sm text-text-muted mb-1">
+              Steam Profile ID (<a href="https://steamid.one/" target="_blank" class="text-accent-blue underline">lookup here</a>)
+            </label>
             <input type="text" name="steam_id" placeholder="e.g. 76561197960287930">
           </div>
           <div class="mb-3">
