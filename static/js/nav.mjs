@@ -7,9 +7,9 @@
 const NAV_LINKS = [
   { key: 'schedule', href: '/#schedule',   label: 'Schedule' },
   { key: 'games',    href: '/games.html',  label: 'Games' },
+  { key: 'gear',     href: '/gear.html',   label: 'Checklist' },
   { key: 'guests',   href: '/guests.html', label: 'Guests' },
   { key: 'food',     href: '/food.html',   label: 'Food' },
-  { key: 'gear',     href: '/gear.html',   label: 'Checklist' },
 ];
 
 class NavBarElement extends HTMLElement {
