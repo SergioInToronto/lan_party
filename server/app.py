@@ -300,7 +300,12 @@ def create_app(test_config=None):
 
         new_steam_id = data.get("steam_id")
         if "steam_id" in data and new_steam_id != old_steam_id:
-            avatar_url = fetch_steam_avatars([new_steam_id]).get(new_steam_id)
+            avatars = fetch_steam_avatars([new_steam_id])
+            app.logger.warning("#################"
+                "preferences: guest %s fetch_steam_avatars(%r) returned %r",
+                guest_id, new_steam_id, avatars
+            )
+            avatar_url = avatars.get(new_steam_id)
             db.execute(
                 "INSERT INTO guest_preferences (guest_id, key, value) VALUES (?, 'avatar_url', ?) "
                 "ON CONFLICT(guest_id, key) DO UPDATE SET value = excluded.value",

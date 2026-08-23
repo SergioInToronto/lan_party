@@ -136,3 +136,27 @@ def test_avatar_url_is_not_directly_settable(client, db_conn):
 
     data = client.get("/api/preferences").get_json()
     assert "avatar_url" not in data
+
+
+def test_retry_after_failed_fetch_resolves_avatar(client, db_conn, monkeypatch):
+    """If the first fetch fails, resubmitting the SAME steam_id should retry,
+    not stay permanently null just because 'nothing changed'."""
+    monkeypatch.setattr(
+        "app.urllib.request.urlopen",
+        lambda url, timeout=5: (_ for _ in ()).throw(OSError("network down"))
+    )
+    _login(client, db_conn)
+
+    client.post("/api/preferences", json={"steam_id": "76561197960287930"})
+    data = client.get("/api/preferences").get_json()
+    assert data.get("avatar_url") is None  # fetch failed, nothing stored
+
+    # Network recovers, user resubmits the exact same steam_id as a retry.
+    monkeypatch.setattr(
+        "app.urllib.request.urlopen",
+        lambda url, timeout=5: FakeResponse(AVATAR_XML)
+    )
+    client.post("/api/preferences", json={"steam_id": "76561197960287930"})
+
+    data = client.get("/api/preferences").get_json()
+    assert data["avatar_url"] == "https://example.com/a.jpg"
