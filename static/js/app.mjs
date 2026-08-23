@@ -3,7 +3,8 @@
  * Handles: auth state, nav updates, login modal, logout, preferences trigger.
  */
 import { api } from './api.mjs';
-import { initPreferencesModal, openPreferencesModal, DEFAULT_MOST_LOOKING_FORWARD_TO } from './preferences.mjs';
+import { initPreferencesModal, openPreferencesModal } from './preferences.mjs';
+import { DEFAULT_MOST_LOOKING_FORWARD_TO } from './games.mjs';
 
 const AUTH_TOKEN_KEY = 'sudobash_token';
 const JUST_LOGGED_IN_KEY = 'lp_just_logged_in';

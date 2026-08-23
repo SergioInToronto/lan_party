@@ -3,6 +3,7 @@
  * Fetches /api/guests and renders the roster.
  */
 import { api } from './api.mjs';
+import { DEFAULT_MOST_LOOKING_FORWARD_TO, GAMES } from './games.mjs';
 
 export async function initGuestList(el) {
   if (!el) return;
@@ -21,11 +22,16 @@ export async function initGuestList(el) {
       <div class="grid gap-3">
         ${guests.map(guest => {
           const avatar = guest.avatar_url
-            ? `<img src="${guest.avatar_url}" alt="" class="w-10 h-10 rounded-kit border border-border-c">`
-            : `<div class="w-10 h-10 rounded-kit border border-border-c bg-base flex items-center justify-center font-mono text-xs text-text-muted">?</div>`;
+            ? `<img src="${guest.avatar_url}" alt="" class="w-16 h-16 rounded-kit border border-border-c">`
+            : `<div class="w-16 h-16 rounded-kit border border-border-c bg-base flex items-center justify-center font-mono text-lg text-text-muted">?</div>`;
+
+          const gameName = (
+            GAMES[guest.most_looking_forward_to]?.name
+            ?? GAMES[DEFAULT_MOST_LOOKING_FORWARD_TO]?.name
+          );
 
           return `
-            <div class="flex items-center gap-4 border border-border-c bg-surface p-2 rounded-kit">
+            <div class="flex items-center gap-4 border border-border-c bg-surface p-4 rounded-kit">
               ${avatar}
               <div class="flex-1 min-w-0">
                 <div class="flex items-center gap-3">
@@ -40,8 +46,8 @@ export async function initGuestList(el) {
                 </div>
               </div>
               <div>
-                <div class="flex-1 min-w-0">Excited for</div>
-                <div class="font-bold text-text-accent">${guest.most_looking_forward_to}</div>
+                <div class="flex-1 min-w-0">Hyped for</div>
+                <div class="font-bold text-accent-green">${gameName}</div>
               </div>
             </div>
           `;

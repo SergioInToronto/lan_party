@@ -3,8 +3,7 @@
  * Handles form population and submission.
  */
 import { api } from './api.mjs';
-
-export const DEFAULT_MOST_LOOKING_FORWARD_TO = 'sims';
+import { DEFAULT_MOST_LOOKING_FORWARD_TO } from './games.mjs';
 
 export function initPreferencesModal() {
   const modal = document.getElementById('prefs-modal');

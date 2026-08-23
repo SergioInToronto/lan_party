@@ -3,6 +3,8 @@
  * GAMES is the source of truth, keyed by ID (== image filename, no extension).
  */
 
+export const DEFAULT_MOST_LOOKING_FORWARD_TO = 'sims';
+
 export const GAMES = {
   sven_coop: { name: 'Sven Coop', url: 'https://store.steampowered.com/app/225840/Sven_Coop/', image: 'sven_coop.png', players: 'inf' },
   muck: { name: 'Muck', url: 'https://store.steampowered.com/app/1625450/Muck/', image: 'muck.png', players: 8 },
