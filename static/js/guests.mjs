@@ -26,7 +26,8 @@ export async function initGuestList(el) {
             : `<div class="w-16 h-16 rounded-kit border border-border-c bg-base flex items-center justify-center font-mono text-lg text-text-muted">?</div>`;
 
           const gameId = guest.most_looking_forward_to;
-          const gameName = gameId ? (GAMES[gameId]?.name ?? gameId) : null;
+          const game = gameId ? GAMES[gameId] : null;
+          const gameName = game?.name ?? gameId;
           const days = daysInfo(guest);
 
           return `
@@ -44,14 +45,19 @@ export async function initGuestList(el) {
                   </div>
                 </div>
               </div>
-              <div class="border-l border-border-c pl-4 flex-shrink-0">
-                <div class="flex items-center gap-1 text-text-muted">
-                  <i class="las la-gamepad"></i>
-                  <span>Hyped for</span>
+              <div class="border-l border-border-c pl-4 flex-shrink-0 flex items-center gap-3">
+                ${game
+                  ? `<img src="/static/img/games/${game.image}" alt="" class="w-10 h-10 rounded-kit border border-border-c object-cover">`
+                  : ''}
+                <div>
+                  <div class="flex items-center gap-1 text-text-muted">
+                    <i class="las la-gamepad"></i>
+                    <span>Hyped for</span>
+                  </div>
+                  ${gameName
+                    ? `<div class="font-bold text-accent-green">${gameName}</div>`
+                    : `<div class="font-mono text-sm text-text-muted">[ NOT SET ]</div>`}
                 </div>
-                ${gameName
-                  ? `<div class="font-bold text-accent-green">${gameName}</div>`
-                  : `<div class="font-mono text-sm text-text-muted">[ NOT SET ]</div>`}
               </div>
             </div>
           `;
