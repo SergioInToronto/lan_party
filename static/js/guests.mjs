@@ -19,7 +19,7 @@ export async function initGuestList(el) {
     }
 
     el.innerHTML = `
-      <div class="grid gap-3 md:grid-cols-2">
+      <div class="grid gap-4 lg:grid-cols-2">
         ${guests.map(guest => {
           const avatar = guest.avatar_url
             ? `<img src="${guest.avatar_url}" alt="" class="w-16 h-16 rounded-kit border border-border-c">`
