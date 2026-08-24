@@ -42,7 +42,7 @@ class NavBarElement extends HTMLElement {
 
   _mobileLinks(currentPage) {
     return NAV_LINKS.map(({ key, href, label }) =>
-      `<a href="${href}" class="block px-4 py-3 text-sm border-b border-border-c ${this._linkClass(key, currentPage)}">${label}</a>`
+      `<a href="${href}" class="block text-sm p-6 border-b border-border-c ${this._linkClass(key, currentPage)}">${label}</a>`
     ).join('');
   }
 
