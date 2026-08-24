@@ -45,9 +45,9 @@ export async function initGuestList(el) {
                   </div>
                 </div>
               </div>
-              <div class="border-l border-border-c pl-4 flex-shrink-0 flex items-center gap-3">
+              <div class="border-l border-border-c pl-4 flex-shrink-0 flex items-center gap-3 max-[480px]:hidden">
                 ${game
-                  ? `<img src="/static/img/games/${game.image}" alt="" class="w-10 h-10 rounded-kit border border-border-c object-cover">`
+                  ? `<img src="/static/img/games/${game.image}" alt="" class="w-10 h-10 rounded-kit border border-border-c object-cover hidden sm:block">`
                   : ''}
                 <div>
                   <div class="flex items-center gap-1 text-text-muted">
