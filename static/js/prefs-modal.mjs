@@ -13,6 +13,15 @@ function gameOptionsHtml() {
     .join('');
 }
 
+function arrivalTimeOptionsHtml() {
+  let html = '';
+  for (let hour = 10; hour <= 22; hour++) {
+    const label = hour < 12 ? `${hour}am` : hour === 12 ? '12pm' : `${hour - 12}pm`;
+    html += `<option value="${label}">${label}</option>`;
+  }
+  return html;
+}
+
 class PrefsModalElement extends HTMLElement {
   connectedCallback() {
     this.id = 'prefs-modal';
@@ -41,6 +50,12 @@ class PrefsModalElement extends HTMLElement {
               <label class="flex items-center gap-2"><input type="checkbox" name="attending_saturday" checked> Saturday</label>
               <label class="flex items-center gap-2"><input type="checkbox" name="attending_sunday" checked> Sunday</label>
             </div>
+          </div>
+          <div class="mb-3">
+            <label class="block text-sm text-text-muted mb-1">Arriving (aprox.)</label>
+            <select name="arrival_time">
+              ${arrivalTimeOptionsHtml()}
+            </select>
           </div>
           <div class="mb-4">
             <label class="block text-sm text-text-muted mb-1">Most Looking Forward To</label>

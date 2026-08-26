@@ -45,6 +45,7 @@ export async function openPreferencesModal() {
     if (prefs.handle) form.querySelector('[name="handle"]').value = prefs.handle;
     if (prefs.os) form.querySelector('[name="os"]').value = prefs.os;
     if (prefs.steam_id) form.querySelector('[name="steam_id"]').value = prefs.steam_id;
+    if (prefs.arrival_time) form.querySelector('[name="arrival_time"]').value = prefs.arrival_time;
 
     // Unset (never saved) defaults to checked/attending both days.
     form.querySelector('[name="attending_saturday"]').checked = prefs.attending_saturday !== 'false';

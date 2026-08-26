@@ -288,7 +288,7 @@ def create_app(test_config=None):
         ).fetchone()
         old_steam_id = old_steam_id["value"] if old_steam_id else None
 
-        allowed_keys = {"handle", "steam_id", "os", "attending_saturday", "attending_sunday", "most_looking_forward_to"}
+        allowed_keys = {"handle", "steam_id", "os", "attending_saturday", "attending_sunday", "most_looking_forward_to", "arrival_time"}
         for key, value in data.items():
             if key not in allowed_keys:
                 continue
