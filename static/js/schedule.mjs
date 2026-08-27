@@ -8,9 +8,9 @@ export const SCHEDULE = [
   { day: 'saturday', time: '09:00', end: '10:00', title: '-- Doors Open. Setup & Coffee --', description: 'Setup your rigs, get settled in', break: true },
   { day: 'saturday', time: '10:00', end: '13:00', title: 'Co-op game(s)', description: 'Warm up with Muck or any co-op game' },
   { day: 'saturday', time: '13:00', end: '14:00', title: '-- Lunch Break --', description: 'Vote before 12:30pm', break: true },
-  { day: 'saturday', time: '14:00', end: '17:00', title: 'Verses game(s)', description: 'Player\'s choice' },
+  { day: 'saturday', time: '14:00', end: '17:00', title: 'Party game(s)', description: 'MECCHA CHAMELEON, Crab game (think Squid games), etc.' },
   { day: 'saturday', time: '17:30', end: '19:00', title: '-- Dinner Break --', description: '2nd place food vote winner', break: true },
-  { day: 'saturday', time: '18:30', end: '22:00', title: 'Team Verses game(s)', description: 'Team up, plan, and beat your opponents' },
+  { day: 'saturday', time: '18:30', end: '22:00', title: 'Team Verses game(s)', description: 'Team up, beat your opponents, and have a blast' },
   // Sunday
   { day: 'sunday', time: '09:00', end: '10:00', title: '-- Doors Open. Coffee & Breakfast --', description: 'Coffee and setup', break: true },
   { day: 'sunday', time: '10:00', end: '12:00', title: 'Free Play', description: 'Continue yesterday\'s most fun game' },
