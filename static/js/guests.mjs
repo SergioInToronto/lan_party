@@ -28,9 +28,10 @@ export async function initGuestList(el) {
           const gameId = guest.most_looking_forward_to;
           const game = gameId ? GAMES[gameId] : null;
           const gameName = game?.name ?? gameId;
+          const fadedClass = guest.hidden ? 'opacity-50' : ''
 
           return `
-            <div class="flex items-center gap-4 border border-border-c bg-surface p-4 rounded-kit hover:border-accent-blue transition-colors">
+            <div class="flex items-center gap-4 border border-border-c bg-surface p-4 rounded-kit hover:border-accent-blue transition-colors ${fadedClass}">
               ${avatar}
               <div class="flex-1 min-w-0">
                 <div class="flex items-center gap-3">
