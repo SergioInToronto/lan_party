@@ -18,9 +18,11 @@ export async function initGuestList(el) {
       return;
     }
 
+    const sorted_guests = guests.sort((a, b) => (a.hidden - b.hidden) || a.handle.localeCompare(b.handle));
+
     el.innerHTML = `
       <div class="grid gap-4 lg:grid-cols-2">
-        ${guests.map(guest => {
+        ${sorted_guests.map(guest => {
           const avatar = guest.avatar_url
             ? `<img src="${guest.avatar_url}" alt="" class="w-16 h-16 rounded-kit border border-border-c">`
             : `<div class="w-16 h-16 rounded-kit border border-border-c bg-base flex items-center justify-center font-mono text-lg text-text-muted">?</div>`;
