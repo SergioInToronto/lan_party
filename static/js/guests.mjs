@@ -88,6 +88,8 @@ function osIcon(os) {
   if (!os) return '';
 
   if (os.includes('arch')) return '<img src="/static/img/icons/arch-linux.svg" alt="" class="w-4 h-4">';
+  if (os.includes('steamos')) return '<img src="/static/img/icons/arch-linux.svg" alt="" class="w-4 h-4">';
+  if (os.includes('steam os')) return '<img src="/static/img/icons/arch-linux.svg" alt="" class="w-4 h-4">';
 
   if (os.includes('windows')) return '<i class="lab la-windows"></i>';
   if (os.includes('centos')) return '<i class="lab la-centos"></i>';
