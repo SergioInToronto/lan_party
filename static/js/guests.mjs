@@ -28,7 +28,6 @@ export async function initGuestList(el) {
           const gameId = guest.most_looking_forward_to;
           const game = gameId ? GAMES[gameId] : null;
           const gameName = game?.name ?? gameId;
-          const days = daysInfo(guest);
 
           return `
             <div class="flex items-center gap-4 border border-border-c bg-surface p-4 rounded-kit hover:border-accent-blue transition-colors">
@@ -36,7 +35,7 @@ export async function initGuestList(el) {
               <div class="flex-1 min-w-0">
                 <div class="flex items-center gap-3">
                   <div class="font-bold truncate text-accent-blue">${guest.handle}</div>
-                  <div class="${days.color}">[ ${days.text} ]</div>
+                  ${attendingInfo(guest)}
                 </div>
                 <div class="flex items-center gap-1">
                   ${osIcon(guest.os)}
@@ -70,17 +69,26 @@ export async function initGuestList(el) {
   }
 }
 
-function daysInfo(guest) {
-  if ([guest.attending_saturday, guest.attending_sunday].includes(null)) {
-    return { text: '?', color: 'text-text-muted' };
+function attendingInfo(guest) {
+  const [attending, daysText] = daysAttendingText(guest);
+  if (!attending) {
+    return '<div class="text-text-muted">[ — ]</div>'
   }
+
+  const arrivingAt = guest.arrival_time;
+  const arrivingText = arrivingAt ? ` @ ${arrivingAt}` : '';
+
+  return `<div class="text-accent-green">[ ${daysText}${arrivingText} ]</div>`
+}
+
+function daysAttendingText(guest) {
   const sat = guest.attending_saturday === 'true';
   const sun = guest.attending_sunday === 'true';
 
-  if (sat && sun) return { text: 'Sat + Sun', color: 'text-accent-green' };
-  if (sat) return { text: 'Sat', color: 'text-accent-green' };
-  if (sun) return { text: 'Sun', color: 'text-accent-green' };
-  return { text: '—', color: 'text-text-muted' };
+  if (sat && sun) return [true, 'Sat + Sun'];
+  if (sat) return [true, 'Sat'];
+  if (sun) return [true, 'Sun'];
+  return [false, '—'];
 }
 
 function osIcon(os) {

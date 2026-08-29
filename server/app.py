@@ -155,6 +155,7 @@ def create_app(test_config=None):
             pref_dict = pref_dicts[guest["id"]]
             result.append({
                 "id": guest["id"],
+                "arrival_time": pref_dict.get("arrival_time"),
                 "handle": pref_dict.get("handle", guest["name"]),
                 "avatar_url": pref_dict.get("avatar_url"),
                 "attending_saturday": pref_dict.get("attending_saturday"),
