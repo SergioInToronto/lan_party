@@ -39,7 +39,7 @@ export async function initGuestList(el) {
                   <div class="${days.color}">[ ${days.text} ]</div>
                 </div>
                 <div class="flex items-center gap-1">
-                  <i class="lab ${osIcon(guest.os)}"></i>
+                  ${osIcon(guest.os)}
                   <div class="text-sm text-text-muted font-mono">
                     ${guest.os ?? ''}
                   </div>
@@ -87,12 +87,15 @@ function osIcon(os) {
   os = os?.toLowerCase();
   if (!os) return '';
 
-  if (os.includes('windows')) return 'la-windows';
-  if (os.includes('centos')) return 'la-centos';
-  if (os.includes('ubuntu')) return 'la-ubuntu';
-  if (os.includes('fedora')) return 'la-fedora';
-  if (os.includes('linux')) return 'la-linux';
-  if (os.includes('mac')) return 'la-apple';
+  if (os.includes('arch')) return '<img src="/static/img/icons/arch-linux.svg" alt="" class="w-4 h-4">';
+
+  if (os.includes('windows')) return '<i class="lab la-windows"></i>';
+  if (os.includes('centos')) return '<i class="lab la-centos"></i>';
+  if (os.includes('ubuntu')) return '<i class="lab la-ubuntu"></i>';
+  if (os.includes('fedora')) return '<i class="lab la-fedora"></i>';
+  if (os.includes('linux')) return '<i class="lab la-linux"></i>';
+  if (os.includes('mine')) return '<i class="lab la-linux"></i>';
+  if (os.includes('mac')) return '<i class="lab la-apple"></i>';
 
   return '';
 }
