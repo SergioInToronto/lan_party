@@ -90,13 +90,14 @@ function osIcon(os) {
   if (os.includes('arch')) return '<img src="/static/img/icons/arch-linux.svg" alt="" class="w-4 h-4">';
   if (os.includes('steamos')) return '<img src="/static/img/icons/arch-linux.svg" alt="" class="w-4 h-4">';
   if (os.includes('steam os')) return '<img src="/static/img/icons/arch-linux.svg" alt="" class="w-4 h-4">';
+  if (os.includes('steam deck')) return '<img src="/static/img/icons/arch-linux.svg" alt="" class="w-4 h-4">';
 
   if (os.includes('windows')) return '<i class="lab la-windows"></i>';
   if (os.includes('centos')) return '<i class="lab la-centos"></i>';
   if (os.includes('ubuntu')) return '<i class="lab la-ubuntu"></i>';
   if (os.includes('fedora')) return '<i class="lab la-fedora"></i>';
   if (os.includes('linux')) return '<i class="lab la-linux"></i>';
-  if (os.includes('mine')) return '<i class="lab la-linux"></i>';
+  if (os.includes('mint')) return '<i class="lab la-linux"></i>';
   if (os.includes('mac')) return '<i class="lab la-apple"></i>';
 
   return '';
