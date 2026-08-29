@@ -1,0 +1,14 @@
+static/js/guests.mjs
+  h_25ac4eba8a5506 21-22,25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "6c597ba4172e3a69ca71d97661ddae799687c837",
+  "prompts": {},
+  "humans": {
+    "h_25ac4eba8a5506": {
+      "author": "Sergio <smartins@movableink.com>"
+    }
+  }
+}
